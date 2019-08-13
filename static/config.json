@@ -1,0 +1,12 @@
+{
+    "apiUrl": "/local/api/values/get",
+    "NoAuthorize": {
+        "login": "",
+        "registe": "",
+        "code": ""
+    },
+    "Authorize": {
+        "userInfo": ""
+
+    }
+}

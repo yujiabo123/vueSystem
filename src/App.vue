@@ -1,0 +1,29 @@
+<template>
+  <div id="app">
+    <!-- 主区域 -->
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {};
+  },
+  beforeCreate() {
+    //todo 获取调用
+
+    // this.$store.commit()
+    // this.getConfig();
+  },
+  mounted() {}
+};
+</script>
+
+<style lang="scss">
+#app {
+  background-color: #8080804a;
+}
+@import url(./assets/css/site.scss);
+</style>
