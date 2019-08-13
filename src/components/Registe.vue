@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { P_Registe } from "../api/api";
 export default {
   data() {
     return {
@@ -93,12 +94,15 @@ export default {
         this.MessageBox("提示", "请先同意我们的服务条款和隐私政策");
         return;
       }
+
+      P_Registe(this.form_registe);
+
       // this.Indicator.open();
-      setTimeout(() => {
-        // this.Indicator.close();
-        // this.$emit("closePopup");
-        this.isConfirm = true;
-      }, 0);
+      // setTimeout(() => {
+      //   // this.Indicator.close();
+      //   // this.$emit("closePopup");
+      //   this.isConfirm = true;
+      // }, 0);
       //post到服务端
       // this.axios({
       //   method: "post",

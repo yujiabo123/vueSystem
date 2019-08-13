@@ -1,26 +1,32 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const state = {
-    token: "",
-    WordsConfig: {}
-}
+  token: "",
+  WordsConfig: {},
+  ApiConfig: {}
+};
 
 const mutations = {
-    SetToken(state, t) {
-        state.token = t;
-        sessionStorage.token = t
-    },
-    RemoveToken(state) {
-        state.token = ''
-        sessionStorage.removeItem('token')
-    },
-
-}
+  SetToken(state, t) {
+    state.token = t;
+    sessionStorage.token = t;
+  },
+  RemoveToken(state) {
+    state.token = "";
+    sessionStorage.removeItem("token");
+  },
+  SetWordsConfig(state, config) {
+    state.WordsConfig = config;
+  },
+  SetApiConfig(state, config) {
+    state.ApiConfig = config;
+  }
+};
 
 export default new Vuex.Store({
-    state,
-    mutations
-})
+  state,
+  mutations
+});

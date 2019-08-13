@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { G_UserInfo, G_WordsConfig, G_ApiConfig } from "../api/api.js";
 export default {
   data() {
     return {
@@ -63,11 +64,23 @@ export default {
      */
   },
   created() {
+    G_WordsConfig();
+    G_ApiConfig();
     //todo 获取token
-    console.log("sssssssssssssssssssssssssssssss");
-    if (!sessionStorage.getItem("token")) {
+    if (sessionStorage.getItem("token")) {
       console.log("======================Login======================");
       this.$router.replace("/login");
+    } else {
+      console.log("======================获取用户信息======================");
+      G_UserInfo("001")
+        .then(data => {
+          //todo 成功获取用户信息
+          console.log(data);
+        })
+        .catch(err => {
+          //todo 获取用户信息失败
+          console.log(err);
+        });
     }
     // this.$store.commit("GetToken");
   },
@@ -76,10 +89,8 @@ export default {
      *
      */
   },
-  destroyed() {
-    console.log("diediedie");
-  },
   watch: {
+    
     $route(to, from) {
       console.log(to.path);
       switch (to.path) {

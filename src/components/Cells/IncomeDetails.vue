@@ -11,16 +11,16 @@
 </template>
 
 <script>
-import Vue from "vue";
+import { G_WordsConfig } from "../../api/api.js";
 export default {
   data() {
     return {
       ooo: true,
       word_region: {
-        allincome:"总收入",
-        month_date: "日期",
-        month_income: "月收入",
-        month_newuser: "月新增玩家"
+        allincome: "",
+        month_date: "",
+        month_income: "",
+        month_newuser: ""
       },
       tableData: [
         {
@@ -83,17 +83,44 @@ export default {
   },
   beforeCreate() {},
   created() {
-    console.log(this.wordsConfig);
-    if (!this.wordsConfig) {
-      // this.getConfig();
-      return;
-    }
-    this.word_region.allincome = this.wordsConfig.IncomeDetails.allincome;
-    this.word_region.month_date = this.wordsConfig.IncomeDetails.month_date;
-    this.word_region.month_income = this.wordsConfig.IncomeDetails.month_income;
-    this.word_region.month_newuser = this.wordsConfig.IncomeDetails.month_newuser;
+    // console.log("sssssssssssssssss");
+    // if (!this.$store.state.WordsConfig.IncomeDetails) {
+    //   // this.getConfig();
+    //   G_WordsConfig();
+    //   console.warn("缺少收入明细页文字");
+    //   return;
+    // }
+    this.word_region = this.$store.state.WordsConfig.IncomeDetails;
   },
-  mounted() {}
+  mounted() {
+    // getWords();
+
+      // this.word_region = this.$store.state.WordsConfig.IncomeDetails;
+  },
+  computed: {
+    // getWords() {
+    //   this.word_region = this.$store.state.WordsConfig.IncomeDetails;
+    // }
+  },
+  watch: {
+    // "$store.state.WordsConfig.IncomeDetails": () => {
+    //   this.word_region = this.$store.state.WordsConfig.IncomeDetails;
+    //   console.log(this.word_region.allincome);
+    // },
+    // getWords(newVal, oldVal) {
+    //   console.log(oldVal);
+    //   console.log(newVal);
+    //   if (!oldVal) {
+    //     // this.getConfig();
+    //     console.warn("缺少收入明细页文字");
+    //     G_WordsConfig();
+    //     return;
+    //   } else {
+    //     this.word_region = this.$store.state.WordsConfig.IncomeDetails;
+    //     console.log(this.word_region.allincome);
+    //   }
+    // }
+  }
 };
 </script>
 

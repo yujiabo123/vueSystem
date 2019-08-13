@@ -13,7 +13,8 @@ export default {
   },
   beforeCreate() {
     //todo 获取调用
-
+    // G_WordsConfig();
+    // G_ApiConfig();
     // this.$store.commit()
     // this.getConfig();
   },

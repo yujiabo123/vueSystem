@@ -4,16 +4,17 @@
       <img src="../assets/img/bg.jpg" alt style="width:auto;height:300px; padding: 50px;" />
     </div>
     <div id="form-login">
-      <mt-field label="" placeholder="请输入账号" v-model="form_login.account"></mt-field>
-      <mt-field label="" placeholder="请输入密码" type="password" v-model="form_login.password"></mt-field>
+      <mt-field label placeholder="请输入账号" v-model="form_login.account"></mt-field>
+      <mt-field label placeholder="请输入密码" type="password" v-model="form_login.password"></mt-field>
       <!-- <mt-field label="验证码" v-model="form_login.vertifycode">
         <img src height="45px" width="100px" />
-      </mt-field> -->
+      </mt-field>-->
       <div class="registe">
         <a @click="openPopup">没有账号？点我注册</a>
       </div>
-
-      <mt-button type="primary" size="large" @click="login" class="loginBtn">登录</mt-button>
+      <div style="padding: 0 10px;">
+        <mt-button type="primary" size="large" @click="login" class="loginBtn">登录</mt-button>
+      </div>
     </div>
 
     <mt-popup
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import { P_Login, testGet2211 } from "../api/api.js";
 import Registe from "./Registe.vue";
 export default {
   data() {
@@ -36,14 +38,13 @@ export default {
       showModal: false,
       form_login: {
         account: "",
-        password: "",
-        vertifycode: ""
+        password: ""
       }
     };
   },
   methods: {
     login() {
-      //客户端验证
+      //todo 客户端验证
       if (!this.form_login.account) {
         this.MessageBox("提示", "请输入账号");
         return;
@@ -52,16 +53,26 @@ export default {
         this.MessageBox("提示", "请输入密码");
         return;
       }
-      if (!this.form_login.vertifycode) {
-        this.MessageBox("提示", "请输入验证码");
-        return;
-      }
-      //服务器端验证
+      // if (!this.form_login.vertifycode) {
+      //   this.MessageBox("提示", "请输入验证码");
+      //   return;
+      // }
+      //todo 服务器端验证
       this.Indicator.open();
-      setTimeout(() => {
-        this.$router.push("/index");
-        this.Indicator.close();
-      }, 3000);
+      // testGet2211();
+      P_Login(this.form_login)
+        .then(res => {
+          this.Indicator.close();
+          console.log(res);
+        })
+        .catch(err => {
+          this.Indicator.close();
+          console.log(err);
+        });
+      // setTimeout(() => {
+      //   this.$router.push("/index");
+      //   this.Indicator.close();
+      // }, 3000);
       // this.axios({})
       //   .then(res => {})
       //   .catch(err => {});
@@ -75,6 +86,9 @@ export default {
   },
   components: {
     "vm-registe": Registe
+  },
+  created() {
+    //todo 读取当前页面文字显示
   }
 };
 </script>
@@ -104,7 +118,6 @@ export default {
   // }
   .loginBtn {
     margin-top: 100px;
-    background-color: green;
   }
   .mint-field {
     margin: 0 15px;
