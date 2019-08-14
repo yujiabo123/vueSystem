@@ -6,7 +6,8 @@ Vue.use(Vuex);
 const state = {
   token: "",
   WordsConfig: {},
-  ApiConfig: {}
+  ApiConfig: {},
+  UserInfo: {}
 };
 
 const mutations = {
@@ -23,6 +24,9 @@ const mutations = {
   },
   SetApiConfig(state, config) {
     state.ApiConfig = config;
+  },
+  SetUserInfo(state, info) {
+    state.UserInfo = info;
   }
 };
 

@@ -16,30 +16,30 @@
           <img width="44" height="44" src="../assets/img/bg.jpg" alt class />
         </div>
       </div>
-      <table title="实时数据" style="padding:0 20px;">
+      <table title="实时数据" style="padding:0 20px;" >
         <tr>
           <td class="word">今日收入</td>
-          <td>9999999999</td>
+          <td>{{table_data.dayIncome}}</td>
           <td class="word">本月收入</td>
-          <td>9999999999</td>
+          <td>{{table_data.monthIncome}}</td>
         </tr>
         <tr>
           <td class="word">返点比例</td>
-          <td>100%</td>
+          <td>{{table_data.returnRate}}</td>
           <td class="word">可提现金额</td>
-          <td>999999999999999</td>
+          <td>{{table_data.canWithdraw}}</td>
         </tr>
         <tr>
           <td class="word">今日新增玩家</td>
-          <td>999999</td>
+          <td>{{table_data.dayNewPlayer}}</td>
           <td class="word">本月新增玩家</td>
-          <td>999999</td>
+          <td>{{table_data.monthNewPlayer}}</td>
         </tr>
         <tr>
           <td class="word">今日新增代理</td>
-          <td>99999</td>
+          <td>{{table_data.dayNewAgent}}</td>
           <td class="word">本月新增代理</td>
-          <td>099999999</td>
+          <td>{{table_data.monthNewAgent}}</td>
         </tr>
       </table>
     </div>
@@ -55,7 +55,21 @@ import { G_UserInfo, G_WordsConfig, G_ApiConfig } from "../api/api.js";
 export default {
   data() {
     return {
-      head_title: "V8代理后台"
+      head_title: "V8代理后台",
+      user_info: {
+        nickName: "",
+        agentId: ""
+      },
+      table_data: {
+        dayIncome:"9999999999",
+        monthIncome: "9999999999",
+        returnRate: "100%",
+        canWithdraw: "",
+        dayNewPlayer: "",
+        monthNewPlayer: "",
+        dayNewAgent: "",
+        monthNewAgent: ""
+      }
     };
   },
   methods: {
@@ -64,23 +78,29 @@ export default {
      */
   },
   created() {
+    console.log("======================获取文字配置文件======================");
     G_WordsConfig();
+    console.log("======================获取api配置文件======================");
     G_ApiConfig();
-    //todo 获取token
+    //TODO 获取token
     if (sessionStorage.getItem("token")) {
       console.log("======================Login======================");
       this.$router.replace("/login");
     } else {
       console.log("======================获取用户信息======================");
-      G_UserInfo("001")
-        .then(data => {
-          //todo 成功获取用户信息
-          console.log(data);
-        })
-        .catch(err => {
-          //todo 获取用户信息失败
-          console.log(err);
-        });
+      // G_UserInfo("001")
+      //   .then(data => {
+      //     //TODO 成功获取用户信息
+      //     console.log(data);
+      //   })
+      //   .catch(err => {
+      //     //TODO 获取用户信息失败
+      //     console.log(err);
+      //   });
+      console.log("======================获取获取实时显示数据======================");
+      setInterval(() => {
+        //TODO 调用接口
+      }, 60000);
     }
     // this.$store.commit("GetToken");
   },

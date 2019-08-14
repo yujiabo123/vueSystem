@@ -106,7 +106,7 @@ export default {
       });
     },
     logout() {
-      //todo 退出
+      //TODO 退出
     },
     addNew() {
       console.log("addNew()");
@@ -123,7 +123,7 @@ export default {
                 this.words_region.methods.addNew_confirm1
             ).then(action => {
               if (action === "confirm") {
-                //todo 绑定上线代理接口：绑定上线id
+                //TODO 绑定上线代理接口：绑定上线id
                 this.Toast({
                   message: this.words_region.methods.addNew_toast,
                   position: "bottom"
@@ -138,7 +138,7 @@ export default {
     }
   },
   created() {
-    //todo 用户信息接口
+    //TODO 用户信息接口
 
     //
     this.user_info.hasUp = false;

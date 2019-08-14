@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     login() {
-      //todo 客户端验证
+      //TODO 客户端验证
       if (!this.form_login.account) {
         this.MessageBox("提示", "请输入账号");
         return;
@@ -59,7 +59,7 @@ export default {
       // }
 
       console.log("登录")
-      //todo 服务器端验证并获取token
+      //TODO 服务器端验证并获取token
       // this.Indicator.open();
       // P_Login(this.form_login)
       //   .then(res => {
@@ -95,7 +95,7 @@ export default {
     "vm-registe": Registe
   },
   created() {
-    //todo 读取当前页面文字显示
+    //TODO 读取当前页面文字显示
   }
 };
 </script>
