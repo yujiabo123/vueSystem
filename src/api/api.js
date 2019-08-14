@@ -83,8 +83,8 @@ export const P_Login = form => {
 
 export const P_Registe = form => {
   return new Promise((resolve, reject) => {
-    post("/local/api/account/Register", {
-      Email: "alex@123.com",
+    post("/local/api/Account/Register", {
+      UserName: "alex",
       Password: "123456",
       ConfirmPassword: "123456"
     })

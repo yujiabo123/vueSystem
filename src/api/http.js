@@ -104,7 +104,7 @@ axios.interceptors.response.use(
  * @param {String} url 请求地址
  * @param {Object} params 请求参数
  */
-export function get(url, ...params) {
+export function get(url, params) {
   return new Promise((resolve, reject) => {
     axios
       .get(url, {
@@ -126,9 +126,9 @@ export function get(url, ...params) {
  */
 export function post(url, params) {
   return new Promise((resolve, reject) => {
-    console.log(Qs.stringify(params));
+    // console.log(Qs.stringify(params));
     axios
-      .post(url, params)
+      .post(url, Qs.stringify(params))
       .then(res => {
         resolve(res.data);
       })

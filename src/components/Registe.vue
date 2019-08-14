@@ -34,7 +34,7 @@
       <mt-field label="Zalo账号:" :placeholder="form_registe.zalo" disabled></mt-field>
       <mt-field label="FaceBook账号:" :placeholder="form_registe.facebook" disabled></mt-field>
       <mt-field label="Instagram账号:" :placeholder="form_registe.instagram" disabled></mt-field>
-      <mt-button type="primary" size="large" @click="closePopup">确认注册</mt-button>
+      <mt-button type="primary" size="large" @click="cofirmInfo">确认注册</mt-button>
     </div>
   </div>
 </template>
@@ -68,6 +68,28 @@ export default {
     closePopup() {
       this.$emit("closePopup");
     },
+    registeSuccess() {
+      this.$emit(
+        "loginAfterRegiste",
+        this.form_registe.account,
+        this.form_registe.password
+      );
+    },
+    cofirmInfo() {
+      // P_Registe(this.form_registe)
+      //   .then(result => {
+      //     closePopup();
+      //     console.log("注册成功");
+      //     //注册成功调用接口
+      //     registeSuccess();
+      //   })
+      //   .catch(err => {});
+      this.closePopup();
+      console.log("注册成功");
+      this.Toast({ position: "bottom", message: "注册成功" });
+      //注册成功调用接口
+      this.registeSuccess();
+    },
     registe() {
       //客户端验证
       if (!this.form_registe.account) {
@@ -95,48 +117,7 @@ export default {
         return;
       }
 
-      P_Registe(this.form_registe);
-
-      // this.Indicator.open();
-      // setTimeout(() => {
-      //   // this.Indicator.close();
-      //   // this.$emit("closePopup");
-      //   this.isConfirm = true;
-      // }, 0);
-      //post到服务端
-      // this.axios({
-      //   method: "post",
-      //   url: "/local/api/Account/Register",
-      //   data: this.Qs.stringify({
-      //     UserName: "111111",
-      //     Password: "123456",
-      //     ConfirmPassword: "123456"
-      //   })
-      // })
-      // this.axios({
-      //   method: "post",
-      //   url: "/local/token",
-      //   data: this.Qs.stringify({
-      //     grant_type: "password",
-      //     UserName: "111111",
-      //     Password: "123456"
-      //   })
-      // })
-      //   // this.axios({
-      //   //   method: "get",
-      //   //   url: "/local/api/values/get"
-      //   // })
-      //   .then(res => {
-      //     console.log(this.Qs.parse(res.data));
-      //     this.Indicator.close();
-      //     //跳转到首页
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-
-      //     //修改
-      //     this.Indicator.close();
-      //   });
+      this.isConfirm = true;
     }
   }
 };

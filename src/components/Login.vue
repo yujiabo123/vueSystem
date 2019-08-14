@@ -23,13 +23,13 @@
       :modal="showModal"
       style="width: 100%; height: 100%"
     >
-      <vm-registe @closePopup="closePopup"></vm-registe>
+      <vm-registe @closePopup="closePopup" @loginAfterRegiste="loginAfterRegiste"></vm-registe>
     </mt-popup>
   </div>
 </template>
 
 <script>
-import { P_Login, testGet2211 } from "../api/api.js";
+import { P_Login } from "../api/api.js";
 import Registe from "./Registe.vue";
 export default {
   data() {
@@ -57,31 +57,38 @@ export default {
       //   this.MessageBox("提示", "请输入验证码");
       //   return;
       // }
-      //todo 服务器端验证
-      this.Indicator.open();
-      // testGet2211();
-      P_Login(this.form_login)
-        .then(res => {
-          this.Indicator.close();
-          console.log(res);
-        })
-        .catch(err => {
-          this.Indicator.close();
-          console.log(err);
-        });
-      // setTimeout(() => {
-      //   this.$router.push("/index");
-      //   this.Indicator.close();
-      // }, 3000);
-      // this.axios({})
-      //   .then(res => {})
-      //   .catch(err => {});
+
+      console.log("登录")
+      //todo 服务器端验证并获取token
+      // this.Indicator.open();
+      // P_Login(this.form_login)
+      //   .then(res => {
+      //     this.Indicator.close();
+      //     console.log(res);
+      //     this.$store.commit('SetToken', res);
+      //   })
+      //   .catch(err => {
+      //     this.Indicator.close();
+      //     console.log(err);
+      //     this.Toast({
+      //       position: 'bottom',
+      //       message: '账号或密码错误'
+      //     });
+      //   });
+
+      this.$router.replace('/');
     },
     openPopup() {
       this.popupVisible = true;
     },
     closePopup() {
       this.popupVisible = false;
+    },
+    loginAfterRegiste(account, password) {
+      this.form_login.account = account;
+      this.form_login.password = password;
+      this.login();
+      
     }
   },
   components: {
