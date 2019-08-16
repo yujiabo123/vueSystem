@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mt-cell label is-link :to="data.link_to" v-for="data in cell_list" :key="data.key">
+    <mt-cell label is-link :to="data.link_to" v-for="data in getCellList" :key="data.key">
       <div slot="title">
         <img slot="icon" :src="data.icon" width="auto" height="24" />
         {{ data.title }}
@@ -19,39 +19,63 @@ import wjgl from "../assets/img/wjgl.png";
 export default {
   data() {
     return {
-      cell_list: [
+      words_region: {
+        grxx: "个人信息",
+        dlgl: "代理管理",
+        wjgl: "玩家管理",
+        icd: "收入明细",
+        fzdl: "发展代理",
+        fzwj: "发展玩家"
+      }
+    };
+  },
+  computed: {
+    getCellList() {
+      return [
         {
           icon: grxx,
-          title: "个人信息",
+          title: this.words_region.grxx,
           link_to: "/user",
           detail: "",
           show: false
         },
         {
           icon: dlgl,
-          title: "代理管理",
+          title: this.words_region.dlgl,
           link_to: "/index/am",
           detail: "999人",
           show: true
         },
         {
           icon: wjgl,
-          title: "玩家管理",
+          title: this.words_region.wjgl,
           link_to: "/index/dps",
           detail: "9999人",
           show: true
         },
         {
           icon: icd,
-          title: "收入明细",
+          title: this.words_region.icd,
           link_to: "/index/icd",
           detail: "",
           show: false
         },
-        { icon: fzdl, title: "发展代理", link_to: "/ag", detail: "", show: false },
-        { icon: fzdl, title: "发展玩家", link_to: "/pg", detail: "", show: false }
-      ]
-    };
+        {
+          icon: fzdl,
+          title: this.words_region.fzdl,
+          link_to: "/ag",
+          detail: "",
+          show: false
+        },
+        {
+          icon: fzdl,
+          title: this.words_region.fzwj,
+          link_to: "/pg",
+          detail: "",
+          show: false
+        }
+      ];
+    }
   }
 };
 </script>

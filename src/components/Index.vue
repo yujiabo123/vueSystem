@@ -1,44 +1,44 @@
 <template>
   <div id="index">
     <!-- 标题 -->
-    <mt-header :title="head_title">
+    <mt-header :title="words_region.head_title">
       <router-link to slot="left" v-if="$route.path !== '/index/cls'">
-        <mt-button icon="back" @click.native="$router.back(-1)">返回</mt-button>
+        <mt-button icon="back" @click.native="$router.back(-1)">{{words_region.back}}</mt-button>
       </router-link>
     </mt-header>
     <div id="panel-user">
       <div style="display:flex;height:60px; padding: 0 20px;">
         <div style="width:80%;">
-          <h3>昵称（一级代理）</h3>
-          <div style="color:grey">一级代理（代理ID：888888）</div>
+          <h3>{{user_info.nickName}}</h3>
+          <div style="color:grey">{{user_info.agentId}}</div>
         </div>
         <div style="width:20%;text-align: center;padding: 10px 0;">
           <img width="44" height="44" src="../assets/img/bg.jpg" alt class />
         </div>
       </div>
-      <table title="实时数据" style="padding:0 20px;" >
+      <table style="padding:0 20px;">
         <tr>
-          <td class="word">今日收入</td>
+          <td class="word">{{words_region.dayIncome}}</td>
           <td>{{table_data.dayIncome}}</td>
-          <td class="word">本月收入</td>
+          <td class="word">{{words_region.monthIncome}}</td>
           <td>{{table_data.monthIncome}}</td>
         </tr>
         <tr>
-          <td class="word">返点比例</td>
+          <td class="word">{{words_region.returnRate}}</td>
           <td>{{table_data.returnRate}}</td>
-          <td class="word">可提现金额</td>
+          <td class="word">{{words_region.canWithdraw}}</td>
           <td>{{table_data.canWithdraw}}</td>
         </tr>
         <tr>
-          <td class="word">今日新增玩家</td>
+          <td class="word">{{words_region.dayNewPlayer}}</td>
           <td>{{table_data.dayNewPlayer}}</td>
-          <td class="word">本月新增玩家</td>
+          <td class="word">{{words_region.monthNewPlayer}}</td>
           <td>{{table_data.monthNewPlayer}}</td>
         </tr>
         <tr>
-          <td class="word">今日新增代理</td>
+          <td class="word">{{words_region.dayNewAgent}}</td>
           <td>{{table_data.dayNewAgent}}</td>
-          <td class="word">本月新增代理</td>
+          <td class="word">{{words_region.monthNewAgent}}</td>
           <td>{{table_data.monthNewAgent}}</td>
         </tr>
       </table>
@@ -55,13 +55,12 @@ import { G_UserInfo, G_WordsConfig, G_ApiConfig } from "../api/api.js";
 export default {
   data() {
     return {
-      head_title: "V8代理后台",
       user_info: {
-        nickName: "",
-        agentId: ""
+        nickName: "昵称（一级代理）",
+        agentId: "一级代理（代理ID：888888）"
       },
       table_data: {
-        dayIncome:"9999999999",
+        dayIncome: "9999999999",
         monthIncome: "9999999999",
         returnRate: "100%",
         canWithdraw: "",
@@ -69,6 +68,18 @@ export default {
         monthNewPlayer: "",
         dayNewAgent: "",
         monthNewAgent: ""
+      },
+      words_region: {
+        head_title: "V8代理后台",
+        back: "返回",
+        dayIncome: "今日收入",
+        monthIncome: "本月收入",
+        returnRate: "返点比例",
+        canWithdraw: "可提现金额",
+        dayNewPlayer: "今日新增玩家",
+        monthNewPlayer: "本月新增玩家",
+        dayNewAgent: "今日新增代理",
+        monthNewAgent: "本月新增代理"
       }
     };
   },
@@ -97,7 +108,9 @@ export default {
       //     //TODO 获取用户信息失败
       //     console.log(err);
       //   });
-      console.log("======================获取获取实时显示数据======================");
+      console.log(
+        "======================获取获取实时显示数据======================"
+      );
       setInterval(() => {
         //TODO 调用接口
       }, 60000);
@@ -110,7 +123,6 @@ export default {
      */
   },
   watch: {
-    
     $route(to, from) {
       console.log(to.path);
       switch (to.path) {
