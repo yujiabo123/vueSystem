@@ -17,7 +17,12 @@
         style="width: 100%;text-align: center;margin-top: 10px;padding: 8px;border: solid 1px grey;border-radius: 8px;"
       >{{ words_region.link }}</div>
       <div style="text-align:center;margin-top:10px;">
-        <mt-button type="primary" style="width:140px;">{{ words_region.copylink }}</mt-button>
+        <mt-button
+          type="primary"
+          style="width:140px;"
+          v-clipboard:copy="words_region.link"
+          v-clipboard:success="onCopy"
+        >{{ words_region.copylink }}</mt-button>
       </div>
     </div>
 
@@ -27,11 +32,14 @@
       <span>{{ words_region.myQRcode }}</span>
       <hr />
       <div style="width:100%;text-align:-webkit-center;margin-top:10px">
-        <!-- <img src="../../assets/img/nnn.jpg" alt style="width:200px; height:200px;" /> -->
-          <div id="qrcode" ref="qrcode"></div>
+        <div id="qrcode" ref="qrcode" style=" display:none"></div>
+        <img :src="imgUrl" alt />
       </div>
       <div style="text-align:center;margin-top:10px;">
-        <mt-button type="primary" style="width:180px;">{{ words_region.saveQRcode }}</mt-button>
+        <mt-button
+          style="width:200px;"
+          disabled
+        >{{ words_region.saveQRcode }}</mt-button>
       </div>
     </div>
   </div>
@@ -42,6 +50,7 @@ import QRCode from "qrcodejs2";
 export default {
   data() {
     return {
+      imgUrl: "",
       words_region: {
         head: "发展玩家",
         back: "返回",
@@ -51,9 +60,14 @@ export default {
         link: "http://www.baidu.com",
         copylink: "复制链接",
         myQRcode: "我的邀请二维码",
-        saveQRcode: "保存到相册"
+        saveQRcode: "长按二维码保存图片"
       }
     };
+  },
+  methods: {
+    onCopy(e) {
+      this.Toast({ position: "bottom", message: "复制成功" });
+    },
   },
   mounted() {
     let qrCode = new QRCode("qrcode", {
@@ -64,6 +78,8 @@ export default {
       colorLight: "#ffffff", //背景色
       correctLevel: QRCode.CorrectLevel.H //容错级别，
     });
+    let myCanvas = document.getElementsByTagName("canvas");
+    this.imgUrl = myCanvas[0].toDataURL("image/png");
   }
 };
 </script>

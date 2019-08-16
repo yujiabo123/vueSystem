@@ -108,6 +108,7 @@ export default {
     logout() {
       //TODO 退出
     },
+    
     addNew() {
       console.log("addNew()");
       this.MessageBox.prompt(this.words_region.methods.addNew_title, {
@@ -124,6 +125,7 @@ export default {
             ).then(action => {
               if (action === "confirm") {
                 //TODO 绑定上线代理接口：绑定上线id
+
                 this.Toast({
                   message: this.words_region.methods.addNew_toast,
                   position: "bottom"

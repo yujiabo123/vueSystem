@@ -8,10 +8,14 @@ import App from "./App";
 import router from "./router";
 import Qs from "qs";
 import store from "./vuex/store"; // 引入store
+import plus from "vue-h5-plus";
+import VueClipboard from 'vue-clipboard2'
 
 // import { testGet } from './api/api.js'
 
 Vue.use(MintUI);
+Vue.use(plus);
+Vue.use(VueClipboard)
 
 Vue.config.productionTip = false;
 // Vue.prototype.axios = axios

@@ -58,7 +58,7 @@ export default {
       //   return;
       // }
 
-      console.log("登录")
+      console.log("登录");
       //TODO 服务器端验证并获取token
       // this.Indicator.open();
       // P_Login(this.form_login)
@@ -76,7 +76,13 @@ export default {
       //     });
       //   });
 
-      this.$router.replace('/');
+      // this.$router.replace('/');
+      //TODO 等待审核通过
+      this.MessageBox({
+        title: "提示",
+        message: "等待审核人员认证...",
+        closeOnClickModal: false
+      });
     },
     openPopup() {
       this.popupVisible = true;
@@ -88,7 +94,6 @@ export default {
       this.form_login.account = account;
       this.form_login.password = password;
       this.login();
-      
     }
   },
   components: {
