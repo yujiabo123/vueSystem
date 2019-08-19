@@ -1,7 +1,7 @@
 <template>
   <div id="index">
     <!-- 标题 -->
-    <mt-header :title="words_region.head_title">
+    <mt-header :title="title">
       <router-link to slot="left" v-if="$route.path !== '/index/cls'">
         <mt-button icon="back" @click.native="$router.back(-1)">{{words_region.back}}</mt-button>
       </router-link>
@@ -9,8 +9,8 @@
     <div id="panel-user">
       <div style="display:flex;height:60px; padding: 0 20px;">
         <div style="width:80%;">
-          <h3>{{user_info.nickName}}</h3>
-          <div style="color:grey">{{user_info.agentId}}</div>
+          <h3>{{this.$store.state.UserInfo.UserName }}</h3>
+          <div style="color:grey">{{upId}}</div>
         </div>
         <div style="width:20%;text-align: center;padding: 10px 0;">
           <img width="44" height="44" src="../assets/img/bg.jpg" alt class />
@@ -19,27 +19,27 @@
       <table style="padding:0 20px;">
         <tr>
           <td class="word">{{words_region.dayIncome}}</td>
-          <td>{{table_data.dayIncome}}</td>
+          <td>{{this.$store.state.IndexTable.TodayUserProfit}}</td>
           <td class="word">{{words_region.monthIncome}}</td>
-          <td>{{table_data.monthIncome}}</td>
+          <td>{{this.$store.state.IndexTable.MonthUserProfit}}</td>
         </tr>
         <tr>
           <td class="word">{{words_region.returnRate}}</td>
-          <td>{{table_data.returnRate}}</td>
+          <td>{{this.$store.state.IndexTable.Rebates}}</td>
           <td class="word">{{words_region.canWithdraw}}</td>
-          <td>{{table_data.canWithdraw}}</td>
+          <td>{{this.$store.state.IndexTable.Cashable}}</td>
         </tr>
         <tr>
           <td class="word">{{words_region.dayNewPlayer}}</td>
-          <td>{{table_data.dayNewPlayer}}</td>
+          <td>{{this.$store.state.IndexTable.TodayAddUser}}</td>
           <td class="word">{{words_region.monthNewPlayer}}</td>
-          <td>{{table_data.monthNewPlayer}}</td>
+          <td>{{this.$store.state.IndexTable.TodayAddPromoter}}</td>
         </tr>
         <tr>
           <td class="word">{{words_region.dayNewAgent}}</td>
-          <td>{{table_data.dayNewAgent}}</td>
+          <td>{{this.$store.state.IndexTable.MonthAddUser}}</td>
           <td class="word">{{words_region.monthNewAgent}}</td>
-          <td>{{table_data.monthNewAgent}}</td>
+          <td>{{this.$store.state.IndexTable.MonthAddPromoter}}</td>
         </tr>
       </table>
     </div>
@@ -51,29 +51,20 @@
 </template>
 
 <script>
-import { G_UserInfo, G_WordsConfig, G_ApiConfig } from "../api/api.js";
+import {
+  G_UserInfo,
+  G_WordsConfig,
+  G_ApiConfig,
+  G_Promotion
+} from "../api/api.js";
 export default {
   data() {
     return {
-      user_info: {
-        nickName: "昵称（一级代理）",
-        agentId: "一级代理（代理ID：888888）"
-      },
-      table_data: {
-        dayIncome: "9999999999",
-        monthIncome: "9999999999",
-        returnRate: "100%",
-        canWithdraw: "",
-        dayNewPlayer: "",
-        monthNewPlayer: "",
-        dayNewAgent: "",
-        monthNewAgent: ""
-      },
       words_region: {
         head_title: "V8代理后台",
         back: "返回",
-        dayIncome: "今日收入",
-        monthIncome: "本月收入",
+        dayIncome: "本日预估收入",
+        monthIncome: "本月预估收入",
         returnRate: "返点比例",
         canWithdraw: "可提现金额",
         dayNewPlayer: "今日新增玩家",
@@ -94,53 +85,64 @@ export default {
     console.log("======================获取api配置文件======================");
     G_ApiConfig();
     //TODO 获取token
-    if (sessionStorage.getItem("token")) {
+    if (!sessionStorage.getItem("token") && !this.$store.state.token) {
       console.log("======================Login======================");
-      this.$router.replace("/login");
+      this.$router.replace("/login?status=lose");
     } else {
       console.log("======================获取用户信息======================");
-      // G_UserInfo("001")
-      //   .then(data => {
-      //     //TODO 成功获取用户信息
-      //     console.log(data);
-      //   })
-      //   .catch(err => {
-      //     //TODO 获取用户信息失败
-      //     console.log(err);
-      //   });
+      G_UserInfo()
+        .then(result => {
+          //TODO 成功获取用户信息
+          console.log(result);
+          this.$store.commit("SetUserInfo", result);
+        })
+        .catch(err => {
+          //TODO 获取用户信息失败
+          console.log(err);
+          this.MessageBox({
+            title: "提示",
+            message: "登录失效",
+            closeOnClickModal: false
+          });
+          this.$router.replace("/login?status=lose");
+        });
+
       console.log(
         "======================获取获取实时显示数据======================"
       );
       setInterval(() => {
         //TODO 调用接口
+        G_Promotion()
+          .then(result => {
+            console.log(result);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }, 60000);
     }
     // this.$store.commit("GetToken");
   },
-  mounted() {
-    /**
-     *
-     */
-  },
-  watch: {
-    $route(to, from) {
-      console.log(to.path);
-      switch (to.path) {
+  computed: {
+    upId() {
+      let nick = `一级代理（代理ID：${this.$store.state.UserInfo.Pcode}）`;
+      if (this.$store.state.UserInfo.SupPcode) {
+        nick = `二级代理（代理ID：${this.$store.state.UserInfo.Pcode}）`;
+      }
+      return nick;
+    },
+    title() {
+      switch (this.$route.path) {
         case "/index/cls":
-          this.head_title = "V8代理后台";
-          break;
+          return (this.head_title = "V8代理后台");
         case "/index/icd":
-          this.head_title = "收入明细";
-          break;
+          return (this.head_title = "收入明细");
         case "/index/dps":
-          this.head_title = "玩家管理";
-          break;
+          return (this.head_title = "玩家管理");
         case "/index/am":
-          this.head_title = "代理管理";
-          break;
-
+          return (this.head_title = "代理管理");
         default:
-          break;
+          return (this.head_title = "V8代理后台");
       }
     }
   }

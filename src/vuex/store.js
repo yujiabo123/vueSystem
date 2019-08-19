@@ -7,11 +7,33 @@ const state = {
   token: "",
   WordsConfig: {},
   ApiConfig: {},
-  UserInfo: {}
+  UserInfo: {
+    FACEBOOK: "",
+    INS: "",
+    Pcode: "",
+    PhoneNumber: "",
+    SupPcode: "",
+    UserName: "",
+    Zalo: ""
+  },
+  IndexTable: {
+    Cashable: 0,
+    MonthAddPromoter: 0,
+    MonthAddUser: 0,
+    MonthUserProfit: 0,
+    Rebates: 0,
+    SubPromoter: 0,
+    SubUser: 0,
+    TodayAddPromoter: 0,
+    TodayAddUser: 0,
+    TodayUserProfit: 0,
+    TotalIncome: 0
+  }
 };
 
 const mutations = {
   SetToken(state, t) {
+    console.log(t + "==========================");
     state.token = t;
     sessionStorage.token = t;
   },

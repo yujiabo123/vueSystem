@@ -4,8 +4,8 @@
       <img src="../assets/img/bg.jpg" alt style="width:auto;height:300px; padding: 50px;" />
     </div>
     <div id="form-login">
-      <mt-field label placeholder="请输入账号" v-model="form_login.account"></mt-field>
-      <mt-field label placeholder="请输入密码" type="password" v-model="form_login.password"></mt-field>
+      <mt-field label placeholder="请输入账号" v-model="form_login.username"></mt-field>
+      <mt-field label placeholder="请输入密码" type="password" v-model="form_login.Password"></mt-field>
       <!-- <mt-field label="验证码" v-model="form_login.vertifycode">
         <img src height="45px" width="100px" />
       </mt-field>-->
@@ -21,7 +21,7 @@
       v-model="popupVisible"
       position="right"
       :modal="showModal"
-      style="width: 100%; height: 100%"
+      style="width: 100%; height: 100%;"
     >
       <vm-registe @closePopup="closePopup" @loginAfterRegiste="loginAfterRegiste"></vm-registe>
     </mt-popup>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { P_Login } from "../api/api.js";
+import { P_Login, G_UserInfo } from "../api/api.js";
 import Registe from "./Registe.vue";
 export default {
   data() {
@@ -37,19 +37,20 @@ export default {
       popupVisible: false,
       showModal: false,
       form_login: {
-        account: "",
-        password: ""
+        grant_type: "password",
+        username: "",
+        Password: ""
       }
     };
   },
   methods: {
     login() {
       //TODO 客户端验证
-      if (!this.form_login.account) {
+      if (!this.form_login.username) {
         this.MessageBox("提示", "请输入账号");
         return;
       }
-      if (!this.form_login.password) {
+      if (!this.form_login.Password) {
         this.MessageBox("提示", "请输入密码");
         return;
       }
@@ -60,29 +61,38 @@ export default {
 
       console.log("登录");
       //TODO 服务器端验证并获取token
-      // this.Indicator.open();
-      // P_Login(this.form_login)
-      //   .then(res => {
-      //     this.Indicator.close();
-      //     console.log(res);
-      //     this.$store.commit('SetToken', res);
-      //   })
-      //   .catch(err => {
-      //     this.Indicator.close();
-      //     console.log(err);
-      //     this.Toast({
-      //       position: 'bottom',
-      //       message: '账号或密码错误'
-      //     });
-      //   });
-
-      // this.$router.replace('/');
-      //TODO 等待审核通过
-      this.MessageBox({
-        title: "提示",
-        message: "等待审核人员认证...",
-        closeOnClickModal: false
-      });
+      this.Indicator.open();
+      P_Login(this.form_login)
+        .then(res => {
+          this.Indicator.close();
+          console.log(res);
+          this.$store.commit("SetToken", res.access_token);
+          G_UserInfo()
+            .then(result => {
+              //TODO 成功获取用户信息
+              console.log(result);
+              this.$store.commit("SetUserInfo", result);
+              this.$router.replace("/");
+            })
+            .catch(err => {
+              //TODO 获取用户信息失败
+              console.log(err);
+              //TODO 等待审核通过
+              this.MessageBox({
+                title: "提示",
+                message: "等待审核人员认证...",
+                closeOnClickModal: false
+              });
+            });
+        })
+        .catch(err => {
+          this.Indicator.close();
+          console.log(err);
+          this.Toast({
+            position: "bottom",
+            message: "账号或密码错误"
+          });
+        });
     },
     openPopup() {
       this.popupVisible = true;
@@ -90,9 +100,9 @@ export default {
     closePopup() {
       this.popupVisible = false;
     },
-    loginAfterRegiste(account, password) {
-      this.form_login.account = account;
-      this.form_login.password = password;
+    loginAfterRegiste(username, Password) {
+      this.form_login.username = username;
+      this.form_login.Password = Password;
       this.login();
     }
   },
@@ -101,6 +111,13 @@ export default {
   },
   created() {
     //TODO 读取当前页面文字显示
+    if (this.$route.query.status) {
+      this.MessageBox({
+        title: "提示",
+        message: "登录失效",
+        closeOnClickModal: false
+      });
+    }
   }
 };
 </script>

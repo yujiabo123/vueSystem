@@ -1,6 +1,5 @@
 import { get, post } from "./http";
 import store from "../vuex/store";
-import { rejects } from "assert";
 
 /**
  * testGet 接口
@@ -45,9 +44,9 @@ export const G_ApiConfig = () => {
  * 获取用户信息
  * @param {用户id} id
  */
-export const G_UserInfo = id => {
+export const G_UserInfo = () => {
   return new Promise((resolve, reject) => {
-    get("/local/api/values/get", id)
+    get("/local/api/Promotion/Info")
       .then(res => {
         return resolve(res);
       })
@@ -59,6 +58,18 @@ export const G_UserInfo = id => {
 
 export const G_SetUserUpId = (id, upId) => {
   post("", { id, upId });
+};
+
+export const G_Promotion = () => {
+  return new Promise((resolve, reject) => {
+    get("/local/api/Promotion")
+      .then(result => {
+        return resolve(result);
+      })
+      .catch(err => {
+        return reject(err);
+      });
+  });
 };
 
 /** ----------------登录页---------------- */
@@ -83,16 +94,12 @@ export const P_Login = form => {
 
 export const P_Registe = form => {
   return new Promise((resolve, reject) => {
-    post("/local/api/Account/Register", {
-      UserName: "alex",
-      Password: "123456",
-      ConfirmPassword: "123456"
-    })
+    post("/local/api/Account/Register", form)
       .then(res => {
-        console.log(res);
+        resolve(res);
       })
       .catch(err => {
-        console.log(err);
+        reject(err);
       });
   });
 };

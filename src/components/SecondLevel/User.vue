@@ -9,14 +9,14 @@
       </span>-->
     </mt-header>
     <mt-cell
-      :title="user_info.nickName"
-      :label="user_info.label"
+      :title="this.$store.state.UserInfo.UserName"
+      :label="upId"
       is-link
       :value="words_region.nickname_fix"
     ></mt-cell>
     <div style="height:10px;"></div>
-    <mt-cell :title="words_region.my_upId" :value="user_info.upId">
-      <p v-if="!user_info.hasUp" @click="addNew">
+    <mt-cell :title="words_region.my_upId" :value="this.$store.state.UserInfo.SupPcode">
+      <p v-if="!this.$store.state.UserInfo.SupPcode" @click="addNew">
         <span id="arror-right">{{words_region.btn_add}}</span>
         <i class="mint-cell-allow-right"></i>
       </p>
@@ -24,19 +24,22 @@
     <div style="height:10px;"></div>
     <mt-cell :title="words_region.curr_rate" value>
       <div @click="showFDBL">
-        <span id="arror-right">{{user_info.curr_rate}}</span>
+        <span id="arror-right">{{this.$store.state.IndexTable.Rebates}}</span>
         <i class="mint-cell-allow-right"></i>
       </div>
     </mt-cell>
-    <mt-cell :title="words_region.month_income" :value="user_info.month_income"></mt-cell>
-    <mt-cell :title="words_region.done_income" :value="user_info.done_income"></mt-cell>
-    <mt-cell :title="words_region.can_getGold" :value="user_info.can_getGold"></mt-cell>
+    <mt-cell
+      :title="words_region.month_income"
+      :value="this.$store.state.IndexTable.MonthUserProfit"
+    ></mt-cell>
+    <mt-cell :title="words_region.done_income" :value="this.$store.state.IndexTable.TotalIncome"></mt-cell>
+    <mt-cell :title="words_region.can_getGold" :value="this.$store.state.IndexTable.Cashable"></mt-cell>
     <div style="height:10px;"></div>
-    <mt-cell :title="words_region.phone" :value="user_info.phone"></mt-cell>
-    <mt-cell :title="words_region.email" :value="user_info.email"></mt-cell>
-    <mt-cell :title="words_region.zalo" :value="user_info.zalo"></mt-cell>
-    <mt-cell :title="words_region.ins" :value="user_info.ins"></mt-cell>
-    <mt-cell :title="words_region.facebook" :value="user_info.facebook"></mt-cell>
+    <mt-cell :title="words_region.phone" :value="this.$store.state.UserInfo.PhoneNumber"></mt-cell>
+    <mt-cell :title="words_region.email" :value="this.$store.state.UserInfo.Email"></mt-cell>
+    <mt-cell :title="words_region.zalo" :value="this.$store.state.UserInfo.Zalo"></mt-cell>
+    <mt-cell :title="words_region.ins" :value="this.$store.state.UserInfo.INS"></mt-cell>
+    <mt-cell :title="words_region.facebook" :value="this.$store.state.UserInfo.FACEBOOK"></mt-cell>
     <div style="height:20px;"></div>
     <mt-button type="default" size="large" @click="logout">退出</mt-button>
     <div style="height:10px;"></div>
@@ -55,7 +58,7 @@ export default {
         my_upId: "我的上线ID",
         btn_add: "点击添加",
         curr_rate: "当前返点比例",
-        month_income: "本月收入",
+        month_income: "本日预估收入",
         done_income: "已结算收入",
         can_getGold: "可提现金额",
         phone: "手机",
@@ -66,7 +69,7 @@ export default {
         methods: {
           copyLink_toast: "已复制",
           showFDBL_msgbox_title: "返点比例",
-          showFDBL_msgbox_msg: "一级代理返利：80%<br>二级代理返利：50%",
+          showFDBL_msgbox_msg: "一级代理返利：80%<br>二级代理返利：10%",
           addNew_title: "请输入上线代理ID",
           addNew_confirm0: "确定添加",
           addNew_confirm1: "为你的上线代理?",
@@ -108,7 +111,6 @@ export default {
     logout() {
       //TODO 退出
     },
-    
     addNew() {
       console.log("addNew()");
       this.MessageBox.prompt(this.words_region.methods.addNew_title, {
@@ -150,8 +152,14 @@ export default {
       this.words_region = this.wordsConfig.User;
     }
   },
-  mounted() {
-    
+  computed: {
+    upId() {
+      let nick = `一级代理（代理ID：${this.$store.state.UserInfo.Pcode}）`;
+      if (this.$store.state.UserInfo.SupPcode) {
+        nick = `二级代理（代理ID：${this.$store.state.UserInfo.Pcode}）`;
+      }
+      return nick;
+    }
   }
 };
 </script>

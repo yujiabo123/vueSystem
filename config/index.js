@@ -12,8 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/local': {
-        target: 'http://localhost:2211',//后端接口地址
-        // target: 'http://192.168.1.252:10001',//后端接口地址
+        // target: 'http://localhost:2211',//后端接口地址
+        target: 'http://192.168.1.252:10001',//后端接口地址
         changeOrigin: true,//是否允许跨越
         pathRewrite: {
           '^/local': '',//重写,
