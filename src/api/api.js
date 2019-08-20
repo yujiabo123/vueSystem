@@ -5,13 +5,13 @@ import store from "../vuex/store";
  * testGet 接口
  * @param {Object} p 请求参数
  */
-export const testGet2211 = () => {
-  get("/local/api/login/get");
-};
+// export const testGet2211 = () => {
+//   get("/local/api/login/get");
+// };
 /** ----------------获取配置文件---------------- */
 
 /**
- * 文字配置
+ * 接口配置
  */
 export const G_WordsConfig = () => {
   get("../../static/api.json")
@@ -25,12 +25,11 @@ export const G_WordsConfig = () => {
 };
 
 /**
- * 接口配置
+ * 文字配置
  */
 export const G_ApiConfig = () => {
   get("../../static/words.json")
     .then(res => {
-      console.log(res);
       store.commit("SetWordsConfig", res);
     })
     .catch(err => {
@@ -42,11 +41,10 @@ export const G_ApiConfig = () => {
 
 /**
  * 获取用户信息
- * @param {用户id} id
  */
 export const G_UserInfo = () => {
   return new Promise((resolve, reject) => {
-    get("/local/api/Promotion/Info")
+    get(store.state.ApiConfig.Info)
       .then(res => {
         return resolve(res);
       })
@@ -56,13 +54,9 @@ export const G_UserInfo = () => {
   });
 };
 
-export const G_SetUserUpId = (id, upId) => {
-  post("", { id, upId });
-};
-
 export const G_Promotion = () => {
   return new Promise((resolve, reject) => {
-    get("/local/api/Promotion")
+    get(store.state.ApiConfig.Promotion)
       .then(result => {
         return resolve(result);
       })
@@ -80,7 +74,7 @@ export const G_Promotion = () => {
  */
 export const P_Login = form => {
   return new Promise((resolve, reject) => {
-    post("/local/token", form)
+    post(store.state.ApiConfig.token, form)
       .then(res => {
         console.log(res);
         return resolve(res);
@@ -94,9 +88,83 @@ export const P_Login = form => {
 
 export const P_Registe = form => {
   return new Promise((resolve, reject) => {
-    post("/local/api/Account/Register", form)
+    post(store.state.ApiConfig.Register, form)
       .then(res => {
         resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+/** ----------------个人信息---------------- */
+/**
+ *
+ * @param {*} id
+ */
+export const G_SupInfo = Pcode => {
+  return new Promise((resolve, reject) => {
+    get(store.state.ApiConfig.SupInfo, { Pcode: Pcode })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+/**
+ *
+ * @param {*} pcode
+ */
+export const P_Bind = Pcode => {
+  return new Promise((resolve, reject) => {
+    post(store.state.ApiConfig.Bind, { Pcode: Pcode })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+/** ----------------代理管理---------------- */
+
+export const G_SubP = (IndexId, size = 50) => {
+  return new Promise((resolve, reject) => {
+    get(store.state.ApiConfig.SubP, { IndexId: IndexId, size: size })
+      .then(result => {
+        resolve(result);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+/** ----------------玩家管理---------------- */
+
+export const G_SubU = (IndexId, size = 50) => {
+  return new Promise((resolve, reject) => {
+    get(store.state.ApiConfig.SubU, { IndexId: IndexId, size: size })
+      .then(result => {
+        resolve(result);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+/** ----------------收入明细---------------- */
+
+export const G_Profit = () => {
+  return new Promise((resolve, reject) => {
+    get(store.state.ApiConfig.Profit)
+      .then(result => {
+        resolve(result);
       })
       .catch(err => {
         reject(err);

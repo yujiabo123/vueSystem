@@ -6,17 +6,17 @@
 </template>
 
 <script>
+import { G_WordsConfig, G_ApiConfig } from "./api/api";
 export default {
   name: "App",
   data() {
     return {};
   },
-  beforeCreate() {
-    //TODO 获取调用
-    // G_WordsConfig();
-    // G_ApiConfig();
-    // this.$store.commit()
-    // this.getConfig();
+  created() {
+    console.log("======================获取文字配置文件======================");
+    G_WordsConfig();
+    console.log("======================获取api配置文件======================");
+    G_ApiConfig();
   },
   mounted() {}
 };

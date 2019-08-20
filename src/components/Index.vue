@@ -80,14 +80,10 @@ export default {
      */
   },
   created() {
-    console.log("======================获取文字配置文件======================");
-    G_WordsConfig();
-    console.log("======================获取api配置文件======================");
-    G_ApiConfig();
     //TODO 获取token
     if (!sessionStorage.getItem("token") && !this.$store.state.token) {
       console.log("======================Login======================");
-      this.$router.replace("/login?status=lose");
+      this.$router.replace("/login");
     } else {
       console.log("======================获取用户信息======================");
       G_UserInfo()
@@ -101,27 +97,37 @@ export default {
           console.log(err);
           this.MessageBox({
             title: "提示",
-            message: "登录失效",
+            message: "登录已过期",
             closeOnClickModal: false
           });
           this.$router.replace("/login?status=lose");
         });
-
       console.log(
         "======================获取获取实时显示数据======================"
       );
-      setInterval(() => {
-        //TODO 调用接口
-        G_Promotion()
-          .then(result => {
-            console.log(result);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }, 60000);
+      G_Promotion()
+        .then(result => {
+          console.log(result);
+          this.$store.commit("SetIndexTable", result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
     // this.$store.commit("GetToken");
+  },
+  mounted() {
+    setInterval(() => {
+      //TODO 调用接口
+      G_Promotion()
+        .then(result => {
+          console.log(result);
+          this.$store.commit("SetIndexTable", result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }, 60000);
   },
   computed: {
     upId() {

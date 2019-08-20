@@ -112,11 +112,13 @@ export default {
   created() {
     //TODO 读取当前页面文字显示
     if (this.$route.query.status) {
-      this.MessageBox({
-        title: "提示",
-        message: "登录失效",
-        closeOnClickModal: false
-      });
+      if (this.$route.query.status === "lose") {
+        this.MessageBox({
+          title: "提示",
+          message: "登录失效",
+          closeOnClickModal: false
+        });
+      }
     }
   }
 };

@@ -1,9 +1,11 @@
 {
+    "GameLink":"www.baidu.com",
     "IncomeDetails": {
         "allincome":"总收入",
         "month_date": "日期",
         "month_income": "月收入",
-        "month_newuser": "月新增玩家"
+        "month_newuser": "月新增玩家",
+        "month_newagent": "月新增代理"
     },
     "User": {
         "userInfo": "个人信息",

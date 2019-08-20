@@ -43,14 +43,14 @@ export default {
           icon: dlgl,
           title: this.words_region.dlgl,
           link_to: "/index/am",
-          detail: "999人",
+          detail: `${this.$store.state.IndexTable.SubPromoter}人`,
           show: true
         },
         {
           icon: wjgl,
           title: this.words_region.wjgl,
           link_to: "/index/dps",
-          detail: "9999人",
+          detail: `${this.$store.state.IndexTable.SubUser}人`,
           show: true
         },
         {

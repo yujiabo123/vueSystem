@@ -1,7 +1,11 @@
 import axios from "axios";
 import store from "../vuex/store";
 import Qs from "qs";
-import { MessageBox } from "mint-ui";
+/**
+ * 设置请求api
+ */
+// axios.defaults.baseURL = process.env.API_ROOT;
+
 /**
  * 10秒超时
  */
@@ -36,7 +40,7 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.interceptors.response.use(
   response => {
-    console.log("http.js:" + response);
+    // console.log("http.js:" + response);
     if (response.status === 200) {
       return Promise.resolve(response);
     } else {
@@ -86,9 +90,7 @@ axios.interceptors.response.use(
 export function get(url, params) {
   return new Promise((resolve, reject) => {
     axios
-      .get(url, {
-        params: params
-      })
+      .get(url, { params: params })
       .then(res => {
         resolve(res.data);
       })

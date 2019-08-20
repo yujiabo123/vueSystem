@@ -14,7 +14,7 @@
       <span>{{ words_region.mylink }}</span>
       <hr />
       <div
-        style="width: 100%;text-align: center;margin-top: 10px;padding: 8px;border: solid 1px grey;border-radius: 8px;"
+        style="width: 100%;text-align: center;margin-top: 10px;padding: 8px;border: solid 1px grey;border-radius: 8px;word-break:break-all;"
       >{{ words_region.link }}</div>
       <div style="text-align:center;margin-top:10px;">
         <mt-button
@@ -36,10 +36,7 @@
         <img :src="imgUrl" alt />
       </div>
       <div style="text-align:center;margin-top:10px;">
-        <mt-button
-          style="width:200px;"
-          disabled
-        >{{ words_region.saveQRcode }}</mt-button>
+        <mt-button style="width:200px;" disabled>{{ words_region.saveQRcode }}</mt-button>
       </div>
     </div>
   </div>
@@ -57,7 +54,10 @@ export default {
         name: "玩家昵称",
         subs: "您可以通过分享二维码或链接的方式发展您的下线玩家",
         mylink: "我的邀请链接",
-        link: "http://www.baidu.com",
+        link:
+          this.$store.state.WordsConfig.GameLink +
+          "?pc=" +
+          this.$store.state.UserInfo.Pcode,
         copylink: "复制链接",
         myQRcode: "我的邀请二维码",
         saveQRcode: "长按二维码保存图片"
@@ -67,16 +67,19 @@ export default {
   methods: {
     onCopy(e) {
       this.Toast({ position: "bottom", message: "复制成功" });
-    },
+    }
   },
   mounted() {
     let qrCode = new QRCode("qrcode", {
-      width: 200, //二维码宽度，单位像素
-      height: 200, //二维码高度，单位像素
-      text: "http://www.baidu.com", //二维码中的内容
-      colorDark: "#000000", //前景色
-      colorLight: "#ffffff", //背景色
-      correctLevel: QRCode.CorrectLevel.H //容错级别，
+      width: 200,
+      height: 200,
+      text:
+        this.$store.state.WordsConfig.GameLink +
+        "?pc=" +
+        this.$store.state.UserInfo.Pcode,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
     });
     let myCanvas = document.getElementsByTagName("canvas");
     this.imgUrl = myCanvas[0].toDataURL("image/png");

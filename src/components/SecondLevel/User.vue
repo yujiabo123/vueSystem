@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { testGet2211 } from "../../api/api.js";
+import { G_SupInfo, P_Bind } from "../../api/api.js";
 export default {
   data() {
     return {
@@ -110,6 +110,8 @@ export default {
     },
     logout() {
       //TODO 退出
+      this.$store.commit("RemoveToken");
+      this.$router.replace("/login");
     },
     addNew() {
       console.log("addNew()");
@@ -120,22 +122,40 @@ export default {
           console.log(value);
           console.log(action);
           if (action === "confirm") {
-            this.MessageBox.confirm(
-              this.words_region.methods.addNew_confirm0 +
-                value +
-                this.words_region.methods.addNew_confirm1
-            ).then(action => {
-              if (action === "confirm") {
-                //TODO 绑定上线代理接口：绑定上线id
-
-                this.Toast({
-                  message: this.words_region.methods.addNew_toast,
-                  position: "bottom"
+            if (value === this.$store.state.UserInfo.Pcode) {
+              this.MessageBox({ title: "提示", message: "不能添加自己为上线" });
+              return;
+            }
+            //TODO 获取上线代理人信息
+            G_SupInfo(value)
+              .then(result => {
+                console.log(result);
+                this.MessageBox.confirm(
+                  this.words_region.methods.addNew_confirm0 +
+                    value +
+                    this.words_region.methods.addNew_confirm1
+                ).then(action => {
+                  if (action === "confirm") {
+                    //TODO 绑定上线代理接口：绑定上线id
+                    P_Bind(value)
+                      .then(result => {
+                        console.log(result);
+                        this.Toast({
+                          message: this.words_region.methods.addNew_toast,
+                          position: "bottom"
+                        });
+                        this.$store.state.UserInfo.SupPcode = value;
+                      })
+                      .catch(err => {
+                        console.log(err);
+                      });
+                  }
                 });
-                this.user_info.hasUp = true;
-                this.user_info.upId = value;
-              }
-            });
+              })
+              .catch(err => {
+                console.log(err);
+                this.MessageBox({ title: "提示", message: "不存在此推广码" });
+              });
           }
         })
         .catch(cancel => {});

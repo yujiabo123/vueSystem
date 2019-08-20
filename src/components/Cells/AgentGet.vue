@@ -13,13 +13,13 @@
       style="height: -webkit-fill-available;padding: 10px 20px; background-color: white; margin-top:10px;"
     >
       <span>{{ words_region.myId }}</span>
-      <span style="float:right">{{ words_region.Id }}</span>
+      <span style="float:right">{{ this.$store.state.UserInfo.Pcode }}</span>
       <hr />
       <div style="text-align:center;margin-top:10px;">
         <mt-button
           type="primary"
           style="width:140px;"
-          v-clipboard:copy="words_region.Id"
+          v-clipboard:copy="this.$store.state.UserInfo.Pcode"
           v-clipboard:success="onCopy"
         >{{ words_region.copyId }}</mt-button>
       </div>
@@ -37,7 +37,6 @@ export default {
         name: "玩家昵称",
         subs: "您可以通过分享ID给您的下线代理",
         myId: "我的代理ID",
-        Id: "123456",
         copyId: "复制ID"
       }
     };
@@ -45,7 +44,7 @@ export default {
   methods: {
     onCopy(e) {
       this.Toast({ position: "bottom", message: "复制成功" });
-    },
+    }
   }
 };
 </script>
