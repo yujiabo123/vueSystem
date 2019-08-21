@@ -18,58 +18,49 @@ import icd from "../assets/img/icd.png";
 import wjgl from "../assets/img/wjgl.png";
 export default {
   data() {
-    return {
-      words_region: {
-        grxx: "个人信息",
-        dlgl: "代理管理",
-        wjgl: "玩家管理",
-        icd: "收入明细",
-        fzdl: "发展代理",
-        fzwj: "发展玩家"
-      }
-    };
+    return {};
   },
   computed: {
     getCellList() {
       return [
         {
           icon: grxx,
-          title: this.words_region.grxx,
+          title: this.$store.getters.WordsConfig.CellList.grxx,
           link_to: "/user",
           detail: "",
           show: false
         },
         {
           icon: dlgl,
-          title: this.words_region.dlgl,
+          title: this.$store.getters.WordsConfig.CellList.dlgl,
           link_to: "/index/am",
-          detail: `${this.$store.state.IndexTable.SubPromoter}人`,
+          detail: `${this.$store.state.IndexTable.SubPromoter}${this.$store.getters.WordsConfig.CellList.p}`,
           show: true
         },
         {
           icon: wjgl,
-          title: this.words_region.wjgl,
+          title: this.$store.getters.WordsConfig.CellList.wjgl,
           link_to: "/index/dps",
-          detail: `${this.$store.state.IndexTable.SubUser}人`,
+          detail: `${this.$store.state.IndexTable.SubUser}${this.$store.getters.WordsConfig.CellList.p}`,
           show: true
         },
         {
           icon: icd,
-          title: this.words_region.icd,
+          title: this.$store.getters.WordsConfig.CellList.icd,
           link_to: "/index/icd",
           detail: "",
           show: false
         },
         {
           icon: fzdl,
-          title: this.words_region.fzdl,
+          title: this.$store.getters.WordsConfig.CellList.fzdl,
           link_to: "/ag",
           detail: "",
           show: false
         },
         {
           icon: fzdl,
-          title: this.words_region.fzwj,
+          title: this.$store.getters.WordsConfig.CellList.fzwj,
           link_to: "/pg",
           detail: "",
           show: false

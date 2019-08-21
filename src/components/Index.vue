@@ -3,13 +3,16 @@
     <!-- 标题 -->
     <mt-header :title="title">
       <router-link to slot="left" v-if="$route.path !== '/index/cls'">
-        <mt-button icon="back" @click.native="$router.back(-1)">{{words_region.back}}</mt-button>
+        <mt-button
+          icon="back"
+          @click.native="$router.back(-1)"
+        >{{this.$store.getters.WordsConfig.Index.back}}</mt-button>
       </router-link>
     </mt-header>
     <div id="panel-user">
       <div style="display:flex;height:60px; padding: 0 20px;">
         <div style="width:80%;">
-          <h3>{{this.$store.state.UserInfo.UserName }}</h3>
+          <h3>{{this.$store.getters.UserInfo.UserName }}</h3>
           <div style="color:grey">{{upId}}</div>
         </div>
         <div style="width:20%;text-align: center;padding: 10px 0;">
@@ -18,28 +21,28 @@
       </div>
       <table style="padding:0 20px;">
         <tr>
-          <td class="word">{{words_region.dayIncome}}</td>
-          <td>{{this.$store.state.IndexTable.TodayUserProfit}}</td>
-          <td class="word">{{words_region.monthIncome}}</td>
-          <td>{{this.$store.state.IndexTable.MonthUserProfit}}</td>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.dayIncome}}</td>
+          <td>{{this.$store.getters.IndexTable.TodayUserProfit}}</td>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.monthIncome}}</td>
+          <td>{{this.$store.getters.IndexTable.MonthUserProfit}}</td>
         </tr>
         <tr>
-          <td class="word">{{words_region.returnRate}}</td>
-          <td>{{this.$store.state.IndexTable.Rebates}}</td>
-          <td class="word">{{words_region.canWithdraw}}</td>
-          <td>{{this.$store.state.IndexTable.Cashable}}</td>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.returnRate}}</td>
+          <td>{{this.$store.getters.IndexTable.Rebates}}</td>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.canWithdraw}}</td>
+          <td>{{this.$store.getters.IndexTable.Cashable}}</td>
         </tr>
         <tr>
-          <td class="word">{{words_region.dayNewPlayer}}</td>
-          <td>{{this.$store.state.IndexTable.TodayAddUser}}</td>
-          <td class="word">{{words_region.monthNewPlayer}}</td>
-          <td>{{this.$store.state.IndexTable.TodayAddPromoter}}</td>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.dayNewPlayer}}</td>
+          <td>{{this.$store.getters.IndexTable.TodayAddUser}}</td>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.monthNewPlayer}}</td>
+          <td>{{this.$store.getters.IndexTable.MonthAddUser}}</td>
         </tr>
         <tr>
-          <td class="word">{{words_region.dayNewAgent}}</td>
-          <td>{{this.$store.state.IndexTable.MonthAddUser}}</td>
-          <td class="word">{{words_region.monthNewAgent}}</td>
-          <td>{{this.$store.state.IndexTable.MonthAddPromoter}}</td>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.dayNewAgent}}</td>
+          <td>{{this.$store.getters.IndexTable.TodayAddPromoter}}</td>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.monthNewAgent}}</td>
+          <td>{{this.$store.getters.IndexTable.MonthAddPromoter}}</td>
         </tr>
       </table>
     </div>
@@ -59,29 +62,23 @@ import {
 } from "../api/api.js";
 export default {
   data() {
-    return {
-      words_region: {
-        head_title: "V8代理后台",
-        back: "返回",
-        dayIncome: "本日预估收入",
-        monthIncome: "本月预估收入",
-        returnRate: "返点比例",
-        canWithdraw: "可提现金额",
-        dayNewPlayer: "今日新增玩家",
-        monthNewPlayer: "本月新增玩家",
-        dayNewAgent: "今日新增代理",
-        monthNewAgent: "本月新增代理"
-      }
-    };
+    return {};
   },
   methods: {
-    /**
-     * 1
-     */
+    getData() {
+      G_Promotion()
+        .then(result => {
+          console.log(result);
+          this.$store.commit("SetIndexTable", result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   },
   created() {
     //TODO 获取token
-    if (!sessionStorage.getItem("token") && !this.$store.state.token) {
+    if (!this.$store.getters.token) {
       console.log("======================Login======================");
       this.$router.replace("/login");
     } else {
@@ -96,8 +93,8 @@ export default {
           //TODO 获取用户信息失败
           console.log(err);
           this.MessageBox({
-            title: "提示",
-            message: "登录已过期",
+            title: this.$store.getters.WordsConfig.Index.messageBoxTitle,
+            message: this.$store.getters.WordsConfig.Index.messageBoxMessage,
             closeOnClickModal: false
           });
           this.$router.replace("/login?status=lose");
@@ -105,50 +102,33 @@ export default {
       console.log(
         "======================获取获取实时显示数据======================"
       );
-      G_Promotion()
-        .then(result => {
-          console.log(result);
-          this.$store.commit("SetIndexTable", result);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.getData();
+      setInterval(() => {
+        //TODO 调用接口
+        this.getData();
+      }, 60000);
     }
-    // this.$store.commit("GetToken");
-  },
-  mounted() {
-    setInterval(() => {
-      //TODO 调用接口
-      G_Promotion()
-        .then(result => {
-          console.log(result);
-          this.$store.commit("SetIndexTable", result);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }, 60000);
   },
   computed: {
     upId() {
-      let nick = `一级代理（代理ID：${this.$store.state.UserInfo.Pcode}）`;
-      if (this.$store.state.UserInfo.SupPcode) {
-        nick = `二级代理（代理ID：${this.$store.state.UserInfo.Pcode}）`;
+      let nick = `${this.$store.getters.WordsConfig.Index.firstAgent}${this.$store.getters.UserInfo.Pcode}）`;
+      if (this.$store.getters.UserInfo.SupPcode) {
+        nick = `${this.$store.getters.WordsConfig.Index.secondAgent}${this.$store.getters.UserInfo.Pcode}）`;
       }
       return nick;
     },
     title() {
       switch (this.$route.path) {
         case "/index/cls":
-          return (this.head_title = "V8代理后台");
+          return this.$store.getters.WordsConfig.Index.head_title.v8;
         case "/index/icd":
-          return (this.head_title = "收入明细");
+          return this.$store.getters.WordsConfig.Index.head_title.icd;
         case "/index/dps":
-          return (this.head_title = "玩家管理");
+          return this.$store.getters.WordsConfig.Index.head_title.dps;
         case "/index/am":
-          return (this.head_title = "代理管理");
+          return this.$store.getters.WordsConfig.Index.head_title.am;
         default:
-          return (this.head_title = "V8代理后台");
+          return this.$store.getters.WordsConfig.Index.head_title.v8;
       }
     }
   }

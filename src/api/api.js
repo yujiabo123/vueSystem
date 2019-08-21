@@ -44,7 +44,7 @@ export const G_ApiConfig = () => {
  */
 export const G_UserInfo = () => {
   return new Promise((resolve, reject) => {
-    get(store.state.ApiConfig.Info)
+    get(store.getters.ApiConfig.Info)
       .then(res => {
         return resolve(res);
       })
@@ -56,7 +56,7 @@ export const G_UserInfo = () => {
 
 export const G_Promotion = () => {
   return new Promise((resolve, reject) => {
-    get(store.state.ApiConfig.Promotion)
+    get(store.getters.ApiConfig.Promotion)
       .then(result => {
         return resolve(result);
       })
@@ -74,7 +74,7 @@ export const G_Promotion = () => {
  */
 export const P_Login = form => {
   return new Promise((resolve, reject) => {
-    post(store.state.ApiConfig.token, form)
+    post(store.getters.ApiConfig.token, form)
       .then(res => {
         console.log(res);
         return resolve(res);
@@ -88,7 +88,7 @@ export const P_Login = form => {
 
 export const P_Registe = form => {
   return new Promise((resolve, reject) => {
-    post(store.state.ApiConfig.Register, form)
+    post(store.getters.ApiConfig.Register, form)
       .then(res => {
         resolve(res);
       })
@@ -104,7 +104,7 @@ export const P_Registe = form => {
  */
 export const G_SupInfo = Pcode => {
   return new Promise((resolve, reject) => {
-    get(store.state.ApiConfig.SupInfo, { Pcode: Pcode })
+    get(store.getters.ApiConfig.SupInfo, { Pcode: Pcode })
       .then(res => {
         resolve(res);
       })
@@ -120,7 +120,7 @@ export const G_SupInfo = Pcode => {
  */
 export const P_Bind = Pcode => {
   return new Promise((resolve, reject) => {
-    post(store.state.ApiConfig.Bind, { Pcode: Pcode })
+    post(store.getters.ApiConfig.Bind, { Pcode: Pcode })
       .then(res => {
         resolve(res);
       })
@@ -134,7 +134,7 @@ export const P_Bind = Pcode => {
 
 export const G_SubP = (IndexId, size = 50) => {
   return new Promise((resolve, reject) => {
-    get(store.state.ApiConfig.SubP, { IndexId: IndexId, size: size })
+    get(store.getters.ApiConfig.SubP, { IndexId: IndexId, size: size })
       .then(result => {
         resolve(result);
       })
@@ -148,7 +148,7 @@ export const G_SubP = (IndexId, size = 50) => {
 
 export const G_SubU = (IndexId, size = 50) => {
   return new Promise((resolve, reject) => {
-    get(store.state.ApiConfig.SubU, { IndexId: IndexId, size: size })
+    get(store.getters.ApiConfig.SubU, { IndexId: IndexId, size: size })
       .then(result => {
         resolve(result);
       })
@@ -162,7 +162,7 @@ export const G_SubU = (IndexId, size = 50) => {
 
 export const G_Profit = () => {
   return new Promise((resolve, reject) => {
-    get(store.state.ApiConfig.Profit)
+    get(store.getters.ApiConfig.Profit)
       .then(result => {
         resolve(result);
       })

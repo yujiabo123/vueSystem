@@ -9,13 +9,12 @@ import router from "./router";
 import Qs from "qs";
 import store from "./vuex/store"; // 引入store
 import plus from "vue-h5-plus";
-import VueClipboard from 'vue-clipboard2'
-
-// import { testGet } from './api/api.js'
+import VueClipboard from "vue-clipboard2";
+import axios from "axios";
 
 Vue.use(MintUI);
 Vue.use(plus);
-Vue.use(VueClipboard)
+Vue.use(VueClipboard);
 
 Vue.config.productionTip = false;
 // Vue.prototype.axios = axios
@@ -43,10 +42,36 @@ Vue.prototype.Indicator = MintUI.Indicator;
 //   })
 // }
 
-console.log("main");
 Vue.component(MintUI.Popup.name, MintUI.Popup);
 Vue.component(Table.name, Table);
 Vue.component(TableColumn.name, TableColumn);
+
+/**
+ * GET CONFIG
+ */
+axios({
+  method: "get",
+  baseURL: "../../static/words.json"
+})
+  .then(res => {
+    console.log(res.data);
+    store.commit("SetWordsConfig", res.data);
+  })
+  .catch(err => {
+    console.warn(err);
+  });
+
+axios({
+  method: "get",
+  baseURL: "../../static/api.json"
+})
+  .then(res => {
+    console.log(res.data);
+    store.commit("SetApiConfig", res.data);
+  })
+  .catch(err => {
+    console.warn(err);
+  });
 
 /* eslint-disable no-new */
 new Vue({

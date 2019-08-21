@@ -1,5 +1,35 @@
 {
     "GameLink":"www.baidu.com",
+    "Index":{
+        "head_title": {
+            "v8":"V8代理后台",
+            "icd":"收入明细",
+            "dps":"玩家管理",
+            "am":"代理管理"
+        },
+        "back": "返回",
+        "dayIncome": "本日预估收入",
+        "monthIncome": "本月预估收入",
+        "returnRate": "返点比例",
+        "canWithdraw": "可提现金额",
+        "dayNewPlayer": "今日新增玩家",
+        "monthNewPlayer": "本月新增玩家",
+        "dayNewAgent": "今日新增代理",
+        "monthNewAgent": "本月新增代理",
+        "messageBoxTitle": "提示",
+        "messageBoxMessage": "登录已过期",
+        "firstAgent":"一级代理（代理ID：",
+        "secondAgent":"二级代理（代理ID："
+    },
+    "CellList":{
+        "grxx": "个人信息",
+        "dlgl": "代理管理",
+        "wjgl": "玩家管理",
+        "icd": "收入明细",
+        "fzdl": "发展代理",
+        "fzwj": "发展玩家",
+        "p":"人"
+    },
     "IncomeDetails": {
         "allincome":"总收入",
         "month_date": "日期",
@@ -30,6 +60,10 @@
           "addNew_confirm0": "确定添加",
           "addNew_confirm1": "为你的上线代理?",
           "addNew_toast":"添加成功"
-        }
+        },
+        "logout":"退出",
+        "mbTitle":"提示",
+        "mbMsg01":"不能添加自己为上线",
+        "mbMsg02":"不存在此推广码"
     }
 }
