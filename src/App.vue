@@ -23,8 +23,5 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  background-color: #8080804a;
-}
 @import url(./assets/css/site.scss);
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div style="text-align: center">
-      <img src="../assets/img/bg.jpg" alt style="width:auto;height:300px; padding: 50px;" />
+      <img src="../assets/img/nnn.jpg" alt style="width:200px;height:200px; padding: 50px;" />
     </div>
     <div id="form-login">
       <mt-field label placeholder="请输入账号" v-model="form_login.username"></mt-field>
@@ -130,10 +130,10 @@ export default {
   background-color: white;
   // background: url(../assets/img/bg2.jpg) no-repeat;
   background-size: 100% 100%;
+  overflow: scroll;
 }
 #form-login {
   width: 100%;
-  height: 100%;
   // padding: 100px 50px;
   // background-color: transparent;
   .registe {

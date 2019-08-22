@@ -16,7 +16,7 @@
           <div style="color:grey">{{upId}}</div>
         </div>
         <div style="width:20%;text-align: center;padding: 10px 0;">
-          <img width="44" height="44" src="../assets/img/bg.jpg" alt class />
+          <img width="44" height="44" src="../assets/img/nnn.jpg" alt class />
         </div>
       </div>
       <table style="padding:0 20px;">
@@ -76,7 +76,7 @@ export default {
         });
     }
   },
-  created() {
+  beforeCreate() {
     //TODO 获取token
     if (!this.$store.getters.token) {
       console.log("======================Login======================");
@@ -128,7 +128,7 @@ export default {
         case "/index/am":
           return this.$store.getters.WordsConfig.Index.head_title.am;
         default:
-          return this.$store.getters.WordsConfig.Index.head_title.v8;
+          break;
       }
     }
   }
@@ -138,6 +138,7 @@ export default {
 <style lang="scss" scoped>
 #index {
   height: 100%;
+  background-color: #8080804a;
 }
 #panel-user {
   width: 100%;

@@ -1,5 +1,5 @@
 {
-    "GameLink":"www.baidu.com",
+    "GameLink":"http://192.168.1.252",
     "Index":{
         "head_title": {
             "v8":"V8代理后台",
@@ -65,5 +65,35 @@
         "mbTitle":"提示",
         "mbMsg01":"不能添加自己为上线",
         "mbMsg02":"不存在此推广码"
+    },
+    "PlayerGet": {
+        "head": "发展玩家",
+        "back": "返回",
+        "name": "玩家昵称",
+        "subs": "您可以通过分享二维码或链接的方式发展您的下线玩家",
+        "mylink": "我的邀请链接",
+        "link": "?pc=g_pcd|",
+        "copylink": "复制链接",
+        "myQRcode": "我的邀请二维码",
+        "saveQRcode": "长按二维码保存图片"
+    },
+    "AgentManage": {
+        "agent_counts": "我的代理总数",
+        "agent_id": "代理ID",
+        "agent_name": "昵称",
+        "agent_income": "本月游戏盈利金额",
+        "agent_history": "历史总游戏盈利",
+        "agent_bindtime": "绑定时间",
+        "agent_status": "状态"
+    },
+    "DownPlayers":{
+        "allplayers": "我的玩家总数",
+        "gameId": "游戏ID",
+        "gameAccount": "账号",
+        "gameProfitDay": "今日盈利",
+        "gameProfitMonth": "本月盈利",
+        "gameProfitHistory": "历史盈利",
+        "gameBindTime": "绑定时间",
+        "lastLogin": "最后游戏时间"
     }
 }

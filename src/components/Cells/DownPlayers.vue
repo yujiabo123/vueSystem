@@ -1,16 +1,15 @@
 <template>
   <div id="downplayers">
-    <div style="height:10px;"></div>
-    <mt-cell :title="word_region.allplayers" :value="1"></mt-cell>
-    <div style="height:10px;"></div>
+    <mt-cell :title="this.$store.getters.WordsConfig.DownPlayers.allplayers" :value="1"></mt-cell>
+    <div style="height:10px;background-color:#8080804a"></div>
     <el-table :data="tableData" style="width: 100%" max-height="400">
-      <el-table-column fixed prop="gameId" :label="word_region.gameId" width="100"></el-table-column>
-      <el-table-column prop="gameAccount" :label="word_region.gameAccount" width="100"></el-table-column>
-      <el-table-column prop="gameProfitDay" :label="word_region.gameProfitDay" width="150"></el-table-column>
-      <el-table-column prop="gameProfitMonth" :label="word_region.gameProfitMonth" width="150"></el-table-column>
-      <el-table-column prop="gameProfitHistory" :label="word_region.gameProfitHistory" width="150"></el-table-column>
-      <el-table-column prop="gameBindTime" :label="word_region.gameBindTime" width="160"></el-table-column>
-      <el-table-column prop="lastLogin" :label="word_region.lastLogin" width="160"></el-table-column>
+      <el-table-column fixed prop="gameId" :label="this.$store.getters.WordsConfig.DownPlayers.gameId" width="100"></el-table-column>
+      <el-table-column prop="gameAccount" :label="this.$store.getters.WordsConfig.DownPlayers.gameAccount" width="100"></el-table-column>
+      <el-table-column prop="gameProfitDay" :label="this.$store.getters.WordsConfig.DownPlayers.gameProfitDay" width="150"></el-table-column>
+      <el-table-column prop="gameProfitMonth" :label="this.$store.getters.WordsConfig.DownPlayers.gameProfitMonth" width="150"></el-table-column>
+      <el-table-column prop="gameProfitHistory" :label="this.$store.getters.WordsConfig.DownPlayers.gameProfitHistory" width="150"></el-table-column>
+      <el-table-column prop="gameBindTime" :label="this.$store.getters.WordsConfig.DownPlayers.gameBindTime" width="160"></el-table-column>
+      <el-table-column prop="lastLogin" :label="this.$store.getters.WordsConfig.DownPlayers.lastLogin" width="160"></el-table-column>
     </el-table>
   </div>
 </template>
@@ -20,16 +19,6 @@ import { G_SubU } from "../../api/api";
 export default {
   data() {
     return {
-      word_region: {
-        allplayers: "我的玩家总数",
-        gameId: "游戏ID",
-        gameAccount: "账号",
-        gameProfitDay: "今日盈利",
-        gameProfitMonth: "本月盈利",
-        gameProfitHistory: "历史盈利",
-        gameBindTime: "绑定时间",
-        lastLogin: "最后游戏时间"
-      },
       tableData: []
     };
   },

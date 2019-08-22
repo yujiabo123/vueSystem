@@ -7,15 +7,7 @@ const state = {
   token: "",
   WordsConfig: null,
   ApiConfig: null,
-  UserInfo: {
-    FACEBOOK: "",
-    INS: "",
-    Pcode: "",
-    PhoneNumber: "",
-    SupPcode: "",
-    UserName: "",
-    Zalo: ""
-  },
+  UserInfo: null,
   IndexTable: {
     Cashable: 0,
     MonthAddPromoter: 0,

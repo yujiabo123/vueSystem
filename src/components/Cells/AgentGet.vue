@@ -9,17 +9,18 @@
       <h3>{{ words_region.name}}</h3>
       <span style="font-size:small">{{ words_region.subs }}</span>
     </div>
+    <div style="height:10px;background-color:#8080804a"></div>
     <div
-      style="height: -webkit-fill-available;padding: 10px 20px; background-color: white; margin-top:10px;"
+      style="padding: 10px 20px; background-color: white; margin-top:10px;"
     >
       <span>{{ words_region.myId }}</span>
-      <span style="float:right">{{ this.$store.state.UserInfo.Pcode }}</span>
+      <span style="float:right">{{ this.$store.getters.UserInfo.Pcode }}</span>
       <hr />
       <div style="text-align:center;margin-top:10px;">
         <mt-button
           type="primary"
           style="width:140px;"
-          v-clipboard:copy="this.$store.state.UserInfo.Pcode"
+          v-clipboard:copy="this.$store.getters.UserInfo.Pcode"
           v-clipboard:success="onCopy"
         >{{ words_region.copyId }}</mt-button>
       </div>
@@ -50,4 +51,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#agentget{
+  height: 100%;
+  overflow: scroll;
+}
 </style>

@@ -18,22 +18,27 @@
       :value="this.$store.getters.WordsConfig.User.nickname_fix"
     ></mt-cell>
     <div style="height:10px;"></div>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.my_upId"
-      :value="this.$store.getters.UserInfo.SupPcode"
-    >
-      <p v-if="!this.$store.getters.UserInfo.SupPcode" @click="addNew">
-        <span id="arror-right">{{this.$store.getters.WordsConfig.User.btn_add}}</span>
-        <i class="mint-cell-allow-right"></i>
-      </p>
-    </mt-cell>
+    <div @click="addNew">
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.my_upId"
+        :value="this.$store.getters.UserInfo.SupPcode"
+      >
+        <p v-if="!this.$store.getters.UserInfo.SupPcode">
+          <span id="arror-right">{{this.$store.getters.WordsConfig.User.btn_add}}</span>
+          <i class="mint-cell-allow-right"></i>
+        </p>
+      </mt-cell>
+    </div>
+
     <div style="height:10px;"></div>
-    <mt-cell :title="this.$store.getters.WordsConfig.User.curr_rate" value>
-      <div @click="showFDBL">
-        <span id="arror-right">{{this.$store.getters.IndexTable.Rebates}}</span>
-        <i class="mint-cell-allow-right"></i>
-      </div>
-    </mt-cell>
+    <div @click="showFDBL">
+      <mt-cell :title="this.$store.getters.WordsConfig.User.curr_rate" value>
+        <div>
+          <span id="arror-right">{{this.$store.getters.IndexTable.Rebates + '%'}}</span>
+          <i class="mint-cell-allow-right"></i>
+        </div>
+      </mt-cell>
+    </div>
     <mt-cell
       :title="this.$store.getters.WordsConfig.User.month_income"
       :value="this.$store.getters.IndexTable.MonthUserProfit"
@@ -181,9 +186,9 @@ export default {
   },
   computed: {
     upId() {
-      let nick = `一级代理（代理ID：${this.$store.getters.UserInfo.Pcode}）`;
+      let nick = `${this.$store.getters.WordsConfig.Index.firstAgent}${this.$store.getters.UserInfo.Pcode}）`;
       if (this.$store.getters.UserInfo.SupPcode) {
-        nick = `二级代理（代理ID：${this.$store.getters.UserInfo.Pcode}）`;
+        nick = `${this.$store.getters.WordsConfig.Index.secondAgent}${this.$store.getters.UserInfo.Pcode}）`;
       }
       return nick;
     }
@@ -192,6 +197,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#user {
+  height: 100%;
+  background-color: #8080804a;
+}
 .personal-link {
   width: 150px;
   overflow: hidden;

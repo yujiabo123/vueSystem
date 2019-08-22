@@ -1,42 +1,46 @@
 <template>
   <div id="playerget">
-    <mt-header :title="words_region.head">
+    <mt-header :title="this.$store.getters.WordsConfig.PlayerGet.head">
       <router-link to slot="left">
-        <mt-button icon="back" @click.native="$router.back(-1)">{{words_region.back}}</mt-button>
+        <mt-button
+          icon="back"
+          @click.native="$router.back(-1)"
+        >{{this.$store.getters.WordsConfig.PlayerGet.back}}</mt-button>
       </router-link>
     </mt-header>
     <div style="padding: 10px 20px; background-color: white">
-      <h3>{{ words_region.name}}</h3>
-      <span style="font-size:small">{{ words_region.subs }}</span>
+      <h3>{{ this.$store.getters.WordsConfig.PlayerGet.name}}</h3>
+      <span style="font-size:small">{{ this.$store.getters.WordsConfig.PlayerGet.subs }}</span>
     </div>
 
     <div style="padding: 10px 20px; background-color: white; margin-top:10px;">
-      <span>{{ words_region.mylink }}</span>
+      <span>{{ this.$store.getters.WordsConfig.PlayerGet.mylink }}</span>
       <hr />
       <div
         style="width: 100%;text-align: center;margin-top: 10px;padding: 8px;border: solid 1px grey;border-radius: 8px;word-break:break-all;"
-      >{{ words_region.link }}</div>
+      >{{this.$store.getters.WordsConfig.GameLink + this.$store.getters.WordsConfig.PlayerGet.link + this.$store.getters.UserInfo.Pcode}}</div>
       <div style="text-align:center;margin-top:10px;">
         <mt-button
           type="primary"
           style="width:140px;"
-          v-clipboard:copy="words_region.link"
+          v-clipboard:copy="this.$store.getters.WordsConfig.GameLink + this.$store.getters.WordsConfig.PlayerGet.link + this.$store.getters.UserInfo.Pcode"
           v-clipboard:success="onCopy"
-        >{{ words_region.copylink }}</mt-button>
+        >{{ this.$store.getters.WordsConfig.PlayerGet.copylink }}</mt-button>
       </div>
     </div>
 
-    <div
-      style="height: -webkit-fill-available;padding: 10px 20px; background-color: white; margin-top:10px;"
-    >
-      <span>{{ words_region.myQRcode }}</span>
+    <div style="padding: 10px 20px; background-color: white; margin-top:10px;">
+      <span>{{ this.$store.getters.WordsConfig.PlayerGet.myQRcode }}</span>
       <hr />
       <div style="width:100%;text-align:-webkit-center;margin-top:10px">
         <div id="qrcode" ref="qrcode" style=" display:none"></div>
-        <img :src="imgUrl" alt />
+        <img :src="imgUrl" alt @click="showPic" />
       </div>
       <div style="text-align:center;margin-top:10px;">
-        <mt-button style="width:200px;" disabled>{{ words_region.saveQRcode }}</mt-button>
+        <mt-button
+          style="width:200px;"
+          disabled
+        >{{ this.$store.getters.WordsConfig.PlayerGet.saveQRcode }}</mt-button>
       </div>
     </div>
   </div>
@@ -47,36 +51,23 @@ import QRCode from "qrcodejs2";
 export default {
   data() {
     return {
-      imgUrl: "",
-      words_region: {
-        head: "发展玩家",
-        back: "返回",
-        name: "玩家昵称",
-        subs: "您可以通过分享二维码或链接的方式发展您的下线玩家",
-        mylink: "我的邀请链接",
-        link:
-          this.$store.state.WordsConfig.GameLink +
-          "?pc=" +
-          this.$store.state.UserInfo.Pcode,
-        copylink: "复制链接",
-        myQRcode: "我的邀请二维码",
-        saveQRcode: "长按二维码保存图片"
-      }
+      imgUrl: ""
     };
   },
   methods: {
     onCopy(e) {
       this.Toast({ position: "bottom", message: "复制成功" });
-    }
+    },
+    showPic() {}
   },
   mounted() {
     let qrCode = new QRCode("qrcode", {
       width: 200,
       height: 200,
       text:
-        this.$store.state.WordsConfig.GameLink +
-        "?pc=" +
-        this.$store.state.UserInfo.Pcode,
+        this.$store.getters.WordsConfig.GameLink +
+        this.$store.getters.WordsConfig.PlayerGet.link +
+        this.$store.getters.UserInfo.Pcode,
       colorDark: "#000000",
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
@@ -88,4 +79,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#playerget {
+  height: 100%;
+  overflow: scroll;
+}
 </style>
