@@ -18,8 +18,8 @@
         "monthNewAgent": "本月新增代理",
         "messageBoxTitle": "提示",
         "messageBoxMessage": "登录已过期",
-        "firstAgent":"一级代理（代理ID：",
-        "secondAgent":"二级代理（代理ID："
+        "firstAgent":"代理ID：",
+        "secondAgent":"代理ID："
     },
     "CellList":{
         "grxx": "个人信息",

@@ -9,7 +9,7 @@
       </router-link>
     </mt-header>
     <div style="padding: 10px 20px; background-color: white">
-      <h3>{{ this.$store.getters.WordsConfig.PlayerGet.name}}</h3>
+      <h3>{{ this.$store.getters.UserInfo.UserName}}</h3>
       <span style="font-size:small">{{ this.$store.getters.WordsConfig.PlayerGet.subs }}</span>
     </div>
 

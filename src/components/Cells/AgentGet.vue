@@ -6,7 +6,7 @@
       </router-link>
     </mt-header>
     <div style="padding: 10px 20px; background-color: white">
-      <h3>{{ words_region.name}}</h3>
+      <h3>{{ this.$store.getters.UserInfo.UserName }}</h3>
       <span style="font-size:small">{{ words_region.subs }}</span>
     </div>
     <div style="height:10px;background-color:#8080804a"></div>

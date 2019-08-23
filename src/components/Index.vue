@@ -28,7 +28,7 @@
         </tr>
         <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.returnRate}}</td>
-          <td>{{this.$store.getters.IndexTable.Rebates}}</td>
+          <td>{{ (this.$store.getters.IndexTable.Rebates * 100) + '%'}}</td>
           <td class="word">{{this.$store.getters.WordsConfig.Index.canWithdraw}}</td>
           <td>{{this.$store.getters.IndexTable.Cashable}}</td>
         </tr>
@@ -111,9 +111,9 @@ export default {
   },
   computed: {
     upId() {
-      let nick = `${this.$store.getters.WordsConfig.Index.firstAgent}${this.$store.getters.UserInfo.Pcode}）`;
+      let nick = `${this.$store.getters.WordsConfig.Index.firstAgent}${this.$store.getters.UserInfo.Pcode}`;
       if (this.$store.getters.UserInfo.SupPcode) {
-        nick = `${this.$store.getters.WordsConfig.Index.secondAgent}${this.$store.getters.UserInfo.Pcode}）`;
+        nick = `${this.$store.getters.WordsConfig.Index.secondAgent}${this.$store.getters.UserInfo.Pcode}`;
       }
       return nick;
     },

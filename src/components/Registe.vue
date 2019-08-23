@@ -140,6 +140,7 @@ export default {
   height: 100%;
   // background: url(../assets/img/bg.jpg) no-repeat;
   background-size: 100% 100%;
+  overflow: scroll;
 }
 .bg {
   width: 100%;
@@ -154,7 +155,7 @@ export default {
     border-bottom: solid 1px rgba(128, 128, 128, 0.39);
     ::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
-      font-size: 0.2rem;
+      font-size: 1rem;
       // color: rgb(187, 255, 1);
     }
   }

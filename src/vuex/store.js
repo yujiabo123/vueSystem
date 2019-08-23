@@ -8,19 +8,7 @@ const state = {
   WordsConfig: null,
   ApiConfig: null,
   UserInfo: null,
-  IndexTable: {
-    Cashable: 0,
-    MonthAddPromoter: 0,
-    MonthAddUser: 0,
-    MonthUserProfit: 0,
-    Rebates: 0,
-    SubPromoter: 0,
-    SubUser: 0,
-    TodayAddPromoter: 0,
-    TodayAddUser: 0,
-    TodayUserProfit: 0,
-    TotalIncome: 0
-  }
+  IndexTable: null
 };
 
 const mutations = {

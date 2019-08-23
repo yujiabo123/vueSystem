@@ -1,6 +1,6 @@
 <template>
   <div id="downplayers">
-    <mt-cell :title="this.$store.getters.WordsConfig.DownPlayers.allplayers" :value="1"></mt-cell>
+    <mt-cell :title="this.$store.getters.WordsConfig.DownPlayers.allplayers" :value="tableData.length"></mt-cell>
     <div style="height:10px;background-color:#8080804a"></div>
     <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
     <el-table :data="tableData" style="width: 100%" height="100%" max-height="100%">

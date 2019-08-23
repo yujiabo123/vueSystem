@@ -34,7 +34,7 @@
     <div @click="showFDBL">
       <mt-cell :title="this.$store.getters.WordsConfig.User.curr_rate" value>
         <div>
-          <span id="arror-right">{{this.$store.getters.IndexTable.Rebates + '%'}}</span>
+          <span id="arror-right">{{ (this.$store.getters.IndexTable.Rebates * 100) + '%'}}</span>
           <i class="mint-cell-allow-right"></i>
         </div>
       </mt-cell>
@@ -103,12 +103,12 @@ export default {
     },
     showFDBL() {
       console.log("showFDBL()Click");
-      this.MessageBox({
-        title: this.$store.getters.WordsConfig.User.methods
-          .showFDBL_msgbox_title,
-        message: this.$store.getters.WordsConfig.User.methods
-          .showFDBL_msgbox_msg
-      });
+      // this.MessageBox({
+      //   title: this.$store.getters.WordsConfig.User.methods
+      //     .showFDBL_msgbox_title,
+      //   message: this.$store.getters.WordsConfig.User.methods
+      //     .showFDBL_msgbox_msg
+      // });
     },
     logout() {
       //TODO 退出
@@ -117,6 +117,9 @@ export default {
     },
     addNew() {
       console.log("addNew()");
+      if (this.$store.getters.UserInfo.SupPcode) {
+        return;
+      }
       this.MessageBox.prompt(
         this.$store.getters.WordsConfig.User.methods.addNew_title,
         {
@@ -186,9 +189,9 @@ export default {
   },
   computed: {
     upId() {
-      let nick = `${this.$store.getters.WordsConfig.Index.firstAgent}${this.$store.getters.UserInfo.Pcode}）`;
+      let nick = `${this.$store.getters.WordsConfig.Index.firstAgent}${this.$store.getters.UserInfo.Pcode}`;
       if (this.$store.getters.UserInfo.SupPcode) {
-        nick = `${this.$store.getters.WordsConfig.Index.secondAgent}${this.$store.getters.UserInfo.Pcode}）`;
+        nick = `${this.$store.getters.WordsConfig.Index.secondAgent}${this.$store.getters.UserInfo.Pcode}`;
       }
       return nick;
     }
