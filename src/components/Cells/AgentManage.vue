@@ -2,21 +2,43 @@
   <div id="agentmanage">
     <mt-cell :title="this.$store.getters.WordsConfig.AgentManage.agent_counts" :value="dataLength"></mt-cell>
     <div style="height:10px;background-color:#8080804a"></div>
-    <el-table :data="table" style="width: 100%" max-height="400">
-      <el-table-column fixed prop="agent_id" :label="this.$store.getters.WordsConfig.AgentManage.agent_id" width="100"></el-table-column>
-      <el-table-column prop="agent_name" :label="this.$store.getters.WordsConfig.AgentManage.agent_name" width="150"></el-table-column>
-      <el-table-column prop="agent_income" :label="this.$store.getters.WordsConfig.AgentManage.agent_income" width="150"></el-table-column>
-      <el-table-column prop="agent_history" :label="this.$store.getters.WordsConfig.AgentManage.agent_history" width="150"></el-table-column>
-      <el-table-column prop="agent_bindtime" :label="this.$store.getters.WordsConfig.AgentManage.agent_bindtime" width="160"></el-table-column>
-
-      <!-- <el-table-column
+    <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
+      <el-table :data="table" style="width: 100%;" height="100%" max-height="100%">
+        <el-table-column
+          fixed
+          prop="agent_id"
+          :label="this.$store.getters.WordsConfig.AgentManage.agent_id"
+          width="100"
+        ></el-table-column>
+        <el-table-column
+          prop="agent_name"
+          :label="this.$store.getters.WordsConfig.AgentManage.agent_name"
+          width="150"
+        ></el-table-column>
+        <el-table-column
+          prop="agent_income"
+          :label="this.$store.getters.WordsConfig.AgentManage.agent_income"
+          width="150"
+        ></el-table-column>
+        <el-table-column
+          prop="agent_history"
+          :label="this.$store.getters.WordsConfig.AgentManage.agent_history"
+          width="150"
+        ></el-table-column>
+        <el-table-column
+          prop="agent_bindtime"
+          :label="this.$store.getters.WordsConfig.AgentManage.agent_bindtime"
+          width="160"
+        ></el-table-column>
+        <!-- <el-table-column
         v-for="(value,key, index) in this.$store.getters.WordsConfig.AgentManage"
         :key="index"
         :prop="key"
         :label="value"
          width="150"
-      ></el-table-column>-->
-    </el-table>
+        ></el-table-column>-->
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -26,7 +48,8 @@ export default {
   data() {
     return {
       dataLength: "",
-      table: []
+      table: [],
+      table_height: 0
     };
   },
   beforeCreate() {},
@@ -44,7 +67,6 @@ export default {
         console.log(err);
       });
   },
-  mounted() {},
   methods: {
     getSubP(arr) {
       let data = [];
@@ -65,4 +87,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#agentmanage {
+  height: 100%;
+  overflow: hidden;
+}
 </style>

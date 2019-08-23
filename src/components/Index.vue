@@ -76,7 +76,7 @@ export default {
         });
     }
   },
-  beforeCreate() {
+  created() {
     //TODO 获取token
     if (!this.$store.getters.token) {
       console.log("======================Login======================");
@@ -182,10 +182,13 @@ table {
 }
 
 #routeView {
-  height: 100%;
-  padding: 0px 0 240px 0;
-  overflow: auto;
+  overflow: hidden;
   background-color: white;
+  position: absolute;
+  top: 240px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 #cellList {
   .mint-cell {

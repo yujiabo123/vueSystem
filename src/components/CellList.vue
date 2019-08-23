@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="celllist">
     <mt-cell label is-link :to="data.link_to" v-for="data in getCellList" :key="data.key">
       <div slot="title">
         <img slot="icon" :src="data.icon" width="auto" height="24" />
@@ -72,6 +72,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#celllist{
+  height: 100%;
+  overflow: scroll;
+}
 .mint-cell {
   border-bottom: solid 1px rgba(128, 128, 128, 0.39);
   img {

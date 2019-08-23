@@ -2,7 +2,8 @@
   <div id="downplayers">
     <mt-cell :title="this.$store.getters.WordsConfig.DownPlayers.allplayers" :value="1"></mt-cell>
     <div style="height:10px;background-color:#8080804a"></div>
-    <el-table :data="tableData" style="width: 100%" max-height="400">
+    <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
+    <el-table :data="tableData" style="width: 100%" height="100%" max-height="100%">
       <el-table-column fixed prop="gameId" :label="this.$store.getters.WordsConfig.DownPlayers.gameId" width="100"></el-table-column>
       <el-table-column prop="gameAccount" :label="this.$store.getters.WordsConfig.DownPlayers.gameAccount" width="100"></el-table-column>
       <el-table-column prop="gameProfitDay" :label="this.$store.getters.WordsConfig.DownPlayers.gameProfitDay" width="150"></el-table-column>
@@ -11,6 +12,7 @@
       <el-table-column prop="gameBindTime" :label="this.$store.getters.WordsConfig.DownPlayers.gameBindTime" width="160"></el-table-column>
       <el-table-column prop="lastLogin" :label="this.$store.getters.WordsConfig.DownPlayers.lastLogin" width="160"></el-table-column>
     </el-table>
+    </div>
   </div>
 </template>
 
@@ -53,4 +55,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#downplayers {
+  height: 100%;
+  overflow: hidden;
+}
 </style>

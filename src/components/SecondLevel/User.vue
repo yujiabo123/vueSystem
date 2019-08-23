@@ -200,6 +200,7 @@ export default {
 #user {
   height: 100%;
   background-color: #8080804a;
+  overflow: scroll;
 }
 .personal-link {
   width: 150px;
