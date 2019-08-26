@@ -13,5 +13,12 @@ body {
   height: 100%;
   overflow: hidden;
 }
+.idRow {
+  min-width: fit-content;
+  .cell {
+    width: fit-content;
+    word-break: inherit;
+  }
+}
 
 

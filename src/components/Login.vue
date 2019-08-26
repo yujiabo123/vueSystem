@@ -4,16 +4,31 @@
       <img src="../assets/img/nnn.jpg" alt style="width:200px;height:200px; padding: 50px;" />
     </div>
     <div id="form-login">
-      <mt-field label placeholder="请输入账号" v-model="form_login.username"></mt-field>
-      <mt-field label placeholder="请输入密码" type="password" v-model="form_login.Password"></mt-field>
+      <mt-field
+        label
+        :placeholder="this.$store.getters.WordsConfig.Login.username"
+        v-model="form_login.username"
+      ></mt-field>
+      <mt-field
+        label
+        :placeholder="this.$store.getters.WordsConfig.Login.password"
+        type="password"
+        v-model="form_login.Password"
+      ></mt-field>
       <!-- <mt-field label="验证码" v-model="form_login.vertifycode">
         <img src height="45px" width="100px" />
       </mt-field>-->
       <div class="registe">
-        <a @click="openPopup">没有账号？点我注册</a>
+        <a @click="openPopup">{{this.$store.getters.WordsConfig.Login.no_account}}</a>
       </div>
       <div style="padding: 0 10px;">
-        <mt-button type="primary" size="large" @click="login" class="loginBtn">登录</mt-button>
+        <mt-button
+          type="primary"
+          size="large"
+          @click="login"
+          class="loginBtn"
+          :disabled="denyClick"
+        >{{this.$store.getters.WordsConfig.Login.loginBtn}}</mt-button>
       </div>
     </div>
 
@@ -36,6 +51,7 @@ export default {
     return {
       popupVisible: false,
       showModal: false,
+      denyClick: false,
       form_login: {
         grant_type: "password",
         username: "",
@@ -45,13 +61,22 @@ export default {
   },
   methods: {
     login() {
+      this.denyClick = true;
       //TODO 客户端验证
       if (!this.form_login.username) {
-        this.MessageBox("提示", "请输入账号");
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Login.msgTitle,
+          this.$store.getters.WordsConfig.Login.msgBox_noName
+        );
+        this.denyClick = false;
         return;
       }
       if (!this.form_login.Password) {
-        this.MessageBox("提示", "请输入密码");
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Login.msgTitle,
+          this.$store.getters.WordsConfig.Login.msgBox_noPsd
+        );
+        this.denyClick = false;
         return;
       }
       // if (!this.form_login.vertifycode) {
@@ -59,38 +84,42 @@ export default {
       //   return;
       // }
 
-      console.log("登录");
+      console.log("login");
       //TODO 服务器端验证并获取token
       this.Indicator.open();
       P_Login(this.form_login)
         .then(res => {
-          this.Indicator.close();
           console.log(res);
           this.$store.commit("SetToken", res.access_token);
           G_UserInfo()
             .then(result => {
+              this.denyClick = false;
+              this.Indicator.close();
               //TODO 成功获取用户信息
               console.log(result);
               this.$store.commit("SetUserInfo", result);
               this.$router.replace("/");
             })
             .catch(err => {
+              this.denyClick = false;
+              this.Indicator.close();
               //TODO 获取用户信息失败
               console.log(err);
-              //TODO 等待审核通过
               this.MessageBox({
-                title: "提示",
-                message: "等待审核人员认证...",
+                title: this.$store.getters.WordsConfig.Login.msgTitle,
+                message: this.$store.getters.WordsConfig.Login
+                  .msgBox_waitConfirm,
                 closeOnClickModal: false
               });
             });
         })
         .catch(err => {
+          this.denyClick = false;
           this.Indicator.close();
           console.log(err);
           this.Toast({
             position: "bottom",
-            message: "账号或密码错误"
+            message: err.error_description
           });
         });
     },
@@ -114,8 +143,8 @@ export default {
     if (this.$route.query.status) {
       if (this.$route.query.status === "lose") {
         this.MessageBox({
-          title: "提示",
-          message: "登录失效",
+          title: this.$store.getters.WordsConfig.Login.msgTitle,
+          message: this.$store.getters.WordsConfig.Login.msgBox_loseToken,
           closeOnClickModal: false
         });
       }

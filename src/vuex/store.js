@@ -30,11 +30,11 @@ const mutations = {
   },
   SetUserInfo(state, info) {
     state.UserInfo = info;
-    sessionStorage.setItem("UserInfo", JSON.stringify(info)); 
+    sessionStorage.setItem("UserInfo", JSON.stringify(info));
   },
   SetIndexTable(state, data) {
     state.IndexTable = data;
-    sessionStorage.setItem("IndexTable", JSON.stringify(data)); 
+    sessionStorage.setItem("IndexTable", JSON.stringify(data));
   }
 };
 

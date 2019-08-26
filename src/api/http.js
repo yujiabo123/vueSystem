@@ -4,7 +4,7 @@ import Qs from "qs";
 /**
  * 设置请求api
  */
-axios.defaults.baseURL = process.env.API_ROOT;
+// axios.defaults.baseURL = process.env.API_ROOT;
 
 /**
  * 10秒超时

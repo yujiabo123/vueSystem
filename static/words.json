@@ -1,5 +1,47 @@
 {
     "GameLink":"http://192.168.1.252",
+    "Login":{
+        "username":"请输入账号",
+        "password":"请输入密码",
+        "no_account":"没有账号？点我注册",
+        "loginBtn":"登录",
+        "msgBox_noName":"请输入账号",
+        "msgBox_noPsd":"请输入密码",
+        "msgTitle":"提示",
+        "msgBox_waitConfirm":"等待审核人员认证...",
+        "msgBox_loseToken":"登录失效"
+    },
+    "Registe": {
+        "title":"注册",
+        "UserName": "账号：不小于6位数",
+        "Password": "密码：不小于6位数的字母+数字",
+        "ConfirmPassword": "确认密码",
+        "PhoneNumber": "手机号码",
+        "vertifycode": "输入手机验证码",
+        "sendCode": "发送验证码",
+        "Email": "邮箱",
+        "Zalo": "Zalo账号",
+        "FACEBOOK": "FaceBook账号",
+        "INS": "Instagram账号",
+        "isagree": "同意我们的服务条款和隐私政策",
+        "registe": "注册",
+        "cf_UserName": "账号:",
+        "cf_Password": "密码:",
+        "cf_PhoneNumber": "手机号码:",
+        "cf_Email": "邮箱:",
+        "cf_Zalo": "Zalo账号:",
+        "cf_FACEBOOK": "FaceBook账号:",
+        "cf_INS": "Instagram账号:",
+        "cf_cofirmInfo": "确认注册",
+        "msgBox_title": "提示",
+        "msgBox_success": "注册成功",
+        "msgBox_UserName": "请输入账号",
+        "msgBox_Password": "请输入密码",
+        "msgBox_wrongPwd": "两次密码输入不一致",
+        "msgBox_PhoneNumber": "请输入手机号",
+        "msgBox_vertifycode": "请输入验证码",
+        "msgBox_isagree": "请先同意我们的服务条款和隐私政策"
+    },
     "Index":{
         "head_title": {
             "v8":"V8代理后台",
@@ -64,7 +106,9 @@
         "logout":"退出",
         "mbTitle":"提示",
         "mbMsg01":"不能添加自己为上线",
-        "mbMsg02":"不存在此推广码"
+        "mbMsg02":"不存在此推广码",
+        "addNew_plzInputCode":"请输入上线代理ID",
+         "addNew_plzInputNum": "请输入7位数字ID"
     },
     "PlayerGet": {
         "head": "发展玩家",

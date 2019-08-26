@@ -1,40 +1,125 @@
 <template>
   <div id="registe">
     <div id="form-registe" v-show="!isConfirm">
-      <mt-header :title="registTitle">
+      <mt-header :title="this.$store.getters.WordsConfig.Registe.title">
         <a slot="left" @click="closePopup">
           <mt-button icon="back"></mt-button>
         </a>
       </mt-header>
-      <mt-field label placeholder="账号：不小于6位数" v-model="form_registe.UserName"></mt-field>
-      <mt-field label placeholder="密码：不小于6位数的字母+数字" type="password" v-model="form_registe.Password"></mt-field>
-      <mt-field label placeholder="确认密码" type="password" v-model="form_registe.ConfirmPassword"></mt-field>
-      <mt-field label placeholder="手机号码" v-model="form_registe.PhoneNumber"></mt-field>
-      <mt-field label placeholder="输入手机验证码" v-model="form_registe.vertifycode">
-        <mt-button type="primary" size="small">发送验证码</mt-button>
-      </mt-field>
+      <div id="needField">
+        <mt-field
+          label
+          :placeholder="this.$store.getters.WordsConfig.Registe.UserName"
+          v-model="form_registe.UserName"
+        ></mt-field>
+        <mt-field
+          label
+          :placeholder="this.$store.getters.WordsConfig.Registe.Password"
+          type="password"
+          v-model="form_registe.Password"
+        ></mt-field>
+        <mt-field
+          label
+          :placeholder="this.$store.getters.WordsConfig.Registe.ConfirmPassword"
+          type="password"
+          v-model="form_registe.ConfirmPassword"
+        ></mt-field>
+        <mt-field
+          label
+          :placeholder="this.$store.getters.WordsConfig.Registe.PhoneNumber"
+          v-model="form_registe.PhoneNumber"
+        ></mt-field>
+        <mt-field
+          label
+          :placeholder="this.$store.getters.WordsConfig.Registe.vertifycode"
+          v-model="form_registe.vertifycode"
+        >
+          <mt-button
+            type="primary"
+            size="small"
+          >{{this.$store.getters.WordsConfig.Registe.sendCode}}</mt-button>
+        </mt-field>
+      </div>
       <div style="height:10px;background-color:#8080804a;"></div>
-      <mt-field label placeholder="邮箱" type="email" v-model="form_registe.Email"></mt-field>
-      <mt-field label placeholder="Zalo账号" v-model="form_registe.Zalo"></mt-field>
-      <mt-field label placeholder="FaceBook账号" v-model="form_registe.FACEBOOK"></mt-field>
-      <mt-field label placeholder="Instagram账号" v-model="form_registe.INS"></mt-field>
-      <mt-checklist class="check" v-model="form_registe.isagree" :options="['同意我们的服务条款和隐私政策']"></mt-checklist>
-      <mt-button class="registe" type="primary" size="large" @click="registe">注册</mt-button>
+      <mt-field
+        label
+        :placeholder="this.$store.getters.WordsConfig.Registe.Email"
+        type="email"
+        v-model="form_registe.Email"
+      ></mt-field>
+      <mt-field
+        label
+        :placeholder="this.$store.getters.WordsConfig.Registe.Zalo"
+        v-model="form_registe.Zalo"
+      ></mt-field>
+      <mt-field
+        label
+        :placeholder="this.$store.getters.WordsConfig.Registe.FACEBOOK"
+        v-model="form_registe.FACEBOOK"
+      ></mt-field>
+      <mt-field
+        label
+        :placeholder="this.$store.getters.WordsConfig.Registe.INS"
+        v-model="form_registe.INS"
+      ></mt-field>
+      <mt-checklist
+        class="check"
+        v-model="form_registe.isagree"
+        :options="[this.$store.getters.WordsConfig.Registe.isagree]"
+      ></mt-checklist>
+      <mt-button
+        class="registe"
+        type="primary"
+        size="large"
+        @click="registe"
+      >{{this.$store.getters.WordsConfig.Registe.registe}}</mt-button>
     </div>
     <div id="confirmPanel" v-show="isConfirm">
-      <mt-header :title="registTitle">
+      <mt-header :title="this.$store.getters.WordsConfig.Registe.title">
         <a slot="left" @click="back">
           <mt-button icon="back"></mt-button>
         </a>
       </mt-header>
-      <mt-field label="账号:" :placeholder="form_registe.UserName" disabled></mt-field>
-      <mt-field label="密码:" :placeholder="form_registe.Password" disabled></mt-field>
-      <mt-field label="手机号码:" :placeholder="form_registe.PhoneNumber" disabled></mt-field>
-      <mt-field label="邮箱:" :placeholder="form_registe.Email" disabled></mt-field>
-      <mt-field label="Zalo账号:" :placeholder="form_registe.Zalo" disabled></mt-field>
-      <mt-field label="FaceBook账号:" :placeholder="form_registe.FACEBOOK" disabled></mt-field>
-      <mt-field label="Instagram账号:" :placeholder="form_registe.INS" disabled></mt-field>
-      <mt-button type="primary" size="large" @click="cofirmInfo">确认注册</mt-button>
+      <mt-field
+        :label="this.$store.getters.WordsConfig.Registe.cf_UserName"
+        :placeholder="form_registe.UserName"
+        disabled
+      ></mt-field>
+      <mt-field
+        :label="this.$store.getters.WordsConfig.Registe.cf_Password"
+        :placeholder="form_registe.Password"
+        disabled
+      ></mt-field>
+      <mt-field
+        :label="this.$store.getters.WordsConfig.Registe.cf_PhoneNumber"
+        :placeholder="form_registe.PhoneNumber"
+        disabled
+      ></mt-field>
+      <mt-field
+        :label="this.$store.getters.WordsConfig.Registe.cf_Email"
+        :placeholder="form_registe.Email"
+        disabled
+      ></mt-field>
+      <mt-field
+        :label="this.$store.getters.WordsConfig.Registe.cf_Zalo"
+        :placeholder="form_registe.Zalo"
+        disabled
+      ></mt-field>
+      <mt-field
+        :label="this.$store.getters.WordsConfig.Registe.cf_FACEBOOK"
+        :placeholder="form_registe.FACEBOOK"
+        disabled
+      ></mt-field>
+      <mt-field
+        :label="this.$store.getters.WordsConfig.Registe.cf_INS"
+        :placeholder="form_registe.INS"
+        disabled
+      ></mt-field>
+      <mt-button
+        type="primary"
+        size="large"
+        @click="cofirmInfo"
+      >{{this.$store.getters.WordsConfig.Registe.cf_cofirmInfo}}</mt-button>
     </div>
   </div>
 </template>
@@ -44,8 +129,6 @@ import { P_Registe } from "../api/api";
 export default {
   data() {
     return {
-      registTitle: "注册",
-      value: 1,
       isConfirm: false,
       form_registe: {
         UserName: "",
@@ -69,11 +152,10 @@ export default {
       this.$emit("closePopup");
     },
     resetForm() {
-      console.log("sssssssssssssssssssss");
       for (let key of Object.keys(this.form_registe)) {
         console.log(key);
         console.log(this.form_registe[key]);
-        this.form_registe[key]= "";
+        this.form_registe[key] = "";
       }
     },
     registeSuccess() {
@@ -89,8 +171,11 @@ export default {
         .then(result => {
           this.closePopup();
           this.isConfirm = false;
-          console.log("注册成功");
-          this.Toast({ position: "bottom", message: "注册成功" });
+          console.log("success");
+          this.Toast({
+            position: "bottom",
+            message: this.$store.getters.WordsConfig.Registe.msgBox_success
+          });
           //注册成功调用接口
           this.registeSuccess();
         })
@@ -106,27 +191,45 @@ export default {
     registe() {
       //客户端验证
       if (!this.form_registe.UserName) {
-        this.MessageBox("提示", "请输入账号");
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_UserName
+        );
         return;
       }
       if (!this.form_registe.Password) {
-        this.MessageBox("提示", "请输入密码");
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_Password
+        );
         return;
       }
       if (this.form_registe.Password !== this.form_registe.ConfirmPassword) {
-        this.MessageBox("提示", "两次密码输入不一致");
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_wrongPwd
+        );
         return;
       }
       if (!this.form_registe.PhoneNumber) {
-        this.MessageBox("提示", "请输入手机号");
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_PhoneNumber
+        );
         return;
       }
       if (!this.form_registe.vertifycode) {
-        this.MessageBox("提示", "请输入验证码");
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_vertifycode
+        );
         return;
       }
       if (this.form_registe.isagree.length === 0) {
-        this.MessageBox("提示", "请先同意我们的服务条款和隐私政策");
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_isagree
+        );
         return;
       }
       this.isConfirm = true;
@@ -145,6 +248,7 @@ export default {
 .bg {
   width: 100%;
   height: 100%;
+  position: absolute;
 }
 
 #form-registe {
@@ -153,10 +257,20 @@ export default {
   .mint-field {
     margin: 0 15px;
     border-bottom: solid 1px rgba(128, 128, 128, 0.39);
+
     ::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
       font-size: 1rem;
-      // color: rgb(187, 255, 1);
+    }
+  }
+
+  #needField {
+    .mint-cell-value {
+      &::before {
+        content: "*";
+        font-size: 10px;
+        color: red;
+      }
     }
   }
   .check {

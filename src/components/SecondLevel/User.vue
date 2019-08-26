@@ -115,6 +115,38 @@ export default {
       this.$store.commit("RemoveToken");
       this.$router.replace("/login");
     },
+    vertifyPcode(val) {
+      // console.log(val.length + "----------------------");
+      //输入为空
+      if (val === "" || val == null) {
+        this.MessageBox({
+          title: this.$store.getters.WordsConfig.User.mbTitle,
+          message: this.$store.getters.WordsConfig.User.addNew_plzInputCode
+        });
+        // console.log('111111');
+        return false;
+      }
+      //输入6位数字
+      if (isNaN(val) || val.length !== 7) {
+        this.MessageBox({
+          title: this.$store.getters.WordsConfig.User.mbTitle,
+          message: this.$store.getters.WordsConfig.User.addNew_plzInputNum
+        });
+        // console.log(2222222);
+        return false;
+      }
+      //输入自己的ID
+      if (val === this.$store.getters.UserInfo.Pcode) {
+        this.MessageBox({
+          title: this.$store.getters.WordsConfig.User.mbTitle,
+          message: this.$store.getters.WordsConfig.User.mbMsg01
+        });
+        // console.log(44444444);
+        return false;
+      }
+      // console.log(55555555);
+      return true;
+    },
     addNew() {
       console.log("addNew()");
       if (this.$store.getters.UserInfo.SupPcode) {
@@ -130,13 +162,7 @@ export default {
           console.log(value);
           console.log(action);
           if (action === "confirm") {
-            if (value === this.$store.getters.UserInfo.Pcode) {
-              this.MessageBox({
-                title: this.$store.getters.WordsConfig.User.mbTitle,
-                message: this.$store.getters.WordsConfig.User.mbMsg01
-              });
-              return;
-            }
+            if (!this.vertifyPcode(value)) return;
             //TODO 获取上线代理人信息
             G_SupInfo(value)
               .then(result => {

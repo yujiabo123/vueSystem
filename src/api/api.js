@@ -44,7 +44,7 @@ export const G_ApiConfig = () => {
  */
 export const G_UserInfo = () => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.Info)
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.Info)
       .then(res => {
         return resolve(res);
       })
@@ -56,7 +56,7 @@ export const G_UserInfo = () => {
 
 export const G_Promotion = () => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.Promotion)
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.Promotion)
       .then(result => {
         return resolve(result);
       })
@@ -73,14 +73,15 @@ export const G_Promotion = () => {
  * @param {账号密码} form
  */
 export const P_Login = form => {
+  console.log(store.getters.ApiConfig.address + store.getters.ApiConfig.token);
   return new Promise((resolve, reject) => {
-    post(store.getters.ApiConfig.token, form)
+    post(store.getters.ApiConfig.address + store.getters.ApiConfig.token, form)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         return resolve(res);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         return reject(err);
       });
   });
@@ -88,7 +89,7 @@ export const P_Login = form => {
 
 export const P_Registe = form => {
   return new Promise((resolve, reject) => {
-    post(store.getters.ApiConfig.Register, form)
+    post(store.getters.ApiConfig.address + store.getters.ApiConfig.Register, form)
       .then(res => {
         resolve(res);
       })
@@ -104,7 +105,7 @@ export const P_Registe = form => {
  */
 export const G_SupInfo = Pcode => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.SupInfo, { Pcode: Pcode })
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SupInfo, { Pcode: Pcode })
       .then(res => {
         resolve(res);
       })
@@ -120,7 +121,7 @@ export const G_SupInfo = Pcode => {
  */
 export const P_Bind = Pcode => {
   return new Promise((resolve, reject) => {
-    post(store.getters.ApiConfig.Bind, { Pcode: Pcode })
+    post(store.getters.ApiConfig.address + store.getters.ApiConfig.Bind, { Pcode: Pcode })
       .then(res => {
         resolve(res);
       })
@@ -134,7 +135,7 @@ export const P_Bind = Pcode => {
 
 export const G_SubP = (IndexId, size = 50) => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.SubP, { IndexId: IndexId, size: size })
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SubP, { IndexId: IndexId, size: size })
       .then(result => {
         resolve(result);
       })
@@ -148,7 +149,7 @@ export const G_SubP = (IndexId, size = 50) => {
 
 export const G_SubU = (IndexId, size = 50) => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.SubU, { IndexId: IndexId, size: size })
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SubU, { IndexId: IndexId, size: size })
       .then(result => {
         resolve(result);
       })
@@ -162,7 +163,7 @@ export const G_SubU = (IndexId, size = 50) => {
 
 export const G_Profit = () => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.Profit)
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.Profit)
       .then(result => {
         resolve(result);
       })

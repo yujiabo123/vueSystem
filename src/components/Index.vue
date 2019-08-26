@@ -62,7 +62,172 @@ import {
 } from "../api/api.js";
 export default {
   data() {
-    return {};
+    return {
+      //初始默认配置
+      WordsConfig: {
+        GameLink: "",
+        Login: {
+          username: "",
+          password: "",
+          no_account: "",
+          loginBtn: "",
+          msgBox_noName: "",
+          msgBox_noPsd: "",
+          msgTitle: "",
+          msgBox_waitConfirm: "",
+          msgBox_loseToken: ""
+        },
+        Index: {
+          head_title: {
+            v8: "",
+            icd: "",
+            dps: "",
+            am: ""
+          },
+          back: "",
+          dayIncome: "",
+          monthIncome: "",
+          returnRate: "",
+          canWithdraw: "",
+          dayNewPlayer: "",
+          monthNewPlayer: "",
+          dayNewAgent: "",
+          monthNewAgent: "",
+          messageBoxTitle: "",
+          messageBoxMessage: "",
+          firstAgent: "",
+          secondAgent: ""
+        },
+        Registe: {
+          title: "",
+          UserName: "",
+          Password: "",
+          ConfirmPassword: "",
+          PhoneNumber: "",
+          vertifycode: "",
+          sendCode: "",
+          Email: "",
+          Zalo: "",
+          FACEBOOK: "",
+          INS: "",
+          isagree: "",
+          registe: "",
+          cf_UserName: "",
+          cf_Password: "",
+          cf_PhoneNumber: "",
+          cf_Email: "",
+          cf_Zalo: "",
+          cf_FACEBOOK: "",
+          cf_INS: "",
+          cf_cofirmInfo: "",
+          msgBox_title: "",
+          msgBox_success: "",
+          msgBox_UserName: "",
+          msgBox_Password: "",
+          msgBox_wrongPwd: "",
+          msgBox_PhoneNumber: "",
+          msgBox_vertifycode: "",
+          msgBox_isagree: ""
+        },
+        CellList: {
+          grxx: "",
+          dlgl: "",
+          wjgl: "",
+          icd: "",
+          fzdl: "",
+          fzwj: "",
+          p: ""
+        },
+        IncomeDetails: {
+          allincome: "",
+          month_date: "",
+          month_income: "",
+          month_newuser: "",
+          month_newagent: ""
+        },
+        User: {
+          userInfo: "",
+          back: "",
+          nickname_fix: "",
+          my_upId: "",
+          btn_add: "",
+          curr_rate: "",
+          month_income: "",
+          done_income: "",
+          can_getGold: "",
+          phone: "",
+          email: "",
+          zalo: "",
+          ins: "",
+          facebook: "",
+          methods: {
+            copyLink_toast: "",
+            showFDBL_msgbox_title: "",
+            showFDBL_msgbox_msg: "",
+            addNew_title: "",
+            addNew_confirm0: "",
+            addNew_confirm1: "",
+            addNew_toast: ""
+          },
+          logout: "",
+          mbTitle: "",
+          mbMsg01: "",
+          mbMsg02: ""
+        },
+        PlayerGet: {
+          head: "",
+          back: "",
+          name: "",
+          subs: "",
+          mylink: "",
+          link: "",
+          copylink: "",
+          myQRcode: "",
+          saveQRcode: ""
+        },
+        AgentManage: {
+          agent_counts: "",
+          agent_id: "",
+          agent_name: "",
+          agent_income: "",
+          agent_history: "",
+          agent_bindtime: "",
+          agent_status: ""
+        },
+        DownPlayers: {
+          allplayers: "",
+          gameId: "",
+          gameAccount: "",
+          gameProfitDay: "",
+          gameProfitMonth: "",
+          gameProfitHistory: "",
+          gameBindTime: "",
+          lastLogin: ""
+        }
+      },
+      UserInfo: {
+        UserName: "",
+        PhoneNumber: "",
+        Zalo: "",
+        FACEBOOK: "",
+        INS: "",
+        SupPcode: "",
+        Pcode: ""
+      },
+      IndexTable: {
+        Cashable: 0,
+        MonthAddPromoter: 0,
+        MonthAddUser: 0,
+        MonthUserProfit: 0,
+        Rebates: 0,
+        SubPromoter: 0,
+        SubUser: 0,
+        TodayAddPromoter: 0,
+        TodayAddUser: 0,
+        TodayUserProfit: 0,
+        TotalIncome: 0
+      }
+    };
   },
   methods: {
     getData() {
@@ -77,6 +242,15 @@ export default {
     }
   },
   created() {
+    if (!this.$store.getters.WordsConfig) {
+      this.$store.commit("SetWordsConfig", this.WordsConfig);
+    }
+    if (!this.$store.getters.UserInfo) {
+      this.$store.commit("SetUserInfo", this.UserInfo);
+    }
+    if (!this.$store.getters.IndexTable) {
+      this.$store.commit("SetIndexTable", this.IndexTable);
+    }
     //TODO 获取token
     if (!this.$store.getters.token) {
       console.log("======================Login======================");
@@ -138,6 +312,7 @@ export default {
 <style lang="scss" scoped>
 #index {
   height: 100%;
+  min-height: 300px;
   background-color: #8080804a;
 }
 #panel-user {
@@ -159,7 +334,6 @@ export default {
 }
 
 table {
-  margin-top: 8px;
   width: 100%;
   tr {
     width: 100%;
@@ -168,7 +342,6 @@ table {
     }
     td {
       width: 25%;
-      height: 28px;
       font-size: small;
     }
   }
@@ -182,10 +355,10 @@ table {
 }
 
 #routeView {
-  overflow: hidden;
-  background-color: white;
+  overflow: auto;
   position: absolute;
-  top: 240px;
+  min-height: 400px;
+  top: 188px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -208,4 +381,5 @@ table {
     }
   }
 }
+
 </style>

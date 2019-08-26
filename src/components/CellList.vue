@@ -72,8 +72,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#celllist{
+#celllist {
   height: 100%;
+  background-color: white;
   overflow: scroll;
 }
 .mint-cell {

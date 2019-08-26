@@ -8,27 +8,37 @@
           fixed
           prop="agent_id"
           :label="this.$store.getters.WordsConfig.AgentManage.agent_id"
-          width="100"
+          width="88"
+          header-align="center"
+          align="center"
         ></el-table-column>
         <el-table-column
           prop="agent_name"
           :label="this.$store.getters.WordsConfig.AgentManage.agent_name"
-          width="150"
+          width="120"
+          header-align="center"
+          align="center"
         ></el-table-column>
         <el-table-column
           prop="agent_income"
           :label="this.$store.getters.WordsConfig.AgentManage.agent_income"
-          width="150"
+          width="140"
+          header-align="center"
+          align="center"
         ></el-table-column>
         <el-table-column
           prop="agent_history"
           :label="this.$store.getters.WordsConfig.AgentManage.agent_history"
-          width="150"
+          width="120"
+          header-align="center"
+          align="center"
         ></el-table-column>
         <el-table-column
           prop="agent_bindtime"
           :label="this.$store.getters.WordsConfig.AgentManage.agent_bindtime"
           width="160"
+          header-align="center"
+          align="center"
         ></el-table-column>
         <!-- <el-table-column
         v-for="(value,key, index) in this.$store.getters.WordsConfig.AgentManage"
