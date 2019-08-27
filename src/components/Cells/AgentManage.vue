@@ -1,7 +1,7 @@
 <template>
   <div id="agentmanage">
     <mt-cell :title="this.$store.getters.WordsConfig.AgentManage.agent_counts" :value="dataLength"></mt-cell>
-    <div style="height:10px;background-color:#8080804a"></div>
+    <div style="height:10px;"></div>
     <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
       <el-table :data="table" style="width: 100%;" height="100%" max-height="100%">
         <el-table-column
@@ -40,13 +40,6 @@
           header-align="center"
           align="center"
         ></el-table-column>
-        <!-- <el-table-column
-        v-for="(value,key, index) in this.$store.getters.WordsConfig.AgentManage"
-        :key="index"
-        :prop="key"
-        :label="value"
-         width="150"
-        ></el-table-column>-->
       </el-table>
     </div>
   </div>
@@ -57,7 +50,7 @@ import { G_SubP } from "../../api/api";
 export default {
   data() {
     return {
-      dataLength: "",
+      dataLength: 0,
       table: [],
       table_height: 0
     };

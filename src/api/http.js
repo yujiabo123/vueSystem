@@ -57,7 +57,6 @@ axios.interceptors.response.use(
       switch (error.response.status) {
         // 401: 已拒绝为此请求授权
         case 401:
-          console.log("-=-=-=-=-=");
           // MessageBox({
           //   title: "提示",
           //   message: "等待审核人员认证...",

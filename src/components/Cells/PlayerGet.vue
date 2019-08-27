@@ -56,7 +56,10 @@ export default {
   },
   methods: {
     onCopy(e) {
-      this.Toast({ position: "bottom", message: "复制成功" });
+      this.Toast({
+        position: "bottom",
+        message: this.$store.getters.WordsConfig.Index.copySuccess
+      });
     },
     showPic() {}
   },

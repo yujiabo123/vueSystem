@@ -188,20 +188,75 @@ export default {
           });
         });
     },
-    registe() {
-      //客户端验证
-      if (!this.form_registe.UserName) {
+    confirmPhoneNum(num) {
+      if (num === "" || num == null) {
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_PhoneNumber
+        );
+        return false;
+      }
+      if (isNaN(num) || num.length !== 10) {
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_phoneLengthOrNum
+        );
+        return false;
+      }
+      //TODO 验证手机号注册次数
+      //TODO 如果已被注册弹出提示
+      // 未注册
+      return true;
+    },
+    confirmName(name) {
+      if (name === "" || name == null) {
         this.MessageBox(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_UserName
         );
-        return;
+        return false;
       }
-      if (!this.form_registe.Password) {
+      let reg = /^[0-9a-zA-Z]+$/;
+      if (name.length < 4 || name.length > 14 || !reg.test(name)) {
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_nameVertify
+        );
+        return false;
+      }
+      return true;
+    },
+    confirmPassword(pwd) {
+      if (pwd === "" || pwd == null) {
         this.MessageBox(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_Password
         );
+        return false;
+      }
+      let reg = /^[0-9a-zA-Z]+$/;
+      if (pwd.length < 6 || pwd.length > 14 || !reg.test(pwd)) {
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_pwdVertify
+        );
+        return false;
+      }
+      if (this.form_registe.UserName === pwd) {
+        this.MessageBox(
+          this.$store.getters.WordsConfig.Registe.msgBox_title,
+          this.$store.getters.WordsConfig.Registe.msgBox_sameWithName
+        );
+        return false;
+      }
+      return true;
+    },
+    registe() {
+      //客户端验证
+      if (!this.confirmName(this.form_registe.UserName)) {
+        return;
+      }
+      if (!this.confirmPassword(this.form_registe.Password)) {
         return;
       }
       if (this.form_registe.Password !== this.form_registe.ConfirmPassword) {
@@ -211,11 +266,7 @@ export default {
         );
         return;
       }
-      if (!this.form_registe.PhoneNumber) {
-        this.MessageBox(
-          this.$store.getters.WordsConfig.Registe.msgBox_title,
-          this.$store.getters.WordsConfig.Registe.msgBox_PhoneNumber
-        );
+      if (!this.confirmPhoneNum(this.form_registe.PhoneNumber)) {
         return;
       }
       if (!this.form_registe.vertifycode) {
@@ -268,7 +319,6 @@ export default {
     .mint-cell-value {
       &::before {
         content: "*";
-        font-size: 10px;
         color: red;
       }
     }
@@ -277,29 +327,6 @@ export default {
     text-align: center;
     color: red;
   }
-  // padding: 100px 50px;
-  // background-color: transparent;
-  // a {
-  //   background-color: transparent;
-  //   span {
-  //     color: #ff09de;
-  //   }
-  // }
-  // .check {
-  //   label {
-  //     margin: 0;
-  //   }
-  //   a {
-  //     background-color: transparent;
-  //   }
-  // }
-
-  // input {
-  //   color: white;
-  //   padding-left: 12px;
-  //   border-radius: 12px !important;
-  //   background-color: #524a4ab3;
-  // }
 }
 #confirmPanel {
   input:disabled {

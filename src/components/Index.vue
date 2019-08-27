@@ -226,7 +226,8 @@ export default {
         TodayAddUser: 0,
         TodayUserProfit: 0,
         TotalIncome: 0
-      }
+      },
+      mission: null
     };
   },
   methods: {
@@ -240,6 +241,10 @@ export default {
           console.log(err);
         });
     }
+  },
+  destroyed() {
+    console.log("die-=-=-=-=-=-=-=-=-");
+    clearInterval(this.mission);
   },
   created() {
     if (!this.$store.getters.WordsConfig) {
@@ -259,12 +264,10 @@ export default {
       console.log("======================获取用户信息======================");
       G_UserInfo()
         .then(result => {
-          //TODO 成功获取用户信息
           console.log(result);
           this.$store.commit("SetUserInfo", result);
         })
         .catch(err => {
-          //TODO 获取用户信息失败
           console.log(err);
           this.MessageBox({
             title: this.$store.getters.WordsConfig.Index.messageBoxTitle,
@@ -277,7 +280,7 @@ export default {
         "======================获取获取实时显示数据======================"
       );
       this.getData();
-      setInterval(() => {
+      this.mission = setInterval(() => {
         //TODO 调用接口
         this.getData();
       }, 60000);
@@ -381,5 +384,4 @@ table {
     }
   }
 }
-
 </style>

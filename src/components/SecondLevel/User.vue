@@ -11,12 +11,7 @@
         <mt-button icon="back"></mt-button>个人信息
       </span>-->
     </mt-header>
-    <mt-cell
-      :title="this.$store.getters.UserInfo.UserName"
-      :label="upId"
-      is-link
-      :value="this.$store.getters.WordsConfig.User.nickname_fix"
-    ></mt-cell>
+    <mt-cell :title="this.$store.getters.UserInfo.UserName" :label="upId"></mt-cell>
     <div style="height:10px;"></div>
     <div @click="addNew">
       <mt-cell
@@ -31,11 +26,11 @@
     </div>
 
     <div style="height:10px;"></div>
-    <div @click="showFDBL">
+    <div>
       <mt-cell :title="this.$store.getters.WordsConfig.User.curr_rate" value>
         <div>
           <span id="arror-right">{{ (this.$store.getters.IndexTable.Rebates * 100) + '%'}}</span>
-          <i class="mint-cell-allow-right"></i>
+          <!-- <i class="mint-cell-allow-right"></i> -->
         </div>
       </mt-cell>
     </div>
@@ -169,7 +164,9 @@ export default {
                 console.log(result);
                 this.MessageBox.confirm(
                   this.$store.getters.WordsConfig.User.methods.addNew_confirm0 +
+                    "【" +
                     value +
+                    "】" +
                     this.$store.getters.WordsConfig.User.methods.addNew_confirm1
                 ).then(action => {
                   if (action === "confirm") {
@@ -186,6 +183,10 @@ export default {
                       })
                       .catch(err => {
                         console.log(err);
+                        this.MessageBox({
+                          title: this.$store.getters.WordsConfig.User.mbTitle,
+                          message: err.Message
+                        });
                       });
                   }
                 });
@@ -239,7 +240,7 @@ export default {
   font-size: x-small;
 }
 
-#arror-right {
-  margin-right: 24px;
-}
+// #arror-right {
+//   margin-right: 24px;
+// }
 </style>

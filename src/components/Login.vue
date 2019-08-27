@@ -157,25 +157,16 @@ export default {
 #login {
   height: 100%;
   background-color: white;
-  // background: url(../assets/img/bg2.jpg) no-repeat;
   background-size: 100% 100%;
   overflow: scroll;
 }
 #form-login {
   width: 100%;
-  // padding: 100px 50px;
-  // background-color: transparent;
   .registe {
     margin-top: 20px;
     text-align: center;
     color: red;
   }
-  // a {
-  //   background-color: transparent;
-  //   span {
-  //     color: #ff09de;
-  //   }
-  // }
   .loginBtn {
     margin-top: 100px;
   }
@@ -183,17 +174,5 @@ export default {
     margin: 0 15px;
     border-bottom: solid 1px rgba(128, 128, 128, 0.39);
   }
-  // ::-webkit-input-placeholder {
-  //   /* Chrome/Opera/Safari */
-  //   font-size: 0.2rem;
-  //   color: rgb(187, 255, 1);
-  // }
-
-  // input {
-  //   color: white;
-  //   padding-left: 12px;
-  //   border-radius: 12px !important;
-  //   background-color: #524a4ab3;
-  // }
 }
 </style>

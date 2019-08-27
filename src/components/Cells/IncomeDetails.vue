@@ -8,12 +8,12 @@
           fixed
           prop="month_date"
           :label="this.$store.getters.WordsConfig.IncomeDetails.month_date"
-          width="100"
+          width="90"
         ></el-table-column>
         <el-table-column
           prop="month_income"
           :label="this.$store.getters.WordsConfig.IncomeDetails.month_income"
-          width="150"
+          width="100"
         ></el-table-column>
         <el-table-column
           prop="month_newuser"
