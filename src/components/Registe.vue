@@ -28,16 +28,15 @@
           label
           :placeholder="this.$store.getters.WordsConfig.Registe.PhoneNumber"
           v-model="form_registe.PhoneNumber"
+          type="number"
         ></mt-field>
         <mt-field
           label
           :placeholder="this.$store.getters.WordsConfig.Registe.vertifycode"
           v-model="form_registe.vertifycode"
         >
-          <mt-button
-            type="primary"
-            size="small"
-          >{{this.$store.getters.WordsConfig.Registe.sendCode}}</mt-button>
+          <mt-button type="primary" size="small" @click="sendSms">{{sendBtn}}</mt-button>
+          <!-- <mt-button type="primary" size="small" class="countdown" v-if="true">{{ timeCount }}</mt-button> -->
         </mt-field>
       </div>
       <div style="height:10px;background-color:#8080804a;"></div>
@@ -125,11 +124,15 @@
 </template>
 
 <script>
-import { P_Registe } from "../api/api";
+import { P_Registe, P_SendSms } from "../api/api";
+import Utils from "../assets/js/utils";
 export default {
   data() {
     return {
       isConfirm: false,
+      timeCount: 60,
+      countStart: false,
+      interval: null,
       form_registe: {
         UserName: "",
         Password: "",
@@ -144,12 +147,50 @@ export default {
       }
     };
   },
+  destroyed() {
+    clearInterval(this.interval);
+  },
   methods: {
     back() {
       this.isConfirm = false;
     },
     closePopup() {
       this.$emit("closePopup");
+    },
+    sendSms() {
+      if (this.sendBtn != this.$store.getters.WordsConfig.Registe.sendCode)
+        return;
+      if (!this.confirmPhoneNum(this.form_registe.PhoneNumber)) return;
+      let t = Utils.encrypt(this.form_registe.PhoneNumber);
+      P_SendSms(this.form_registe.PhoneNumber, t)
+        .then(result => {
+          console.log(result);
+          this.Toast({
+            position: "bottom",
+            message: "验证码发送成功",
+            className: "toast_registe"
+          });
+          this.countStart = true;
+          this.interval = setInterval(() => {
+            console.log(this.timeCount);
+            this.timeCount = this.timeCount - 1;
+            if (this.timeCount <= 0) {
+              clearInterval(this.interval);
+              this.timeCount = 60;
+              this.countStart = false;
+            }
+          }, 1000);
+        })
+        .catch(err => {
+          console.log(err);
+          this.Toast({
+            position: "bottom",
+            message: err.Message,
+            className: "toast_registe"
+          });
+          this.timeCount = 60;
+          this.countStart = false;
+        });
     },
     resetForm() {
       for (let key of Object.keys(this.form_registe)) {
@@ -285,6 +326,15 @@ export default {
       }
       this.isConfirm = true;
     }
+  },
+  computed: {
+    sendBtn() {
+      if (!this.countStart) {
+        return this.$store.getters.WordsConfig.Registe.sendCode;
+      } else {
+        return "重新发送（" + this.timeCount + "）";
+      }
+    }
   }
 };
 </script>
@@ -348,6 +398,14 @@ export default {
   }
 }
 .toast_registe {
-  z-index: 2001 !important;
+  z-index: 2005 !important;
+}
+
+.send {
+  display: block;
+}
+
+.countdown {
+  display: none;
 }
 </style>

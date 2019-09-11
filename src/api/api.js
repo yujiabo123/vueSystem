@@ -89,7 +89,10 @@ export const P_Login = form => {
 
 export const P_Registe = form => {
   return new Promise((resolve, reject) => {
-    post(store.getters.ApiConfig.address + store.getters.ApiConfig.Register, form)
+    post(
+      store.getters.ApiConfig.address + store.getters.ApiConfig.Register,
+      form
+    )
       .then(res => {
         resolve(res);
       })
@@ -105,7 +108,9 @@ export const P_Registe = form => {
  */
 export const G_SupInfo = Pcode => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SupInfo, { Pcode: Pcode })
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SupInfo, {
+      Pcode: Pcode
+    })
       .then(res => {
         resolve(res);
       })
@@ -121,7 +126,9 @@ export const G_SupInfo = Pcode => {
  */
 export const P_Bind = Pcode => {
   return new Promise((resolve, reject) => {
-    post(store.getters.ApiConfig.address + store.getters.ApiConfig.Bind, { Pcode: Pcode })
+    post(store.getters.ApiConfig.address + store.getters.ApiConfig.Bind, {
+      Pcode: Pcode
+    })
       .then(res => {
         resolve(res);
       })
@@ -135,7 +142,10 @@ export const P_Bind = Pcode => {
 
 export const G_SubP = (IndexId, size = 50) => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SubP, { IndexId: IndexId, size: size })
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SubP, {
+      IndexId: IndexId,
+      size: size
+    })
       .then(result => {
         resolve(result);
       })
@@ -149,7 +159,10 @@ export const G_SubP = (IndexId, size = 50) => {
 
 export const G_SubU = (IndexId, size = 50) => {
   return new Promise((resolve, reject) => {
-    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SubU, { IndexId: IndexId, size: size })
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.SubU, {
+      IndexId: IndexId,
+      size: size
+    })
       .then(result => {
         resolve(result);
       })
@@ -164,6 +177,24 @@ export const G_SubU = (IndexId, size = 50) => {
 export const G_Profit = () => {
   return new Promise((resolve, reject) => {
     get(store.getters.ApiConfig.address + store.getters.ApiConfig.Profit)
+      .then(result => {
+        resolve(result);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+/** ----------------注册发送验证码---------------- */
+
+export const P_SendSms = (PhoneNumber, Content) => {
+  console.log(PhoneNumber);
+  return new Promise((resolve, reject) => {
+    post(store.getters.ApiConfig.address + store.getters.ApiConfig.SendSms, {
+      PhoneNumber: PhoneNumber,
+      Content:Content 
+    })
       .then(result => {
         resolve(result);
       })

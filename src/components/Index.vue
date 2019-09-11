@@ -8,15 +8,13 @@
           @click.native="$router.back(-1)"
         >{{this.$store.getters.WordsConfig.Index.back}}</mt-button>
       </router-link>
+      <mt-button icon="more" slot="right" @click="changeLang"></mt-button>
     </mt-header>
     <div id="panel-user">
-      <div style="display:flex;height:60px; padding: 0 20px;">
+      <div style="display:flex; padding: 0 20px;">
         <div style="width:80%;">
           <h3>{{this.$store.getters.UserInfo.UserName }}</h3>
           <div style="color:grey">{{upId}}</div>
-        </div>
-        <div style="width:20%;text-align: center;padding: 10px 0;">
-          <img width="44" height="44" src="../assets/img/nnn.jpg" alt class />
         </div>
       </div>
       <table style="padding:0 20px;">
@@ -63,148 +61,6 @@ import {
 export default {
   data() {
     return {
-      //初始默认配置
-      WordsConfig: {
-        GameLink: "",
-        Login: {
-          username: "",
-          password: "",
-          no_account: "",
-          loginBtn: "",
-          msgBox_noName: "",
-          msgBox_noPsd: "",
-          msgTitle: "",
-          msgBox_waitConfirm: "",
-          msgBox_loseToken: ""
-        },
-        Index: {
-          head_title: {
-            v8: "",
-            icd: "",
-            dps: "",
-            am: ""
-          },
-          back: "",
-          dayIncome: "",
-          monthIncome: "",
-          returnRate: "",
-          canWithdraw: "",
-          dayNewPlayer: "",
-          monthNewPlayer: "",
-          dayNewAgent: "",
-          monthNewAgent: "",
-          messageBoxTitle: "",
-          messageBoxMessage: "",
-          firstAgent: "",
-          secondAgent: ""
-        },
-        Registe: {
-          title: "",
-          UserName: "",
-          Password: "",
-          ConfirmPassword: "",
-          PhoneNumber: "",
-          vertifycode: "",
-          sendCode: "",
-          Email: "",
-          Zalo: "",
-          FACEBOOK: "",
-          INS: "",
-          isagree: "",
-          registe: "",
-          cf_UserName: "",
-          cf_Password: "",
-          cf_PhoneNumber: "",
-          cf_Email: "",
-          cf_Zalo: "",
-          cf_FACEBOOK: "",
-          cf_INS: "",
-          cf_cofirmInfo: "",
-          msgBox_title: "",
-          msgBox_success: "",
-          msgBox_UserName: "",
-          msgBox_Password: "",
-          msgBox_wrongPwd: "",
-          msgBox_PhoneNumber: "",
-          msgBox_vertifycode: "",
-          msgBox_isagree: ""
-        },
-        CellList: {
-          grxx: "",
-          dlgl: "",
-          wjgl: "",
-          icd: "",
-          fzdl: "",
-          fzwj: "",
-          p: ""
-        },
-        IncomeDetails: {
-          allincome: "",
-          month_date: "",
-          month_income: "",
-          month_newuser: "",
-          month_newagent: ""
-        },
-        User: {
-          userInfo: "",
-          back: "",
-          nickname_fix: "",
-          my_upId: "",
-          btn_add: "",
-          curr_rate: "",
-          month_income: "",
-          done_income: "",
-          can_getGold: "",
-          phone: "",
-          email: "",
-          zalo: "",
-          ins: "",
-          facebook: "",
-          methods: {
-            copyLink_toast: "",
-            showFDBL_msgbox_title: "",
-            showFDBL_msgbox_msg: "",
-            addNew_title: "",
-            addNew_confirm0: "",
-            addNew_confirm1: "",
-            addNew_toast: ""
-          },
-          logout: "",
-          mbTitle: "",
-          mbMsg01: "",
-          mbMsg02: ""
-        },
-        PlayerGet: {
-          head: "",
-          back: "",
-          name: "",
-          subs: "",
-          mylink: "",
-          link: "",
-          copylink: "",
-          myQRcode: "",
-          saveQRcode: ""
-        },
-        AgentManage: {
-          agent_counts: "",
-          agent_id: "",
-          agent_name: "",
-          agent_income: "",
-          agent_history: "",
-          agent_bindtime: "",
-          agent_status: ""
-        },
-        DownPlayers: {
-          allplayers: "",
-          gameId: "",
-          gameAccount: "",
-          gameProfitDay: "",
-          gameProfitMonth: "",
-          gameProfitHistory: "",
-          gameBindTime: "",
-          lastLogin: ""
-        }
-      },
       UserInfo: {
         UserName: "",
         PhoneNumber: "",
@@ -231,6 +87,9 @@ export default {
     };
   },
   methods: {
+    changeLang() {
+      this.$store.commit("ChangeLang");
+    },
     getData() {
       G_Promotion()
         .then(result => {
@@ -247,9 +106,9 @@ export default {
     clearInterval(this.mission);
   },
   created() {
-    if (!this.$store.getters.WordsConfig) {
-      this.$store.commit("SetWordsConfig", this.WordsConfig);
-    }
+    // if (!this.$store.getters.WordsConfig) {
+    //   this.$store.commit("SetWordsConfig", this.WordsConfig);
+    // }
     if (!this.$store.getters.UserInfo) {
       this.$store.commit("SetUserInfo", this.UserInfo);
     }
@@ -269,11 +128,6 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          this.MessageBox({
-            title: this.$store.getters.WordsConfig.Index.messageBoxTitle,
-            message: this.$store.getters.WordsConfig.Index.messageBoxMessage,
-            closeOnClickModal: false
-          });
           this.$router.replace("/login?status=lose");
         });
       console.log(
@@ -320,10 +174,9 @@ export default {
 }
 #panel-user {
   width: 100%;
-  height: auto;
-  overflow: hidden;
+  height: 138px;
+  overflow: auto;
   background-color: white;
-  // text-align: center;
 }
 
 #panel-data {

@@ -7,78 +7,77 @@
           @click.native="$router.back(-1)"
         >{{this.$store.getters.WordsConfig.User.back}}</mt-button>
       </router-link>
-      <!-- <span slot="left" style="font-size:18px;">
-        <mt-button icon="back"></mt-button>个人信息
-      </span>-->
     </mt-header>
-    <mt-cell :title="this.$store.getters.UserInfo.UserName" :label="upId"></mt-cell>
-    <div style="height:10px;"></div>
-    <div @click="addNew">
-      <mt-cell
-        :title="this.$store.getters.WordsConfig.User.my_upId"
-        :value="this.$store.getters.UserInfo.SupPcode"
-      >
-        <p v-if="!this.$store.getters.UserInfo.SupPcode">
-          <span id="arror-right">{{this.$store.getters.WordsConfig.User.btn_add}}</span>
-          <i class="mint-cell-allow-right"></i>
-        </p>
-      </mt-cell>
-    </div>
+    <div class="user-content">
+      <mt-cell :title="this.$store.getters.UserInfo.UserName" :label="upId"></mt-cell>
+      <div style="height:10px;"></div>
+      <div @click="addNew">
+        <mt-cell
+          :title="this.$store.getters.WordsConfig.User.my_upId"
+          :value="this.$store.getters.UserInfo.SupPcode"
+        >
+          <p v-if="!this.$store.getters.UserInfo.SupPcode">
+            <span id="arror-right">{{this.$store.getters.WordsConfig.User.btn_add}}</span>
+            <i class="mint-cell-allow-right"></i>
+          </p>
+        </mt-cell>
+      </div>
 
-    <div style="height:10px;"></div>
-    <div>
-      <mt-cell :title="this.$store.getters.WordsConfig.User.curr_rate" value>
-        <div>
-          <span id="arror-right">{{ (this.$store.getters.IndexTable.Rebates * 100) + '%'}}</span>
-          <!-- <i class="mint-cell-allow-right"></i> -->
-        </div>
-      </mt-cell>
+      <div style="height:10px;"></div>
+      <div>
+        <mt-cell :title="this.$store.getters.WordsConfig.User.curr_rate" value>
+          <div>
+            <span>{{ (this.$store.getters.IndexTable.Rebates * 100) + '%'}}</span>
+            <!-- <i class="mint-cell-allow-right"></i> -->
+          </div>
+        </mt-cell>
+      </div>
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.month_income"
+        :value="this.$store.getters.IndexTable.MonthUserProfit"
+      ></mt-cell>
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.done_income"
+        :value="this.$store.getters.IndexTable.TotalIncome"
+      ></mt-cell>
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.can_getGold"
+        :value="this.$store.getters.IndexTable.Cashable"
+      ></mt-cell>
+      <div style="height:10px;"></div>
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.phone"
+        :value="this.$store.getters.UserInfo.PhoneNumber"
+      ></mt-cell>
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.email"
+        :value="this.$store.getters.UserInfo.Email"
+      ></mt-cell>
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.zalo"
+        :value="this.$store.getters.UserInfo.Zalo"
+      ></mt-cell>
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.ins"
+        :value="this.$store.getters.UserInfo.INS"
+      ></mt-cell>
+      <mt-cell
+        :title="this.$store.getters.WordsConfig.User.facebook"
+        :value="this.$store.getters.UserInfo.FACEBOOK"
+      ></mt-cell>
+      <div style="height:20px;"></div>
+      <mt-button
+        type="default"
+        size="large"
+        @click="logout"
+      >{{this.$store.getters.WordsConfig.User.logout}}</mt-button>
+      <div style="height:10px;"></div>
     </div>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.month_income"
-      :value="this.$store.getters.IndexTable.MonthUserProfit"
-    ></mt-cell>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.done_income"
-      :value="this.$store.getters.IndexTable.TotalIncome"
-    ></mt-cell>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.can_getGold"
-      :value="this.$store.getters.IndexTable.Cashable"
-    ></mt-cell>
-    <div style="height:10px;"></div>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.phone"
-      :value="this.$store.getters.UserInfo.PhoneNumber"
-    ></mt-cell>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.email"
-      :value="this.$store.getters.UserInfo.Email"
-    ></mt-cell>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.zalo"
-      :value="this.$store.getters.UserInfo.Zalo"
-    ></mt-cell>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.ins"
-      :value="this.$store.getters.UserInfo.INS"
-    ></mt-cell>
-    <mt-cell
-      :title="this.$store.getters.WordsConfig.User.facebook"
-      :value="this.$store.getters.UserInfo.FACEBOOK"
-    ></mt-cell>
-    <div style="height:20px;"></div>
-    <mt-button
-      type="default"
-      size="large"
-      @click="logout"
-    >{{this.$store.getters.WordsConfig.User.logout}}</mt-button>
-    <div style="height:10px;"></div>
   </div>
 </template>
 
 <script>
-import { G_SupInfo, P_Bind } from "../../api/api.js";
+import { G_SupInfo, P_Bind, G_UserInfo } from "../../api/api.js";
 export default {
   data() {
     return {
@@ -150,7 +149,8 @@ export default {
       this.MessageBox.prompt(
         this.$store.getters.WordsConfig.User.methods.addNew_title,
         {
-          closeOnClickModal: false
+          closeOnClickModal: false,
+          inputType: "number"
         }
       )
         .then(({ value, action }) => {
@@ -187,6 +187,15 @@ export default {
                           title: this.$store.getters.WordsConfig.User.mbTitle,
                           message: err.Message
                         });
+                        G_UserInfo()
+                          .then(result => {
+                            console.log(result);
+                            this.$store.commit("SetUserInfo", result);
+                          })
+                          .catch(err => {
+                            console.log(err);
+                            this.$router.replace("/login?status=lose");
+                          });
                       });
                   }
                 });
@@ -230,7 +239,7 @@ export default {
 #user {
   height: 100%;
   background-color: #8080804a;
-  overflow: scroll;
+  // overflow: scroll;
 }
 .personal-link {
   width: 150px;
@@ -239,8 +248,15 @@ export default {
   white-space: nowrap;
   font-size: x-small;
 }
-
-// #arror-right {
-//   margin-right: 24px;
-// }
+.user-content {
+  overflow: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 40px;
+}
+#arror-right {
+  margin-right: 24px;
+}
 </style>

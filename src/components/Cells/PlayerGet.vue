@@ -8,39 +8,41 @@
         >{{this.$store.getters.WordsConfig.PlayerGet.back}}</mt-button>
       </router-link>
     </mt-header>
-    <div style="padding: 10px 20px; background-color: white">
-      <h3>{{ this.$store.getters.UserInfo.UserName}}</h3>
-      <span style="font-size:small">{{ this.$store.getters.WordsConfig.PlayerGet.subs }}</span>
-    </div>
-
-    <div style="padding: 10px 20px; background-color: white; margin-top:10px;">
-      <span>{{ this.$store.getters.WordsConfig.PlayerGet.mylink }}</span>
-      <hr />
-      <div
-        style="width: 100%;text-align: center;margin-top: 10px;padding: 8px;border: solid 1px grey;border-radius: 8px;word-break:break-all;"
-      >{{this.$store.getters.WordsConfig.GameLink + this.$store.getters.WordsConfig.PlayerGet.link + this.$store.getters.UserInfo.Pcode}}</div>
-      <div style="text-align:center;margin-top:10px;">
-        <mt-button
-          type="primary"
-          style="width:140px;"
-          v-clipboard:copy="this.$store.getters.WordsConfig.GameLink + this.$store.getters.WordsConfig.PlayerGet.link + this.$store.getters.UserInfo.Pcode"
-          v-clipboard:success="onCopy"
-        >{{ this.$store.getters.WordsConfig.PlayerGet.copylink }}</mt-button>
+    <div class="playerget-content">
+      <div style="padding: 10px 20px; background-color: white">
+        <h3>{{ this.$store.getters.UserInfo.UserName}}</h3>
+        <span style="font-size:small">{{ this.$store.getters.WordsConfig.PlayerGet.subs }}</span>
       </div>
-    </div>
-
-    <div style="padding: 10px 20px; background-color: white; margin-top:10px;">
-      <span>{{ this.$store.getters.WordsConfig.PlayerGet.myQRcode }}</span>
-      <hr />
-      <div style="width:100%;text-align:-webkit-center;margin-top:10px">
-        <div id="qrcode" ref="qrcode" style=" display:none"></div>
-        <img :src="imgUrl" alt @click="showPic" />
+<div style="height:10px;background-color:#8080804a"></div>
+      <div style="padding: 10px 20px; background-color: white;">
+        <span>{{ this.$store.getters.WordsConfig.PlayerGet.mylink }}</span>
+        <hr />
+        <div
+          style="width: 100%;text-align: center;margin-top: 10px;padding: 8px;border: solid 1px grey;border-radius: 8px;word-break:break-all;"
+        >{{this.$store.getters.WordsConfig.GameLink + this.$store.getters.WordsConfig.PlayerGet.link + this.$store.getters.UserInfo.Pcode}}</div>
+        <div style="text-align:center;margin-top:10px;">
+          <mt-button
+            type="primary"
+            style="width:140px;"
+            v-clipboard:copy="this.$store.getters.WordsConfig.GameLink + this.$store.getters.WordsConfig.PlayerGet.link + this.$store.getters.UserInfo.Pcode"
+            v-clipboard:success="onCopy"
+          >{{ this.$store.getters.WordsConfig.PlayerGet.copylink }}</mt-button>
+        </div>
       </div>
-      <div style="text-align:center;margin-top:10px;">
-        <mt-button
-          style="width:200px;"
-          disabled
-        >{{ this.$store.getters.WordsConfig.PlayerGet.saveQRcode }}</mt-button>
+      <div style="height:10px;background-color:#8080804a"></div>
+      <div style="padding: 10px 20px; background-color: white;">
+        <span>{{ this.$store.getters.WordsConfig.PlayerGet.myQRcode }}</span>
+        <hr />
+        <div style="width:100%;text-align:-webkit-center;margin-top:10px">
+          <div id="qrcode" ref="qrcode" style=" display:none"></div>
+          <img :src="imgUrl" alt @click="showPic" />
+        </div>
+        <div style="text-align:center;margin-top:10px;">
+          <mt-button
+            style="width:200px;"
+            disabled
+          >{{ this.$store.getters.WordsConfig.PlayerGet.saveQRcode }}</mt-button>
+        </div>
       </div>
     </div>
   </div>
@@ -85,5 +87,13 @@ export default {
 #playerget {
   height: 100%;
   overflow: scroll;
+}
+.playerget-content {
+  overflow: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 40px;
 }
 </style>

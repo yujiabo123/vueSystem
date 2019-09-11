@@ -1,7 +1,7 @@
 <template>
   <div id="incomedetails">
     <mt-cell :title="this.$store.getters.WordsConfig.IncomeDetails.allincome" :value="allincome"></mt-cell>
-    <div style="height:10px;background-color:#8080804a"></div>
+    <div style="height:10px;"></div>
     <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
       <el-table :data="tableData" style="width: 100%" height="100%" max-height="100%">
         <el-table-column
@@ -9,21 +9,29 @@
           prop="month_date"
           :label="this.$store.getters.WordsConfig.IncomeDetails.month_date"
           width="90"
+          header-align="center"
+          align="center"
         ></el-table-column>
         <el-table-column
           prop="month_income"
           :label="this.$store.getters.WordsConfig.IncomeDetails.month_income"
           width="100"
+          header-align="center"
+          align="center"
         ></el-table-column>
         <el-table-column
           prop="month_newuser"
           :label="this.$store.getters.WordsConfig.IncomeDetails.month_newuser"
           width="100"
+          header-align="center"
+          align="center"
         ></el-table-column>
         <el-table-column
           prop="month_newagent"
           :label="this.$store.getters.WordsConfig.IncomeDetails.month_newagent"
           width="100"
+          header-align="center"
+          align="center"
         ></el-table-column>
       </el-table>
     </div>
