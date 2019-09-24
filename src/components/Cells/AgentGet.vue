@@ -9,8 +9,8 @@
       </router-link>
     </mt-header>
     <div style="padding: 10px 20px; background-color: white">
-      <h3>{{ this.$store.getters.UserInfo.UserName }}</h3>
-      <span style="font-size:small">{{ this.$store.getters.WordsConfig.AgentGet.subs }}</span>
+      <h3 style="font-size:2rem">{{ this.$store.getters.UserInfo.UserName }}</h3>
+      <span>{{ this.$store.getters.WordsConfig.AgentGet.subs }}</span>
     </div>
     <div style="height:10px;background-color:#8080804a"></div>
     <div style="padding: 10px 20px; background-color: white; margin-top:10px;">
@@ -20,7 +20,7 @@
       <div style="text-align:center;margin-top:10px;">
         <mt-button
           type="primary"
-          style="width:140px;"
+          style="width:140px;font-size:1.4rem"
           v-clipboard:copy="this.$store.getters.UserInfo.Pcode"
           v-clipboard:success="onCopy"
         >{{ this.$store.getters.WordsConfig.AgentGet.copyId }}</mt-button>
@@ -49,5 +49,8 @@ export default {
 #agentget {
   height: 100%;
   overflow: scroll;
+}
+span {
+  font-size: 1.4rem;
 }
 </style>

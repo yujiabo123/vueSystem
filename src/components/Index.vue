@@ -11,40 +11,53 @@
       <mt-button icon="more" slot="right" @click="changeLang"></mt-button>
     </mt-header>
     <div id="panel-user">
-      <div style="display:flex; padding: 0 20px;">
-        <div style="width:80%;">
-          <h3>{{this.$store.getters.UserInfo.UserName }}</h3>
-          <div style="color:grey">{{upId}}</div>
+      <div style="display:flex; padding: 0 6px;">
+        <div style="width: 80%;display: flex;">
+          <h3 style="width: fit-content;font-size:1.8rem">{{this.$store.getters.UserInfo.UserName }}</h3>&nbsp;&nbsp;&nbsp;
+          <div style="color:grey;width: fit-content;font-size:1.6rem">{{upId}}</div>
         </div>
       </div>
-      <table style="padding:0 20px;">
+      <table style="padding:0 6px;">
         <tr>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.dayIncome}}</td>
+          <td class="fl">{{this.$store.getters.IndexTable.TodayUserProfit}}</td>
+        </tr>
+        <tr>
+          <td class="word">{{this.$store.getters.WordsConfig.Index.monthIncome}}</td>
+          <td class="fl">{{this.$store.getters.IndexTable.MonthUserProfit}}</td>
+        </tr>
+        <!-- <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.dayIncome}}</td>
           <td>{{this.$store.getters.IndexTable.TodayUserProfit}}</td>
           <td class="word">{{this.$store.getters.WordsConfig.Index.monthIncome}}</td>
           <td>{{this.$store.getters.IndexTable.MonthUserProfit}}</td>
-        </tr>
+        </tr>-->
         <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.returnRate}}</td>
-          <td>{{ (this.$store.getters.IndexTable.Rebates * 100) + '%'}}</td>
+          <td class="fl">{{ (this.$store.getters.IndexTable.Rebates * 100) + '%'}}</td>
+        </tr>
+        <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.canWithdraw}}</td>
-          <td>{{this.$store.getters.IndexTable.Cashable}}</td>
+          <td class="fl">{{this.$store.getters.IndexTable.Cashable}}</td>
         </tr>
         <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.dayNewPlayer}}</td>
-          <td>{{this.$store.getters.IndexTable.TodayAddUser}}</td>
+          <td class="fl">{{this.$store.getters.IndexTable.TodayAddUser}}</td>
+        </tr>
+        <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.monthNewPlayer}}</td>
-          <td>{{this.$store.getters.IndexTable.MonthAddUser}}</td>
+          <td class="fl">{{this.$store.getters.IndexTable.MonthAddUser}}</td>
         </tr>
         <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.dayNewAgent}}</td>
-          <td>{{this.$store.getters.IndexTable.TodayAddPromoter}}</td>
+          <td class="fl">{{this.$store.getters.IndexTable.TodayAddPromoter}}</td>
+        </tr>
+        <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.monthNewAgent}}</td>
-          <td>{{this.$store.getters.IndexTable.MonthAddPromoter}}</td>
+          <td class="fl">{{this.$store.getters.IndexTable.MonthAddPromoter}}</td>
         </tr>
       </table>
     </div>
-    <div style="height:10px;"></div>
     <div id="routeView">
       <router-view></router-view>
     </div>
@@ -174,7 +187,7 @@ export default {
 }
 #panel-user {
   width: 100%;
-  height: 138px;
+  height: 15.8rem;
   overflow: auto;
   background-color: white;
 }
@@ -192,13 +205,11 @@ export default {
 table {
   width: 100%;
   tr {
-    width: 100%;
     .word {
       color: grey;
     }
     td {
-      width: 25%;
-      font-size: small;
+      font-size: 1.3rem;
     }
   }
 }
@@ -209,12 +220,15 @@ table {
   border: 1px solid #e5e4e9;
   padding: 8px;
 }
+.fl {
+  float: right;
+}
 
 #routeView {
   overflow: auto;
   position: absolute;
   min-height: 400px;
-  top: 188px;
+  top: 20.8rem;
   bottom: 0;
   left: 0;
   right: 0;

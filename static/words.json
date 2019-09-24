@@ -1,6 +1,9 @@
 {
   "cn": {
     "GameLink": "http://192.168.1.252",
+    "MBoxConfirmText": "确定",
+    "MBoxCancelText": "取消",
+    "TBEmptyText":"暂无数据",
     "Login": {
       "username": "请输入账号",
       "password": "请输入密码",
@@ -20,6 +23,8 @@
       "PhoneNumber": "手机号码: 10位有效数字",
       "vertifycode": "输入手机验证码",
       "sendCode": "发送验证码",
+      "reSendCode": "重新发送",
+      "successSend":"验证码发送成功",
       "Email": "邮箱",
       "Zalo": "Zalo账号",
       "FACEBOOK": "FaceBook账号",
@@ -157,6 +162,9 @@
   },
   "vi": {
     "GameLink": "http://192.168.1.252",
+    "MBoxConfirmText": "Xác Nhận",
+    "MBoxCancelText": "Hủy",
+    "TBEmptyText":"Không có dữ liệu",
     "Login": {
       "username": "Mời nhập tài khoản",
       "password": "Mời nhập mật khẩu",
@@ -176,6 +184,8 @@
       "PhoneNumber": "Số điện thoại : 10 chữ số hiệu quả",
       "vertifycode": "Mời nhập mã xác nhận điện thoại",
       "sendCode": "Gửi mã xác nhận",
+      "reSendCode": "Gửi lại",
+      "successSend":"Gửi mã xác nhận thành công",
       "Email": "Hòm thư",
       "Zalo": "Tài khoản zalo",
       "FACEBOOK": "Tài khoản facebook",
@@ -222,8 +232,8 @@
       "monthNewAgent": "Số đại lý mới trong tháng",
       "messageBoxTitle": "Nhắc nhở",
       "messageBoxMessage": "Đăng nhập đã hết hạn",
-      "firstAgent": "ID đại lý",
-      "secondAgent": "ID đại lý"
+      "firstAgent": "ID đại lý:",
+      "secondAgent": "ID đại lý:"
     },
     "CellList": {
       "grxx": "Thông tin cá nhân",
@@ -238,7 +248,7 @@
       "allincome": "Tổng thu nhập",
       "month_date": "Ngày tháng",
       "month_income": "Thu nhập tháng",
-      "month_newuser": "Người chơi mới trong tháng",
+      "month_newuser": "Người mới trong tháng",
       "month_newagent": "Đại lý mới trong tháng"
     },
     "User": {
@@ -278,7 +288,7 @@
       "name": "Tên người chơi",
       "subs": "Bạn có thể phát triển người chơi của bạn bằng cách chia sẻ mã QR hoặc liên kết",
       "mylink": "Mã liên kết lời mời của tôi",
-      "link": "",
+      "link": "?pc=g_pcd|",
       "copylink": "Sao chép liên kết",
       "myQRcode": "Mã QR của tôi",
       "saveQRcode": "Nhấn và giữ mã QR để lưu ảnh"
@@ -288,7 +298,7 @@
       "agent_id": "ID đại lý",
       "agent_name": "Tên",
       "agent_income": "Số tiền lời của trò chơi trong tháng",
-      "agent_history": "Lịch sử tổng lợi nhuận của trò chơi",
+      "agent_history": "Lịch sử tổng lợi nhuận",
       "agent_bindtime": "Thời gian kích hoạt",
       "agent_status": "Trạng thái"
     },

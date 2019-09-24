@@ -6,7 +6,7 @@
     ></mt-cell>
     <div style="height:10px;"></div>
     <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
-      <el-table :data="tableData" style height="100%" max-height="100%">
+      <el-table :data="tableData" style height="100%" max-height="100%" :empty-text="this.$store.getters.WordsConfig.TBEmptyText">
         <el-table-column
           fixed
           prop="gameId"

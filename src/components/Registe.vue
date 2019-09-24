@@ -35,7 +35,7 @@
           :placeholder="this.$store.getters.WordsConfig.Registe.vertifycode"
           v-model="form_registe.vertifycode"
         >
-          <mt-button type="primary" size="small" @click="sendSms">{{sendBtn}}</mt-button>
+          <mt-button type="primary" @click="sendSms" style="font-size:1rem" :disabled="enable">{{sendBtn}}</mt-button>
           <!-- <mt-button type="primary" size="small" class="countdown" v-if="true">{{ timeCount }}</mt-button> -->
         </mt-field>
       </div>
@@ -133,6 +133,7 @@ export default {
       timeCount: 60,
       countStart: false,
       interval: null,
+      enable: false,
       form_registe: {
         UserName: "",
         Password: "",
@@ -160,6 +161,7 @@ export default {
     sendSms() {
       if (this.sendBtn != this.$store.getters.WordsConfig.Registe.sendCode)
         return;
+      this.enable = true;
       if (!this.confirmPhoneNum(this.form_registe.PhoneNumber)) return;
       let t = Utils.encrypt(this.form_registe.PhoneNumber);
       P_SendSms(this.form_registe.PhoneNumber, t)
@@ -167,7 +169,7 @@ export default {
           console.log(result);
           this.Toast({
             position: "bottom",
-            message: "验证码发送成功",
+            message: this.$store.getters.WordsConfig.Registe.successSend,
             className: "toast_registe"
           });
           this.countStart = true;
@@ -176,6 +178,7 @@ export default {
             this.timeCount = this.timeCount - 1;
             if (this.timeCount <= 0) {
               clearInterval(this.interval);
+              this.enable = false;
               this.timeCount = 60;
               this.countStart = false;
             }
@@ -188,6 +191,7 @@ export default {
             message: err.Message,
             className: "toast_registe"
           });
+          this.enable = false;
           this.timeCount = 60;
           this.countStart = false;
         });
@@ -221,6 +225,7 @@ export default {
           this.registeSuccess();
         })
         .catch(err => {
+          this.back();
           console.log(Object.values(err.ModelState)[0][0]);
           this.Toast({
             position: "bottom",
@@ -229,16 +234,24 @@ export default {
           });
         });
     },
+    showMB(tit, con) {
+      this.MessageBox({
+        title: tit,
+        message: con,
+        confirmButtonText: this.$store.getters.WordsConfig.MBoxConfirmText,
+        cancelButtonText: this.$store.getters.WordsConfig.MBoxCancelText
+      });
+    },
     confirmPhoneNum(num) {
       if (num === "" || num == null) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_PhoneNumber
         );
         return false;
       }
       if (isNaN(num) || num.length !== 10) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_phoneLengthOrNum
         );
@@ -251,7 +264,7 @@ export default {
     },
     confirmName(name) {
       if (name === "" || name == null) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_UserName
         );
@@ -259,7 +272,7 @@ export default {
       }
       let reg = /^[0-9a-zA-Z]+$/;
       if (name.length < 4 || name.length > 14 || !reg.test(name)) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_nameVertify
         );
@@ -269,7 +282,7 @@ export default {
     },
     confirmPassword(pwd) {
       if (pwd === "" || pwd == null) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_Password
         );
@@ -277,14 +290,14 @@ export default {
       }
       let reg = /^[0-9a-zA-Z]+$/;
       if (pwd.length < 6 || pwd.length > 14 || !reg.test(pwd)) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_pwdVertify
         );
         return false;
       }
       if (this.form_registe.UserName === pwd) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_sameWithName
         );
@@ -301,7 +314,7 @@ export default {
         return;
       }
       if (this.form_registe.Password !== this.form_registe.ConfirmPassword) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_wrongPwd
         );
@@ -311,14 +324,14 @@ export default {
         return;
       }
       if (!this.form_registe.vertifycode) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_vertifycode
         );
         return;
       }
       if (this.form_registe.isagree.length === 0) {
-        this.MessageBox(
+        this.showMB(
           this.$store.getters.WordsConfig.Registe.msgBox_title,
           this.$store.getters.WordsConfig.Registe.msgBox_isagree
         );
@@ -332,7 +345,7 @@ export default {
       if (!this.countStart) {
         return this.$store.getters.WordsConfig.Registe.sendCode;
       } else {
-        return "重新发送（" + this.timeCount + "）";
+        return this.$store.getters.WordsConfig.Registe.reSendCode + "（" + this.timeCount + "）";
       }
     }
   }
@@ -361,7 +374,7 @@ export default {
 
     ::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
-      font-size: 1rem;
+      font-size: 1.3rem;
     }
   }
 

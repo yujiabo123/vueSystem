@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div style="text-align: center">
-      <img src="../assets/img/nnn.jpg" alt style="width:200px;height:200px; padding: 50px;" />
+      <img src="../assets/img/nnn.png" alt style="width:200px;height:200px; padding: 50px;" />
     </div>
     <div id="form-login">
       <mt-field
@@ -19,7 +19,7 @@
         <img src height="45px" width="100px" />
       </mt-field>-->
       <div class="registe">
-        <a @click="openPopup">{{this.$store.getters.WordsConfig.Login.no_account}}</a>
+        <a style="font-size:1.6rem" @click="openPopup">{{this.$store.getters.WordsConfig.Login.no_account}}</a>
       </div>
       <div style="padding: 0 10px;">
         <mt-button
@@ -64,18 +64,20 @@ export default {
       this.denyClick = true;
       //TODO 客户端验证
       if (!this.form_login.username) {
-        this.MessageBox(
-          this.$store.getters.WordsConfig.Login.msgTitle,
-          this.$store.getters.WordsConfig.Login.msgBox_noName
-        );
+        this.MessageBox({
+          title: this.$store.getters.WordsConfig.Login.msgTitle,
+          message: this.$store.getters.WordsConfig.Login.msgBox_noName,
+          confirmButtonText: this.$store.getters.WordsConfig.MBoxConfirmText
+        });
         this.denyClick = false;
         return;
       }
       if (!this.form_login.Password) {
-        this.MessageBox(
-          this.$store.getters.WordsConfig.Login.msgTitle,
-          this.$store.getters.WordsConfig.Login.msgBox_noPsd
-        );
+        this.MessageBox({
+          title: this.$store.getters.WordsConfig.Login.msgTitle,
+          confirmButtonText: this.$store.getters.WordsConfig.MBoxConfirmText,
+          message: this.$store.getters.WordsConfig.Login.msgBox_noPsd
+        });
         this.denyClick = false;
         return;
       }
@@ -107,6 +109,7 @@ export default {
               console.log(err);
               this.MessageBox({
                 title: this.$store.getters.WordsConfig.Login.msgTitle,
+                confirmButtonText: this.$store.getters.WordsConfig.MBoxConfirmText,
                 message: this.$store.getters.WordsConfig.Login
                   .msgBox_waitConfirm,
                 closeOnClickModal: false
@@ -144,6 +147,7 @@ export default {
       if (this.$route.query.status === "lose") {
         this.MessageBox({
           title: this.$store.getters.WordsConfig.Login.msgTitle,
+          confirmButtonText: this.$store.getters.WordsConfig.MBoxConfirmText,
           message: this.$store.getters.WordsConfig.Login.msgBox_loseToken,
           closeOnClickModal: false
         });

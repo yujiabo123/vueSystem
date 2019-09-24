@@ -3,7 +3,7 @@
     <mt-cell :title="this.$store.getters.WordsConfig.AgentManage.agent_counts" :value="dataLength"></mt-cell>
     <div style="height:10px;"></div>
     <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
-      <el-table :data="table" style="width: 100%;" height="100%" max-height="100%">
+      <el-table :data="table" style="width: 100%;" height="100%" max-height="100%" :empty-text="this.$store.getters.WordsConfig.TBEmptyText">
         <el-table-column
           fixed
           prop="agent_id"
@@ -22,14 +22,14 @@
         <el-table-column
           prop="agent_income"
           :label="this.$store.getters.WordsConfig.AgentManage.agent_income"
-          width="140"
+          width="150"
           header-align="center"
           align="center"
         ></el-table-column>
         <el-table-column
           prop="agent_history"
           :label="this.$store.getters.WordsConfig.AgentManage.agent_history"
-          width="120"
+          width="150"
           header-align="center"
           align="center"
         ></el-table-column>
