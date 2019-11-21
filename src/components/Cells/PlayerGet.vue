@@ -33,16 +33,23 @@
       <div style="padding: 10px 20px; background-color: white;">
         <span>{{ this.$store.getters.WordsConfig.PlayerGet.myQRcode }}</span>
         <hr />
-        <div style="width:100%;text-align:-webkit-center;margin-top:10px">
-          <div id="qrcode" ref="qrcode" style=" display:none">
+        <div style="text-align:center;margin-top:10px">
+          <div id="qrcode" ref="qrcode" style="display:none"></div>
+          <div ref="box" style="width: 20rem;position: absolute;left: -1000px;line-height: 0;">
+            <img :src="require('../../assets/img/a.jpg')" style="width:100%" alt @load="loadImage0"/>
+            <!--width: 9rem;position: absolute;bottom: 3.65rem;right: 1.35rem; -->
+            <div style="width: 7.65rem;position: absolute;bottom: 3rem;right: 1.2rem;">
+              <img :src="imgUrl" alt @click="showPic" style="width: 100%;" @load="loadImage1" />
+            </div>
           </div>
-          <img :src="imgUrl" alt @click="showPic" />
-        </div>
-        <div style="text-align:center;margin-top:10px;">
-          <mt-button
-            style="width:200px;font-size:1.4rem"
-            disabled
-          >{{ this.$store.getters.WordsConfig.PlayerGet.saveQRcode }}</mt-button>
+          <img :src="picUrl" style="width:20rem;" />
+          <div style="width: 20rem;position: relative;margin: 5px auto;"></div>
+          <div style="text-align:center;margin-top:10px;">
+            <mt-button
+              style="width:200px;font-size:1.4rem"
+              disabled
+            >{{ this.$store.getters.WordsConfig.PlayerGet.saveQRcode }}</mt-button>
+          </div>
         </div>
       </div>
     </div>
@@ -51,11 +58,13 @@
 
 <script>
 import QRCode from "qrcodejs2";
-import html2canvas from 'html2canvas';
+import html2canvas from "html2canvas";
 export default {
   data() {
     return {
-      imgUrl: ""
+      imgUrl: "",
+      imgUrl1: "",
+      loadPics: 0
     };
   },
   methods: {
@@ -65,7 +74,47 @@ export default {
         message: this.$store.getters.WordsConfig.Index.copySuccess
       });
     },
-    showPic() {}
+    showPic() {
+      let that = this;
+      console.log(this.$refs.box.style);
+      html2canvas(this.$refs.box).then(function(canvas) {
+        that.imgUrl1 = canvas.toDataURL("image/png");
+      });
+    },
+    loadImage0() {
+      this.loadPics += 1;
+    },
+    loadImage1() {
+      this.loadPics += 1;
+    },
+    base64ToBlob(code) {
+      let parts = code.split(";base64,");
+      let contentType = parts[0].split(":")[1];
+      let raw = window.atob(parts[1]);
+      let rawLength = raw.length;
+
+      let uInt8Array = new Uint8Array(rawLength);
+
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+      }
+      return new Blob([uInt8Array], { type: contentType });
+    }
+  },
+  computed: {
+    picUrl() {
+      let that = this;
+      if (this.loadPics != 2) return "";
+      html2canvas(this.$refs.box)
+        .then(canvas => {
+          console.log(canvas);
+          that.imgUrl1 = canvas.toDataURL("image/png");
+        })
+        .catch(err => {
+          that.imgUrl1 = "";
+        });
+      return this.imgUrl1;
+    }
   },
   mounted() {
     let qrCode = new QRCode("qrcode", {
@@ -80,7 +129,7 @@ export default {
       correctLevel: QRCode.CorrectLevel.H
     });
     let myCanvas = document.getElementsByTagName("canvas");
-    this.imgUrl = myCanvas[0].toDataURL("image/png");
+    this.imgUrl = myCanvas[0].toDataURL();
   }
 };
 </script>

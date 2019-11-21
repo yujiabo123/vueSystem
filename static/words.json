@@ -148,6 +148,9 @@
       "gameProfitDay": "今日盈利",
       "gameProfitMonth": "本月盈利",
       "gameProfitHistory": "历史盈利",
+      "gameRechargeScore": "总充值",
+      "gameWithdrawScore": "总兑换",
+      "gameTotalProfit": "总营收",
       "gameBindTime": "绑定时间",
       "lastLogin": "最后游戏时间"
     },
@@ -309,6 +312,9 @@
       "gameProfitDay": "Lợi nhuận trong ngày",
       "gameProfitMonth": "Lợi nhuận trong tháng",
       "gameProfitHistory": "Lịch sử lợi nhuận",
+      "gameRechargeScore": "Nạp tiền",
+      "gameWithdrawScore": "Trao đổi",
+      "gameTotalProfit": "Lợi nhuận",
       "gameBindTime": "Thời gian kích hoạt",
       "lastLogin": "Thời gian trò chơi cuối cùng"
     },

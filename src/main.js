@@ -3,7 +3,7 @@
 import Vue from "vue";
 import MintUI from "mint-ui";
 import "mint-ui/lib/style.css";
-import { Table, TableColumn } from "element-ui";
+import { Table, TableColumn, Pagination  } from "element-ui";
 import App from "./App";
 import router from "./router";
 import Qs from "qs";
@@ -45,6 +45,7 @@ Vue.prototype.Indicator = MintUI.Indicator;
 Vue.component(MintUI.Popup.name, MintUI.Popup);
 Vue.component(Table.name, Table);
 Vue.component(TableColumn.name, TableColumn);
+Vue.component(Pagination.name, Pagination);
 
 /**
  * GET CONFIG

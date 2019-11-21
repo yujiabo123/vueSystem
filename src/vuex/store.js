@@ -45,6 +45,9 @@ const mutations = {
   SetIndexTable(state, data) {
     state.IndexTable = data;
     sessionStorage.setItem("IndexTable", JSON.stringify(data));
+  },
+  SetLang(state, lang) {
+    state.Lang = lang;
   }
 };
 
@@ -203,6 +206,9 @@ const getters = {
               gameProfitDay: "",
               gameProfitMonth: "",
               gameProfitHistory: "",
+              gameRechargeScore: "",
+              gameWithdrawScore: "",
+              gameTotalProfit: "",
               gameBindTime: "",
               lastLogin: ""
             }
@@ -344,6 +350,9 @@ const getters = {
               gameProfitDay: "",
               gameProfitMonth: "",
               gameProfitHistory: "",
+              gameRechargeScore: "",
+              gameWithdrawScore: "",
+              gameTotalProfit: "",
               gameBindTime: "",
               lastLogin: ""
             }

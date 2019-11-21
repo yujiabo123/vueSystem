@@ -174,7 +174,7 @@ export default {
           });
           this.countStart = true;
           this.interval = setInterval(() => {
-            console.log(this.timeCount);
+            // console.log(this.timeCount);
             this.timeCount = this.timeCount - 1;
             if (this.timeCount <= 0) {
               clearInterval(this.interval);

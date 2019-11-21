@@ -44,6 +44,27 @@
           align="center"
         ></el-table-column>
         <el-table-column
+          prop="gameRechargeScore"
+          :label="this.$store.getters.WordsConfig.DownPlayers.gameRechargeScore"
+          width="120"
+          header-align="center"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="gameWithdrawScore"
+          :label="this.$store.getters.WordsConfig.DownPlayers.gameWithdrawScore"
+          width="120"
+          header-align="center"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="gameTotalProfit"
+          :label="this.$store.getters.WordsConfig.DownPlayers.gameTotalProfit"
+          width="120"
+          header-align="center"
+          align="center"
+        ></el-table-column>
+        <el-table-column
           prop="gameBindTime"
           :label="this.$store.getters.WordsConfig.DownPlayers.gameBindTime"
           width="160"
@@ -52,6 +73,13 @@
         ></el-table-column>
         <el-table-column
           prop="lastLogin"
+          :label="this.$store.getters.WordsConfig.DownPlayers.lastLogin"
+          width="160"
+          header-align="center"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="des"
           :label="this.$store.getters.WordsConfig.DownPlayers.lastLogin"
           width="160"
           header-align="center"
@@ -86,8 +114,12 @@ export default {
               gameProfitDay: it.TodayProfit,
               gameProfitMonth: it.MonthProfit,
               gameProfitHistory: it.HistoryProfit,
+              gameRechargeScore: it.RechargeScore,
+              gameWithdrawScore: it.WithdrawScore,
+              gameTotalProfit: it.TotalProfit,
               gameBindTime: it.BindDate,
-              lastLogin: it.LastLogonDate
+              des: it.des,
+              lastLogin: it.LastLogonDate,
             };
             this.tableData.push(item);
           }

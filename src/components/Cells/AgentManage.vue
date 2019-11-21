@@ -3,7 +3,12 @@
     <mt-cell :title="this.$store.getters.WordsConfig.AgentManage.agent_counts" :value="dataLength"></mt-cell>
     <div style="height:10px;"></div>
     <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
-      <el-table :data="table" style="width: 100%;" height="100%" max-height="100%" :empty-text="this.$store.getters.WordsConfig.TBEmptyText">
+      <el-table
+        :data="table"
+        style="position:absolute;left:0;top:0;bottom:32px;right:0"
+        max-height="100%"
+        :empty-text="this.$store.getters.WordsConfig.TBEmptyText"
+      >
         <el-table-column
           fixed
           prop="agent_id"
@@ -41,6 +46,14 @@
           align="center"
         ></el-table-column>
       </el-table>
+      <el-pagination
+        class="pagination"
+        :hide-on-single-page="showPage"
+        background
+        :total="5"
+        :page-size="1"
+        layout="prev, pager, next"
+      ></el-pagination>
     </div>
   </div>
 </template>
@@ -52,7 +65,8 @@ export default {
     return {
       dataLength: 0,
       table: [],
-      table_height: 0
+      table_height: 0,
+      showPage: false
     };
   },
   beforeCreate() {},
@@ -64,6 +78,19 @@ export default {
         console.log(result);
         let d = [];
         d = result;
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
+        this.getSubP(d);
         this.getSubP(d);
       })
       .catch(err => {
@@ -93,5 +120,11 @@ export default {
 #agentmanage {
   height: 100%;
   overflow: hidden;
+}
+.pagination {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: white;
 }
 </style>

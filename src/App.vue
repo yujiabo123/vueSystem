@@ -18,7 +18,9 @@ export default {
     // console.log("======================获取api配置文件======================");
     // G_ApiConfig();
   },
-  mounted() {}
+  mounted() {
+    this.$store.commit("SetLang", this.$route.query.lang);
+  }
 };
 </script>
 
