@@ -31,16 +31,23 @@ export default {
           show: false
         },
         {
-          icon: dlgl,
-          title: this.$store.getters.WordsConfig.CellList.dlgl,
-          link_to: "/index/am",
-          detail: `${this.$store.state.IndexTable.SubPromoter}${this.$store.getters.WordsConfig.CellList.p}`,
-          show: true
+          icon: icd,
+          title: this.$store.getters.WordsConfig.CellList.yjbb,
+          link_to: "/wr",
+          detail: "",
+          show: false
         },
+        // {
+        //   icon: dlgl,
+        //   title: this.$store.getters.WordsConfig.CellList.dlgl,
+        //   link_to: "/index/am",
+        //   detail: `${this.$store.state.IndexTable.SubPromoter}${this.$store.getters.WordsConfig.CellList.p}`,
+        //   show: true
+        // },
         {
           icon: wjgl,
           title: this.$store.getters.WordsConfig.CellList.wjgl,
-          link_to: "/index/dps",
+          link_to: "/dps",
           detail: `${this.$store.state.IndexTable.SubUser}${this.$store.getters.WordsConfig.CellList.p}`,
           show: true
         },
@@ -51,13 +58,13 @@ export default {
           detail: "",
           show: false
         },
-        {
-          icon: fzdl,
-          title: this.$store.getters.WordsConfig.CellList.fzdl,
-          link_to: "/ag",
-          detail: "",
-          show: false
-        },
+        // {
+        //   icon: fzdl,
+        //   title: this.$store.getters.WordsConfig.CellList.fzdl,
+        //   link_to: "/ag",
+        //   detail: "",
+        //   show: false
+        // },
         {
           icon: fzdl,
           title: this.$store.getters.WordsConfig.CellList.fzwj,

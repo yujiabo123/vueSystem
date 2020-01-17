@@ -9,5 +9,6 @@
     "SubP":"/api/Promotion/SubP",
     "SubU":"/api/Promotion/SubU",
     "Profit":"/api/Promotion/Profit",
-    "SendSms":"/api/Account/SendSms"
+    "SendSms":"/api/Account/SendSms",
+    "WordRecord":"/api/Promotion/PerformanceReport"
 }

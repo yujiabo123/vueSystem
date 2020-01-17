@@ -40,7 +40,7 @@
           <td class="word">{{this.$store.getters.WordsConfig.Index.canWithdraw}}</td>
           <td class="fl">{{this.$store.getters.IndexTable.Cashable}}</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.dayNewPlayer}}</td>
           <td class="fl">{{this.$store.getters.IndexTable.TodayAddUser}}</td>
         </tr>
@@ -55,7 +55,7 @@
         <tr>
           <td class="word">{{this.$store.getters.WordsConfig.Index.monthNewAgent}}</td>
           <td class="fl">{{this.$store.getters.IndexTable.MonthAddPromoter}}</td>
-        </tr>
+        </tr> -->
       </table>
     </div>
     <div id="routeView">
@@ -187,7 +187,7 @@ export default {
 }
 #panel-user {
   width: 100%;
-  height: 15.8rem;
+  height: 9.5rem;
   overflow: auto;
   background-color: white;
 }
@@ -228,7 +228,7 @@ table {
   overflow: auto;
   position: absolute;
   min-height: 400px;
-  top: 20.8rem;
+  top: 13.5rem;
   bottom: 0;
   left: 0;
   right: 0;

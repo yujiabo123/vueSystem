@@ -1,12 +1,11 @@
 <template>
   <div id="agentmanage">
-    <mt-cell :title="this.$store.getters.WordsConfig.AgentManage.agent_counts" :value="dataLength"></mt-cell>
+    <mt-cell :title="this.$store.getters.WordsConfig.AgentManage.agent_counts" :value="this.$store.state.IndexTable.SubPromoter"></mt-cell>
     <div style="height:10px;"></div>
-    <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 0;">
+    <div style="position: absolute;top: 58px;left: 0;right: 0;bottom: 26px;">
       <el-table
         :data="table"
-        style="position:absolute;left:0;top:0;bottom:32px;right:0"
-        max-height="100%"
+        height="100%"
         :empty-text="this.$store.getters.WordsConfig.TBEmptyText"
       >
         <el-table-column
@@ -47,12 +46,13 @@
         ></el-table-column>
       </el-table>
       <el-pagination
+        small
         class="pagination"
-        :hide-on-single-page="showPage"
         background
-        :total="5"
-        :page-size="1"
+        :total="this.$store.state.IndexTable.SubPromoter"
+        :page-size="50"
         layout="prev, pager, next"
+        @current-change="getNextPage"
       ></el-pagination>
     </div>
   </div>
@@ -63,41 +63,29 @@ import { G_SubP } from "../../api/api";
 export default {
   data() {
     return {
-      dataLength: 0,
       table: [],
-      table_height: 0,
-      showPage: false
+      table_height: 0
     };
   },
-  beforeCreate() {},
   created() {
     //TODO 获取下线推广列表
-    G_SubP(0)
-      .then(result => {
-        console.log("======================获取代理管理======================");
-        console.log(result);
-        let d = [];
-        d = result;
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-        this.getSubP(d);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.getData(0);
   },
   methods: {
+    getData(page) {
+      G_SubP(page)
+        .then(result => {
+          console.log(
+            "======================获取代理管理======================"
+          );
+          let d = [];
+          d = result;
+          this.getSubP(d);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     getSubP(arr) {
       let data = [];
       for (let it of arr) {
@@ -109,8 +97,11 @@ export default {
           agent_bindtime: it.BindDate
         };
         this.table.push(agent);
-        this.dataLength = this.table.length;
       }
+    },
+    getNextPage(currPage) {
+      this.table = [];
+      this.getData(currPage - 1);
     }
   }
 };
@@ -123,8 +114,9 @@ export default {
 }
 .pagination {
   position: absolute;
-  bottom: 0;
+  bottom: -26px;
   width: 100%;
   background: white;
+  text-align: center;
 }
 </style>

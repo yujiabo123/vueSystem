@@ -24,7 +24,7 @@
           <mt-button
             type="primary"
             style="width:140px;font-size:1.4rem"
-            v-clipboard:copy="this.$store.getters.WordsConfig.GameLink + this.$store.getters.WordsConfig.PlayerGet.link + this.$store.getters.UserInfo.Pcode"
+            v-clipboard:copy="this.$store.getters.WordsConfig.GameLink + this.$store.getters.WordsConfig.PlayerGet.link + this.$store.getters.UserInfo.Pcode + '&p=' + baset64_P_Param()"
             v-clipboard:success="onCopy"
           >{{ this.$store.getters.WordsConfig.PlayerGet.copylink }}</mt-button>
         </div>
@@ -36,7 +36,7 @@
         <div style="text-align:center;margin-top:10px">
           <div id="qrcode" ref="qrcode" style="display:none"></div>
           <div ref="box" style="width: 20rem;position: absolute;left: -1000px;line-height: 0;">
-            <img :src="require('../../assets/img/a.jpg')" style="width:100%" alt @load="loadImage0"/>
+            <img :src="require('../../assets/img/a.jpg')" style="width:100%" alt @load="loadImage0" />
             <!--width: 9rem;position: absolute;bottom: 3.65rem;right: 1.35rem; -->
             <div style="width: 7.65rem;position: absolute;bottom: 3rem;right: 1.2rem;">
               <img :src="imgUrl" alt @click="showPic" style="width: 100%;" @load="loadImage1" />
@@ -59,6 +59,7 @@
 <script>
 import QRCode from "qrcodejs2";
 import html2canvas from "html2canvas";
+import md5 from 'js-md5';
 export default {
   data() {
     return {
@@ -68,6 +69,13 @@ export default {
     };
   },
   methods: {
+    baset64_P_Param() {
+      return encodeURIComponent(btoa(JSON.stringify({
+        id: this.$store.getters.UserInfo.Pcode,
+        cname: "agent",
+        device: md5(this.$store.getters.UserInfo.Pcode)
+      })));
+    },
     onCopy(e) {
       this.Toast({
         position: "bottom",
@@ -87,19 +95,6 @@ export default {
     loadImage1() {
       this.loadPics += 1;
     },
-    base64ToBlob(code) {
-      let parts = code.split(";base64,");
-      let contentType = parts[0].split(":")[1];
-      let raw = window.atob(parts[1]);
-      let rawLength = raw.length;
-
-      let uInt8Array = new Uint8Array(rawLength);
-
-      for (let i = 0; i < rawLength; ++i) {
-        uInt8Array[i] = raw.charCodeAt(i);
-      }
-      return new Blob([uInt8Array], { type: contentType });
-    }
   },
   computed: {
     picUrl() {

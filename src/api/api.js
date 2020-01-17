@@ -157,11 +157,24 @@ export const G_SubP = (IndexId, size = 50) => {
 
 /** ----------------玩家管理---------------- */
 
-export const G_SubU = (IndexId, size = 50) => {
+export const G_SubU = (
+  IndexId,
+  size = 50,
+  st = 0,
+  et = 0,
+  nickname = "",
+  gameid = "",
+  type = 0
+) => {
   return new Promise((resolve, reject) => {
     get(store.getters.ApiConfig.address + store.getters.ApiConfig.SubU, {
       IndexId: IndexId,
-      size: size
+      size: size,
+      st: st,
+      et: et,
+      nickname: nickname,
+      gameid: gameid,
+      type: type
     })
       .then(result => {
         resolve(result);
@@ -193,7 +206,23 @@ export const P_SendSms = (PhoneNumber, Content) => {
   return new Promise((resolve, reject) => {
     post(store.getters.ApiConfig.address + store.getters.ApiConfig.SendSms, {
       PhoneNumber: PhoneNumber,
-      Content:Content 
+      Content: Content
+    })
+      .then(result => {
+        resolve(result);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+/** ----------------查询业绩报表---------------- */
+export const G_WorkRecord = (startDate, endDate) => {
+  return new Promise((resolve, reject) => {
+    get(store.getters.ApiConfig.address + store.getters.ApiConfig.WordRecord, {
+      StartDate: startDate,
+      EndDate: endDate
     })
       .then(result => {
         resolve(result);

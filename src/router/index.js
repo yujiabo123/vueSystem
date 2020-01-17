@@ -1,63 +1,80 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Index from '@/components/Index.vue'
-import Login from '@/components/Login.vue'
-import User from '@/components/SecondLevel/User.vue'
-import CellList from '@/components/CellList.vue'
-import IncomeDetails from '@/components/Cells/IncomeDetails.vue'
-import DownPlayers from '@/components/Cells/DownPlayers.vue'
-import AgentManage from '@/components/Cells/AgentManage.vue'
-import PlayerGet from '@/components/Cells/PlayerGet.vue'
-import AgentGet from '@/components/Cells/AgentGet.vue'
-import NotFound from '@/components/NotFound.vue'
+import Vue from "vue";
+import Router from "vue-router";
+import Index from "@/components/Index.vue";
+import Login from "@/components/Login.vue";
+import User from "@/components/SecondLevel/User.vue";
+import WorkRecord from "@/components/SecondLevel/WorkRecord.vue";
+import CellList from "@/components/CellList.vue";
+import IncomeDetails from "@/components/Cells/IncomeDetails.vue";
+import DownPlayers from "@/components/Cells/DownPlayers.vue";
+import AgentManage from "@/components/Cells/AgentManage.vue";
+import PlayerGet from "@/components/Cells/PlayerGet.vue";
+import AgentGet from "@/components/Cells/AgentGet.vue";
+import DetailData from "@/components/Cells/DetailData.vue";
+import NotFound from "@/components/NotFound.vue";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/login',
-      name: 'Login',
+      path: "/login",
+      name: "Login",
       component: Login
     },
     {
-      path: '/',
-      name: 'Index',
+      path: "/",
+      name: "Index",
       component: Index,
-      redirect: '/index/cls',
-      children: [{
-        path: '/index/cls',
-        name: 'CellList',
-        component: CellList,
-      }, {
-        path: '/index/icd',
-        name: 'IncomeDetails',
-        component: IncomeDetails,
-      }, {
-        path: '/index/dps',
-        name: 'DownPlayers',
-        component: DownPlayers,
-      }, {
-        path: '/index/am',
-        name: 'AgentManage',
-        component: AgentManage,
-      }]
+      redirect: "/index/cls",
+      children: [
+        {
+          path: "/index/cls",
+          name: "CellList",
+          component: CellList
+        },
+        {
+          path: "/index/icd",
+          name: "IncomeDetails",
+          component: IncomeDetails
+        },
+        {
+          path: "/index/am",
+          name: "AgentManage",
+          component: AgentManage
+        }
+      ]
     },
     {
-      path: '/user',
-      name: 'User',
+      path: "/user",
+      name: "User",
       component: User
     },
     {
-      path: '/pg',
-      name: 'PlayerGet',
-      component: PlayerGet,
+      path: "/wr",
+      name: "WorkRecord",
+      component: WorkRecord
     },
     {
-      path: '/ag',
-      name: 'AgentGet',
-      component: AgentGet,
+      path: "/dps",
+      name: "DownPlayers",
+      component: DownPlayers
     },
-    { path: '*', component: NotFound },
+    {
+      path: "/pg",
+      name: "PlayerGet",
+      component: PlayerGet
+    },
+    {
+      path: "/ag",
+      name: "AgentGet",
+      component: AgentGet
+    },
+    {
+      path: "/det",
+      name: "DetailData",
+      component: DetailData
+    },
+    { path: "*", component: NotFound }
   ]
-})
+});
